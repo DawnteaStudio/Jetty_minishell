@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:12:05 by sewopark          #+#    #+#             */
-/*   Updated: 2024/03/24 21:49:22 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/03/24 22:31:07 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,14 @@ int	main(int argc, char **argv, char **envp)
 		set_minishell();
 		str = readline("jetty_shell>");
 		if (str == NULL)
+		{
+			ft_putstr_fd("exit\n", 1);
 			break ;
+		}
 		if (str[0] != 0)
 			add_history(str);
+		if (is_builtin(str))
+			printf("builtin!!\n");
 		free(str);
 	}
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
