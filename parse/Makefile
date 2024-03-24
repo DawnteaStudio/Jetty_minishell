@@ -6,7 +6,7 @@
 #    By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 14:06:13 by sewopark          #+#    #+#              #
-#    Updated: 2024/03/24 20:36:35 by erho             ###   ########.fr        #
+#    Updated: 2024/03/24 21:06:09 by erho             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,16 +16,15 @@ CC		= cc
 RM		= rm -f
 CFLAGS	= -Wall -Wextra -Werror
 
-PARSE	= test.c
-EXEC	= main.c
-SRCS	= $(addprefix ./, $(PARSE)) $(addprefix ../exec/, $(EXEC))
+PARSE	= test.c _test_main.c
+SRCS	= $(PARSE)
 OBJS	= $(SRCS:%.c=%.o)
 LIBFT	= ../libft/libft.a
 
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(LIBFT) $(OBJS)  -o $(NAME)
+	$(CC) $(CFLAGS) $(LIBFT) $(OBJS) -lreadline -o $(NAME)
 
 %.o : %.c
 	$(CC) $(CFLAGS) -I $(INCLUDE) -c $< -o $@

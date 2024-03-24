@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewon <sewon@student.42.fr>                +#+  +:+       +#+        */
+/*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/03/07 20:02:11 by sewon            ###   ########.fr       */
+/*   Updated: 2024/03/24 21:05:23 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "../libft/includes/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
 
@@ -23,5 +24,9 @@
 /* ************************************************************************** */
 /*************************************EXEC*************************************/
 /* ************************************************************************** */
+
+# include <unistd.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 #endif
