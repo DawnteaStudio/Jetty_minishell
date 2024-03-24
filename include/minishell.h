@@ -6,13 +6,14 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/03/24 18:06:27 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/03/24 20:43:30 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "../libft/includes/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
 
@@ -24,11 +25,15 @@
 /*************************************EXEC*************************************/
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <signal.h>
+# include <unistd.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <fcntl.h>
+# include <errno.h>
+# include <signal.h>
+# include <termios.h>
+
+//signal
+void	sigint_handler(int _num);
 
 #endif
