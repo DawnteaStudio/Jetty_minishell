@@ -100,7 +100,7 @@ int	count_word(char *s, char c, t_command cmd)
 	return (cmd.word_count);
 }
 
-char	**parsing_command(char *s, char c)
+char	**tokenizer(char *s, char c)
 {
 	int			cnt;
 	char		**res;
