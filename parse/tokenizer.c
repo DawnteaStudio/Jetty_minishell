@@ -24,26 +24,13 @@ typedef struct s_command
 
 void	make_word(char *s1, char *s2, t_command *cmd)
 {
-	int	s1_idx;
-	int	s2_idx;
+	int	idx;
 
-	s1_idx = 0;
-	s2_idx = 0;
-	while (s1_idx < cmd->len)
+	idx = 0;
+	while (idx < cmd->len)
 	{
-		if (is_quote(s2, s2_idx))
-		{
-			cmd->quotes = s2[s2_idx++];
-			while (s2[s2_idx] && (s2[s2_idx] != cmd->quotes
-					|| !is_quote(s2, s2_idx)))
-			{
-				s1[s1_idx++] = s2[s2_idx];
-				s2_idx++;
-			}
-		}
-		else
-			s1[s1_idx++] = s2[s2_idx];
-		s2_idx++;
+		s1[idx] = s2[idx];
+		idx++;
 	}
 }
 
@@ -60,6 +47,7 @@ void	find_idx(t_command *cmd, char *s, char c)
 		{
 			cmd->quotes = s[cmd->width];
 			cmd->width++;
+			cmd->len++;
 			while (s[cmd->width] && (s[cmd->width] != cmd->quotes
 					|| !is_quote(s, cmd->width)))
 			{
@@ -67,8 +55,7 @@ void	find_idx(t_command *cmd, char *s, char c)
 				cmd->len++;
 			}
 		}
-		else
-			cmd->len++;
+		cmd->len++;
 		if (s[cmd->width])
 			cmd->width++;
 	}

@@ -16,7 +16,7 @@ CC		= cc
 RM		= rm -f
 CFLAGS	= -Wall -Wextra -Werror
 
-PARSE	= _test_main.c parse.c parse_helper.c
+PARSE	= _test_main.c tokenizer.c parse_helper.c
 SRCS	= $(PARSE)
 OBJS	= $(SRCS:%.c=%.o)
 LIBFT	= ../libft/libft.a
