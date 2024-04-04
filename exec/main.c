@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:12:05 by sewopark          #+#    #+#             */
-/*   Updated: 2024/03/24 22:31:07 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/04 12:34:52 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ void	set_minishell()
 	struct termios	term;
 
 	tcgetattr(STDIN_FILENO, &term);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, sigint_handler);
+	set_signal(CUSTOM, IGNORE);
 	term.c_lflag &= ~(ECHOCTL);
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
