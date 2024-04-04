@@ -6,21 +6,11 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:06:56 by erho              #+#    #+#             */
-/*   Updated: 2024/04/04 12:30:34 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/04 15:32:11 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-typedef struct s_command
-{
-	int		word;
-	int		width;
-	int		height;
-	char	quotes;
-	int		word_count;
-	int		len;
-}	t_command;
 
 void	make_word(char *s1, char *s2, t_command *cmd)
 {
@@ -58,6 +48,8 @@ void	find_idx(t_command *cmd, char *s, char c)
 		cmd->len++;
 		if (s[cmd->width])
 			cmd->width++;
+		if (check_redirection(s, cmd))
+			break ;
 	}
 }
 
@@ -83,7 +75,10 @@ char	**ft_insert(char *s, char **res, char c, t_command cmd)
 int	count_word(char *s, char c, t_command cmd)
 {
 	while (s[cmd.width])
+	{
+		cmd.len = 0;
 		find_idx(&cmd, s, c);
+	}
 	return (cmd.word_count);
 }
 
