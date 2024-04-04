@@ -6,13 +6,15 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:17:11 by erho              #+#    #+#             */
-/*   Updated: 2024/03/24 22:17:34 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/04 12:33:12 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	is_quote(char *s, int target)
+#include "../include/minishell.h"
+
+int	is_quote(char c)
 {
-	if (s[target] != 34 && s[target] != 39)
+	if (c != 34 && c != 39)
 		return (0);
 	return (1);
 }

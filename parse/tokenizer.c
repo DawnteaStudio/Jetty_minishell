@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:06:56 by erho              #+#    #+#             */
-/*   Updated: 2024/03/24 22:43:40 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/04 12:30:34 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ void	find_idx(t_command *cmd, char *s, char c)
 	cmd->word = cmd->width;
 	while (s[cmd->width] && s[cmd->width] != c)
 	{
-		if (is_quote(s, cmd->width))
+		if (is_quote(s[cmd->width]))
 		{
 			cmd->quotes = s[cmd->width];
 			cmd->width++;
 			cmd->len++;
 			while (s[cmd->width] && (s[cmd->width] != cmd->quotes
-					|| !is_quote(s, cmd->width)))
+					|| !is_quote(s[cmd->width])))
 			{
 				cmd->width++;
 				cmd->len++;
