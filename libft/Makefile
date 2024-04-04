@@ -6,13 +6,14 @@
 #    By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/17 15:59:02 by erho              #+#    #+#              #
-#    Updated: 2024/03/24 22:16:27 by sewopark         ###   ########.fr        #
+#    Updated: 2024/04/04 17:42:56 by sewopark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS = ft_putchar.c ft_putstr.c ft_split.c \
 		ft_strlcat.c ft_strlen.c ft_strcmp.c\
-		ft_putstr_fd.c ft_strdup.c ft_strjoin.c ft_error.c ft_strncmp.c
+		ft_putstr_fd.c ft_strdup.c ft_strjoin.c ft_error.c ft_strncmp.c\
+		ft_memset.c
 OBJS = $(SRCS:.c=.o)
 CFLAGS = -Wall -Wextra -Werror
 NAME = libft.a
