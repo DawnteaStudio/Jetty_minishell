@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:12:05 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/05 17:06:40 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/05 17:09:26 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	set_minishell(int argc, char **argv, char **envp, t_shell_info *shell)
 {
 	struct termios	term;
 
-	
 	if (argc != 1)
 	{
 		ft_putstr_fd("the argc of this minishell cannot exceed 1\n", 2);

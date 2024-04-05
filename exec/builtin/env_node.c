@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:06:51 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/05 17:04:17 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/05 17:10:12 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ t_env_node	*ft_env_node_new(char *key, char *value)
 
 void	update_env_list(t_env_node	**env_list, char *key, char *value)
 {
-	t_env_node *check;
-	t_env_node *cur;
+	t_env_node	*check;
+	t_env_node	*cur;
 
 	check = is_include_env(env_list, key);
 	if (check)

@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:38:49 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/05 14:55:32 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/05 17:10:27 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	del(char *ptr)
 
 char	*heap_handler(char *ptr)
 {
-	static	t_list	*list;
+	static t_list	*list;
 
 	if (ptr == NULL)
 		ft_lstclear(&list, del);
