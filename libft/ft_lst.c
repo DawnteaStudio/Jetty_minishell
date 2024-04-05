@@ -6,13 +6,13 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:41:18 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/05 11:00:34 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/05 14:53:01 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/libft.h"
 
-t_list	*ft_lstnew(void *content)
+t_list	*ft_lstnew(char *content)
 {
 	t_list	*node;
 
