@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:12:05 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/05 16:18:40 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/05 17:06:40 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	set_minishell(int argc, char **argv, char **envp, t_shell_info *shell)
 	shell->backup_stdin = dup(0);
 	shell->backup_stdout = dup(1);
 	shell->env_list = NULL;
+	make_env_list(shell);
 	tcgetattr(STDIN_FILENO, &term);
 	term.c_lflag &= ~(ECHOCTL);
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
@@ -52,7 +53,12 @@ int	main(int argc, char **argv, char **envp)
 		if (str[0] != 0)
 			add_history(str);
 		if (is_builtin(str))
-			printf("builtin!!\n");
+		{
+			if (!ft_strcmp(str, "env"))
+				ft_env(&shell);
+			else
+				printf("builtin!!\n");
+		}
 		free(str);
 	}
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);

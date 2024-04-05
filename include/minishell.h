@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/05 16:37:17 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/05 17:04:29 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,13 @@ int			is_builtin(char *cmd);
 int			ft_pwd(void);
 
 //env
-void		make_env_list(t_shell_info *shell);
-t_env_node	*is_include_env(t_env_node	*env_list, char *key);
+t_env_node	*is_include_env(t_env_node	**env_list, char *key);
+int			ft_env(t_shell_info *shell);
 
 //env_node
 t_env_node	*ft_env_node_new(char *key, char *value);
-void		update_env_list(t_env_node	*env_list, char *key, char *value);
+void		update_env_list(t_env_node	**env_list, char *key, char *value);
+void		make_env_list(t_shell_info *shell);
 
 //clean
 char		*heap_handler(char *ptr);

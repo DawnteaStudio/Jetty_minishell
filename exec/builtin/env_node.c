@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:06:51 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/05 16:37:31 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/05 17:04:17 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_env_node	*ft_env_node_new(char *key, char *value)
 	return (node);
 }
 
-void	update_env_list(t_env_node	*env_list, char *key, char *value)
+void	update_env_list(t_env_node	**env_list, char *key, char *value)
 {
 	t_env_node *check;
 	t_env_node *cur;
@@ -36,11 +36,11 @@ void	update_env_list(t_env_node	*env_list, char *key, char *value)
 		check->value = heap_handler(ft_strdup(value));
 	else
 	{
-		if (env_list == NULL)
-			env_list = ft_env_node_new(key, value);
+		if (*env_list == NULL)
+			*env_list = ft_env_node_new(key, value);
 		else
 		{
-			cur = env_list;
+			cur = *env_list;
 			while (cur && cur->next)
 				cur = cur->next;
 			cur->next = ft_env_node_new(key, value);
@@ -48,13 +48,12 @@ void	update_env_list(t_env_node	*env_list, char *key, char *value)
 	}
 }
 
-void	make_env_component(t_env_node *new_env_list, char *env_line)
+void	make_env_component(t_env_node **new_env_list, char *env_line)
 {
 	t_component	cp;
 
 	ft_memset(&cp, 0, sizeof(t_component));
 	cp.len = ft_strlen(env_line);
-	cp.tmp = new_env_list;
 	while (env_line[cp.i])
 	{
 		if (env_line[cp.i] == '=')
@@ -79,7 +78,7 @@ void	make_env_list(t_shell_info *shell)
 		return ;
 	while ((shell->envp)[i])
 	{
-		make_env_component(shell->env_list, (shell->envp)[i]);
+		make_env_component(&(shell->env_list), (shell->envp)[i]);
 		i++;
 	}
 }
