@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/04 15:31:39 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/05 16:37:17 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,13 @@
 # define IGNORE		1
 # define CUSTOM		2
 
+typedef struct s_env_node
+{
+	char				*key;
+	char				*value;
+	struct s_env_node	*next;
+}	t_env_node;
+
 typedef struct s_shell_info
 {
 	char		**envp;
@@ -48,12 +55,15 @@ typedef struct s_shell_info
 	t_env_node	*env_list;
 }	t_shell_info;
 
-typedef struct s_env_node
+typedef struct s_component
 {
 	char		*key;
 	char		*value;
-	t_env_node	*next;
-}	t_env_node;
+	int			flag_check_value;
+	size_t		i;
+	size_t		len;
+	t_env_node	*tmp;
+}	t_component;
 
 //signal
 void		signal_handler(int num);
@@ -66,6 +76,14 @@ int			is_builtin(char *cmd);
 int			ft_pwd(void);
 
 //env
-t_env_node	*make_env_list(char **envp);
+void		make_env_list(t_shell_info *shell);
+t_env_node	*is_include_env(t_env_node	*env_list, char *key);
+
+//env_node
+t_env_node	*ft_env_node_new(char *key, char *value);
+void		update_env_list(t_env_node	*env_list, char *key, char *value);
+
+//clean
+char		*heap_handler(char *ptr);
 
 #endif
