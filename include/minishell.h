@@ -21,6 +21,13 @@
 /*************************************PARSE************************************/
 /* ************************************************************************** */
 
+typedef enum e_token_type
+{
+	TYPE_WORD,
+	TYPE_PIPE,
+	TYPE_REDIRECT
+}	t_token_type;
+
 typedef struct s_command
 {
 	int		word;
@@ -31,9 +38,14 @@ typedef struct s_command
 	int		len;
 }	t_command;
 
-// tokenizer
-char	**tokenize(char *s, char c);
+typedef struct s_token
+{
+	int		type;
+	char	*str;
+}	t_token;
 
+// tokenizer
+t_token *tokenize(char *s, char c);
 
 // bool_check
 int		is_quote(char c);
@@ -43,6 +55,9 @@ int		is_pipe(char c);
 
 // parse_helper
 int 	check_sign(char *str, t_command *cmd);
+
+// lexer
+t_token	*lexical_analyze(char *str);
 
 /* ************************************************************************** */
 /*************************************EXEC*************************************/

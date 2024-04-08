@@ -38,8 +38,8 @@ void	find_idx(t_command *cmd, char *s, char c)
 			cmd->quotes = s[cmd->width];
 			cmd->width++;
 			cmd->len++;
-			while (s[cmd->width] && (s[cmd->width] != cmd->quotes
-					|| !is_quote(s[cmd->width])))
+			while (s[cmd->width] && (!is_quote(s[cmd->width])
+					|| s[cmd->width] != cmd->quotes))
 			{
 				cmd->width++;
 				cmd->len++;
@@ -53,7 +53,7 @@ void	find_idx(t_command *cmd, char *s, char c)
 	}
 }
 
-char	**ft_insert(char *s, char **res, char c, t_command cmd)
+void	ft_insert(char *s, t_token *res, char c, t_command cmd)
 {
 	while (s[cmd.width])
 	{
@@ -61,15 +61,14 @@ char	**ft_insert(char *s, char **res, char c, t_command cmd)
 		find_idx(&cmd, s, c);
 		if (cmd.width > cmd.word)
 		{
-			res[cmd.height] = (char *)malloc(sizeof(char) * (cmd.len + 1));
-			if (res[cmd.height] == NULL)
+			res[cmd.height].str = (char *)malloc(sizeof(char) * (cmd.len + 1));
+			if (res[cmd.height].str == NULL)
 				exit(1);
-			make_word(res[cmd.height], &s[cmd.word], &cmd);
-			res[cmd.height][cmd.len] = '\0';
+			make_word(res[cmd.height].str, &s[cmd.word], &cmd);
+			(res[cmd.height].str)[cmd.len] = '\0';
 			cmd.height++;
 		}
 	}
-	return (res);
 }
 
 int	count_word(char *s, char c, t_command cmd)
@@ -82,19 +81,18 @@ int	count_word(char *s, char c, t_command cmd)
 	return (cmd.word_count);
 }
 
-char	**tokenize(char *s, char c)
+t_token *tokenize(char *s, char c)
 {
 	int			cnt;
-	char		**res;
+	t_token		*res;
 	t_command	cmd;
 
 	ft_memset(&cmd, 0, sizeof(t_command));
 	cnt = count_word(s, c, cmd);
-	res = (char **)malloc(sizeof(char *) * (cnt + 1));
+	res = (t_token *)malloc(sizeof(t_token) * (cnt + 1));
 	if (res == NULL)
 		exit(1);
-	res = ft_insert(s, res, c, cmd);
-	if (res != NULL)
-		res[cnt] = NULL;
+	ft_insert(s, res, c, cmd);
+	res[cnt].str = NULL;
 	return (res);
 }
