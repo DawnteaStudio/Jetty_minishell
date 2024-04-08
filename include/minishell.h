@@ -23,9 +23,9 @@
 
 typedef enum e_token_type
 {
-	TYPE_WORD,
-	TYPE_PIPE,
-	TYPE_REDIRECT
+	TOKEN_TYPE_WORD,
+	TOKEN_TYPE_PIPE,
+	TOKEN_TYPE_REDIRECT
 }	t_token_type;
 
 typedef struct s_command

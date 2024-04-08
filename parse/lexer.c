@@ -45,11 +45,11 @@ void	check_quote(char *str)
 int check_str(char *str)
 {
 	if (is_bracket(str[0]))
-		return (TYPE_REDIRECT);
+		return (TOKE_TYPE_REDIRECT);
 	if (is_pipe(str[0]))
-		return (TYPE_PIPE);
+		return (TOKE_TYPE_PIPE);
 	check_quote(str);
-	return (TYPE_WORD);
+	return (TOKE_TYPE_WORD);
 }
 
 t_token	*lexical_analyze(char *str)
