@@ -53,7 +53,7 @@ int		is_bracket(char c);
 int		is_dollar(char c);
 int		is_pipe(char c);
 
-// parse_helper
+// tokenizer_helper
 int 	check_sign(char *str, t_command *cmd);
 
 // lexer
