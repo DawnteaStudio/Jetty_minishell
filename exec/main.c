@@ -6,11 +6,13 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:12:05 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/05 17:09:26 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/08 21:09:31 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	g_exit_code;
 
 void	set_minishell(int argc, char **argv, char **envp, t_shell_info *shell)
 {
@@ -35,11 +37,10 @@ void	set_minishell(int argc, char **argv, char **envp, t_shell_info *shell)
 int	main(int argc, char **argv, char **envp)
 {
 	char			*str;
-	struct termios	term;
 	t_shell_info	shell;
 
+	tcgetattr(STDIN_FILENO, &(shell.term));
 	set_minishell(argc, argv, envp, &shell);
-	tcgetattr(STDIN_FILENO, &term);
 	while (1)
 	{
 		set_signal(CUSTOM, IGNORE);
@@ -51,15 +52,9 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (str[0] != 0)
 			add_history(str);
-		if (is_builtin(str))
-		{
-			if (!ft_strcmp(str, "env"))
-				ft_env(&shell);
-			else
-				printf("builtin!!\n");
-		}
+		ft_exec(&shell, str);
 		free(str);
 	}
-	tcsetattr(STDIN_FILENO, TCSANOW, &term);
-	return (0);
+	clean_all(&shell);
+	return (g_exit_code);
 }

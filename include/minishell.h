@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/05 17:04:29 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/08 21:23:58 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,25 @@
 # include <signal.h>
 # include <termios.h>
 
+extern int	g_exit_code;
+
 # define TRUE		1
 # define FALSE		0
 
 # define DEFAULT	0
 # define IGNORE		1
 # define CUSTOM		2
+
+typedef enum e_builtin
+{
+	BLT_ECHO = 1,
+	BLT_CD,
+	BLT_PWD,
+	BLT_EXPORT,
+	BLT_UNSET,
+	BLT_ENV,
+	BLT_EXIT
+}	t_builtin;
 
 typedef struct s_env_node
 {
@@ -49,10 +62,11 @@ typedef struct s_env_node
 
 typedef struct s_shell_info
 {
-	char		**envp;
-	int			backup_stdin;
-	int			backup_stdout;
-	t_env_node	*env_list;
+	char			**envp;
+	int				backup_stdin;
+	int				backup_stdout;
+	struct termios	term;
+	t_env_node		*env_list;
 }	t_shell_info;
 
 typedef struct s_component
@@ -86,5 +100,9 @@ void		make_env_list(t_shell_info *shell);
 
 //clean
 char		*heap_handler(char *ptr);
+void		clean_all(t_shell_info *shell);
+
+//exec
+int			ft_exec(t_shell_info *shell, char *str);
 
 #endif
