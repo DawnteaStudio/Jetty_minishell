@@ -15,6 +15,7 @@
 int	main()
 {
 	char	*str;
+	t_token *tokens;
 
 	while (1)
 	{
@@ -22,6 +23,13 @@ int	main()
 		if (str == NULL)
 			break ;
 		add_history(str);
+		tokens = lexical_analyze(str);
+		int idx = 0;
+		while (tokens[idx].str)
+		{
+			printf("%s\n", tokens[idx].str);
+			idx++;
+		}
 		free(str);
 	}
 	return (0);
