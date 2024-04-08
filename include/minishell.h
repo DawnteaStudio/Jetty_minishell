@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/04 14:57:23 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/08 20:19:52 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,15 @@ typedef struct s_command
 // tokenizer
 char	**tokenize(char *s, char c);
 
-// parse_helper
+
+// bool_check
 int		is_quote(char c);
-int		check_redirection(char *str, t_command *cmd);
+int		is_bracket(char c);
+int		is_dollar(char c);
+int		is_pipe(char c);
+
+// parse_helper
+int 	check_sign(char *str, t_command *cmd);
 
 /* ************************************************************************** */
 /*************************************EXEC*************************************/

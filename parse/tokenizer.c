@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:06:56 by erho              #+#    #+#             */
-/*   Updated: 2024/04/04 15:32:11 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/08 20:20:14 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	find_idx(t_command *cmd, char *s, char c)
 		cmd->len++;
 		if (s[cmd->width])
 			cmd->width++;
-		if (check_redirection(s, cmd))
+		if (check_sign(s, cmd))
 			break ;
 	}
 }
@@ -88,10 +88,7 @@ char	**tokenize(char *s, char c)
 	char		**res;
 	t_command	cmd;
 
-	cmd.width = 0;
-	cmd.height = 0;
-	cmd.word_count = 0;
-	cmd.len = 0;
+	ft_memset(&cmd, 0, sizeof(t_command));
 	cnt = count_word(s, c, cmd);
 	res = (char **)malloc(sizeof(char *) * (cnt + 1));
 	if (res == NULL)
