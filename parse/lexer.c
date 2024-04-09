@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 20:34:57 by erho              #+#    #+#             */
-/*   Updated: 2024/04/08 20:34:58 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/09 19:04:36 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ void	check_quote(char *str)
 int check_str(char *str)
 {
 	if (is_bracket(str[0]))
-		return (TOKE_TYPE_REDIRECT);
+		return (TOKEN_TYPE_REDIRECT);
 	if (is_pipe(str[0]))
-		return (TOKE_TYPE_PIPE);
+		return (TOKEN_TYPE_PIPE);
 	check_quote(str);
-	return (TOKE_TYPE_WORD);
+	return (TOKEN_TYPE_WORD);
 }
 
 t_token	*lexical_analyze(char *str)
