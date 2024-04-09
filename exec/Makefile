@@ -6,7 +6,7 @@
 #    By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 14:06:13 by sewopark          #+#    #+#              #
-#    Updated: 2024/04/08 21:26:40 by sewopark         ###   ########.fr        #
+#    Updated: 2024/04/10 06:26:04 by sewopark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,10 @@ RM		= rm -f
 CFLAGS	= -Wall -Wextra -Werror 
 
 PARSE	= test.c
-EXEC	= main.c ./signal/signal.c ./builtin/pwd.c ./builtin/builtin_util.c ./builtin/env.c ./builtin/env_node.c\
-			./clean/gb_cltr.c ./run/exec.c
+BUILTIN	= builtin_util.c echo.c env_node.c env.c pwd.c
+RUN		= exec_node.c exec_redirect.c exec_util.c exec.c
+EXEC	= main.c signal/signal.c $(addprefix builtin/, $(BUILTIN)) $(addprefix run/, $(RUN)) clean/gb_cltr.c
+
 SRCS	= $(addprefix ../parse/, $(PARSE)) $(addprefix ./, $(EXEC))
 OBJS	= $(SRCS:%.c=%.o)
 LIBFT	= ../libft/libft.a
