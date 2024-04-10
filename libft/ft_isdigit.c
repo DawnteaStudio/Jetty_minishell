@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/24 21:58:07 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/10 07:20:04 by sewopark         ###   ########.fr       */
+/*   Created: 2024/04/10 09:37:44 by sewopark          #+#    #+#             */
+/*   Updated: 2024/04/10 09:37:45 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
-
-int	ft_pwd(void)
+int	ft_isdigit(int c)
 {
-	char	*pwd;
-
-	pwd = getcwd(NULL, 0);
-	if (!pwd)
+	if (c >= '0' && c <= '9')
 		return (1);
-	ft_putstr_fd(pwd, 1);
-	ft_putstr_fd("\n", 1);
-	free(pwd);
-	return (CODE_SUCCESS);
+	return (0);
 }

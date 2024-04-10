@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_util.c                                     :+:      :+:    :+:   */
+/*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:02:59 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/08 21:17:38 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/10 08:43:46 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,19 @@ int	is_builtin(char *cmd)
 		return (BLT_EXIT);
 	else
 		return (FALSE);
+}
+
+int	ft_exec_builtin(t_shell_info *shell, int builtin)
+{
+	if (builtin == BLT_PWD)
+		return (ft_pwd());
+	else if (builtin == BLT_ENV)
+		return (ft_env(shell));
+	else if (builtin == BLT_ECHO)
+		return (ft_echo(shell));
+	else if (builtin == BLT_UNSET)
+		return (ft_unset(shell));
+	else if (builtin == BLT_EXPORT)
+		return (ft_export(shell));
+	return (ft_exit(shell));
 }

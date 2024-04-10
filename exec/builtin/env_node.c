@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:06:51 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/05 17:10:12 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/10 09:30:18 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_env_node	*ft_env_node_new(char *key, char *value)
 	node->key = heap_handler(ft_strdup(key));
 	if (value)
 		node->value = heap_handler(ft_strdup(value));
+	else
+		node->value = NULL;
 	node->next = NULL;
 	return (node);
 }
@@ -33,7 +35,12 @@ void	update_env_list(t_env_node	**env_list, char *key, char *value)
 
 	check = is_include_env(env_list, key);
 	if (check)
-		check->value = heap_handler(ft_strdup(value));
+	{
+		if (value)
+			check->value = heap_handler(ft_strdup(value));
+		else
+			check->value = NULL;
+	}
 	else
 	{
 		if (*env_list == NULL)
