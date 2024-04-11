@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 20:34:57 by erho              #+#    #+#             */
-/*   Updated: 2024/04/11 16:32:07 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/11 21:37:52 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int cnt_token(t_token *tokens)
 	return (i);
 }
 
-void	check_quote(char *str)
+int	check_quote(char *str)
 {
 	int		i;
 	char	quote;
@@ -36,10 +36,11 @@ void	check_quote(char *str)
 			while (str[i] && (!is_quote(str[i]) || str[i] != quote))
 				i++;
 			if (!str[i])
-				exit(1);
+				return (CODE_ERROR);
 		}
 		i++;
 	}
+	return (CODE_SUCCESS);
 }
 
 int check_str(char *str)
@@ -48,7 +49,8 @@ int check_str(char *str)
 		return (TOKEN_TYPE_REDIRECTION);
 	if (is_pipe(str[0]))
 		return (TOKEN_TYPE_PIPE);
-	check_quote(str);
+	if (check_quote(str) == CODE_ERROR)
+		return (-1);
 	return (TOKEN_TYPE_WORD);
 }
 
@@ -66,6 +68,11 @@ t_token	*lexical_analyze(char *str)
 	while (i < cnt)
 	{
 		tokens[i].type = check_str(tokens[i].str);
+		if (tokens[i].type == -1)
+		{
+			free_tokens(tokens);
+			return (NULL);
+		}
 		i++;
 	}
 	return (tokens);
