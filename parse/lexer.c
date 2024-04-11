@@ -6,15 +6,15 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 20:34:57 by erho              #+#    #+#             */
-/*   Updated: 2024/04/11 21:37:52 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/11 22:42:52 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int cnt_token(t_token *tokens)
+int	cnt_token(t_token *tokens)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tokens[i].str)
@@ -43,7 +43,7 @@ int	check_quote(char *str)
 	return (CODE_SUCCESS);
 }
 
-int check_str(char *str)
+int	check_str(char *str)
 {
 	if (is_bracket(str[0]))
 		return (TOKEN_TYPE_REDIRECTION);
@@ -57,13 +57,11 @@ int check_str(char *str)
 t_token	*lexical_analyze(char *str)
 {
 	int		cnt;
-	int 	i;
-	t_token *tokens;
+	int		i;
+	t_token	*tokens;
 
 	tokens = tokenize(str, ' ');
 	cnt = cnt_token(tokens);
-	if (cnt == 0)
-		exit(1);
 	i = 0;
 	while (i < cnt)
 	{
