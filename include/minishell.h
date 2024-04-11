@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/12 01:28:36 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/12 01:51:03 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,34 @@ t_token		*lexical_analyze(char *str);
 // parse_helper
 void		free_tokens(t_token *tokens);
 void		free_tree(t_tree **tree);
+int			cnt_exp(char **exp);
+
+// parse
+t_tree		*parse(char *str, t_env_node **env_list);
+
+// set_tree_utils
+char		*res_join(char **str, char **temp);
+void		swap_ch(char *c1, char *c2);
+void		tree_find_idx(char *str, t_command *cmd);
+void		tree_make_word(char *s1, char *s2, t_command cmd);
+
+// set_tree
+t_tree		*create_node(int type);
+char		*extract_data(char *str, t_env_node **env_list);
+
+// handling_dollar
+char		*get_env_value(t_env_node **env_list, char *str, char **res,
+		t_command *cmd);
+
+// insert_tree
+int		pipe_node(t_tree **tree, t_token *tokens, t_env_node **env_list, int idx);
+
+// insert_tree_util
+t_tree		*find_last_right(t_tree *tree);
+
+// test
+t_env_node	*create_list(char *key, char *value);
+t_env_node	*is_include_env(t_env_node **env_list, char *key);
 
 /* ************************************************************************** */
 /*************************************EXEC*************************************/

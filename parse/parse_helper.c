@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:17:11 by erho              #+#    #+#             */
-/*   Updated: 2024/04/12 01:22:42 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/12 01:50:53 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,14 @@ void	free_tree(t_tree **tree)
 		free_tree(&t_left);
 	if (t_right != NULL)
 		free_tree(&t_right);
+}
+
+int	cnt_exp(char **exp)
+{
+	int	i;
+
+	i = 0;
+	while (exp[i])
+		i++;
+	return (i);
 }
