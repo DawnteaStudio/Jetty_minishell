@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:24:34 by erho              #+#    #+#             */
-/*   Updated: 2024/04/10 03:46:14 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/12 02:42:49 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	swap_ch(char *c1, char *c2)
 
 char	*res_join(char **str, char **temp)
 {
-	char *res;
+	char	*res;
 
 	res = ft_strjoin(*str, *temp);
 	free(*str);
