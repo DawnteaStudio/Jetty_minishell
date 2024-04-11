@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 02:21:04 by erho              #+#    #+#             */
-/*   Updated: 2024/04/10 04:10:37 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/12 02:29:21 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ char	*check_key(t_env_node **env_list, char *str, t_command *cmd)
 	char		*key;
 	t_env_node	*tmp;
 
-	if (str[cmd->width] == ' ' || str[cmd->width] == '\0')
+	if (str[cmd->width] == cmd->quotes || str[cmd->width] == ' '
+			|| str[cmd->width] == '\0')
 		return (ft_strdup("$"));
 	if (is_quote(str[cmd->width]))
 		return (ft_strdup(""));
