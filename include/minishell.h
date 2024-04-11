@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/10 09:31:03 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/11 18:13:37 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,6 @@
 # include "../libft/includes/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
-
-/* ************************************************************************** */
-/*************************************PARSE************************************/
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*************************************EXEC*************************************/
-/* ************************************************************************** */
-
 # include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -33,14 +24,14 @@
 # include <signal.h>
 # include <termios.h>
 
-extern int	g_exit_code;
-
 # define TRUE		1
 # define FALSE		0
 
 # define DEFAULT	0
 # define IGNORE		1
 # define CUSTOM		2
+
+extern int	g_exit_code;
 
 typedef enum e_builtin
 {
@@ -61,6 +52,13 @@ typedef enum e_exit_code
 	CODE_NOT_FOUND,
 	CODE_255 = 255
 }	t_exit_code;
+
+typedef enum e_token_type
+{
+	TOKEN_TYPE_WORD,
+	TOKEN_TYPE_PIPE,
+	TOKEN_TYPE_REDIRECTION
+}	t_token_type;
 
 typedef struct s_env_node
 {
@@ -89,6 +87,45 @@ typedef struct s_component
 	size_t		len;
 	t_env_node	*tmp;
 }	t_component;
+
+typedef struct s_command
+{
+	int		word;
+	int		width;
+	int		height;
+	char	quotes;
+	int		word_count;
+	int		len;
+}	t_command;
+
+typedef struct s_token
+{
+	int		type;
+	char	*str;
+}	t_token;
+
+/* ************************************************************************** */
+/*************************************PARSE************************************/
+/* ************************************************************************** */
+
+// tokenizer
+t_token *tokenize(char *s, char c);
+
+// bool_check
+int		is_quote(char c);
+int		is_bracket(char c);
+int		is_dollar(char c);
+int		is_pipe(char c);
+
+// tokenizer_helper
+int 	check_sign(char *str, t_command *cmd);
+
+// lexer
+t_token	*lexical_analyze(char *str);
+
+/* ************************************************************************** */
+/*************************************EXEC*************************************/
+/* ************************************************************************** */
 
 //signal
 void		signal_handler(int num);
