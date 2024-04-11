@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 20:34:57 by erho              #+#    #+#             */
-/*   Updated: 2024/04/09 19:04:36 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/11 16:32:07 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	check_quote(char *str)
 int check_str(char *str)
 {
 	if (is_bracket(str[0]))
-		return (TOKEN_TYPE_REDIRECT);
+		return (TOKEN_TYPE_REDIRECTION);
 	if (is_pipe(str[0]))
 		return (TOKEN_TYPE_PIPE);
 	check_quote(str);

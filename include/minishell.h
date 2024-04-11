@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/08 20:19:52 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/11 16:33:22 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef enum e_token_type
 {
 	TOKEN_TYPE_WORD,
 	TOKEN_TYPE_PIPE,
-	TOKEN_TYPE_REDIRECT
+	TOKEN_TYPE_REDIRECTION
 }	t_token_type;
 
 typedef struct s_command
