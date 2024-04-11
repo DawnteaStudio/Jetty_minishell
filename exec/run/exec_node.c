@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:32:53 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/10 09:58:46 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/11 22:26:32 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	include_slash_case(t_shell_info *shell, char *str)
 	{
 		if (access(str, X_OK) == 0)
 		{
-			if (execve(str, shell->d_array, shell->envp) == -1)
+			if (execve(str, shell->tree->exp, shell->envp) == -1)
 				exit(1);
 		}
 		// error_handler(PERCOMD, target.arr_cmd[0]);
@@ -41,13 +41,14 @@ void	no_include_slash_case(t_shell_info *shell, char *str, char **path)
 		if (access(tmp, F_OK) == 0)
 		{
 			if (access(tmp, X_OK) == 0)
-				if (execve(tmp, shell->d_array, shell->envp) == -1)
+				if (execve(tmp, shell->tree->exp, shell->envp) == -1)
 					exit(2);
 			// error_handler(PERCOMD, target.arr_cmd[0]);
 		}
 		free(tmp);
 		i++;
 	}
+	exit(1);
 	// error_handler(CMDNFND, target.arr_cmd[0]);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 07:20:24 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/10 09:42:52 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/11 21:34:39 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,17 @@ int	ft_unset(t_shell_info *shell)
 
 	i = 1;
 	exit_code = CODE_SUCCESS;
-	while (shell->d_array[i])
+	while (shell->tree->exp[i])
 	{
-		if (is_valid_key(shell->d_array[i]) == FALSE)
+		if (is_valid_key(shell->tree->exp[i]) == FALSE)
 		{
 			ft_putstr_fd("jetty: unset: `", 2);
-			ft_putstr_fd(shell->d_array[i], 2);
+			ft_putstr_fd(shell->tree->exp[i], 2);
 			ft_putstr_fd("': not a valid identifier\n", 2);
 			exit_code = CODE_ERROR;
 		}
 		else
-			unset(shell, shell->d_array[i]);
+			unset(shell, shell->tree->exp[i]);
 		i++;
 	}
 	return (exit_code);
