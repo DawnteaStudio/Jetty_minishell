@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/11 18:13:37 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/11 21:24:50 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,27 @@ typedef enum e_token_type
 	TOKEN_TYPE_REDIRECTION
 }	t_token_type;
 
+typedef enum e_tree_type
+{
+	TREE_TYPE_HEAD,
+	TREE_TYPE_PHRASE,
+	TREE_TYPE_COMMAND,
+	TREE_TYPE_PIPE,
+	TREE_TYPE_REDIRECTIONS,
+	TREE_TYPE_REDIRECTION
+}	t_tree_type;
+
+typedef struct s_tree
+{
+	int				type;
+	char			*cmd;
+	char			*redir;
+	char			*redir_info;
+	char			**exp;
+	struct s_tree	*left;
+	struct s_tree	*right;
+}	t_tree;
+
 typedef struct s_env_node
 {
 	char				*key;
@@ -70,8 +91,7 @@ typedef struct s_env_node
 typedef struct s_shell_info
 {
 	char			**envp;
-	char			*data;//tmp
-	char			**d_array;//tmp
+	t_tree			*tree;
 	int				backup_stdin;
 	int				backup_stdout;
 	struct termios	term;
