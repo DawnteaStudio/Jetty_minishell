@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/12 01:51:03 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/12 02:48:00 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,10 +164,11 @@ char		*extract_data(char *str, t_env_node **env_list);
 
 // handling_dollar
 char		*get_env_value(t_env_node **env_list, char *str, char **res,
-		t_command *cmd);
+				t_command *cmd);
 
 // insert_tree
-int		pipe_node(t_tree **tree, t_token *tokens, t_env_node **env_list, int idx);
+int			pipe_node(t_tree **tree, t_token *tokens, t_env_node **env_list,
+				int idx);
 
 // insert_tree_util
 t_tree		*find_last_right(t_tree *tree);
