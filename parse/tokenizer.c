@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:06:56 by erho              #+#    #+#             */
-/*   Updated: 2024/04/08 20:20:14 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/12 02:42:57 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	count_word(char *s, char c, t_command cmd)
 	return (cmd.word_count);
 }
 
-t_token *tokenize(char *s, char c)
+t_token	*tokenize(char *s, char c)
 {
 	int			cnt;
 	t_token		*res;
