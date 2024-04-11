@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:17:11 by erho              #+#    #+#             */
-/*   Updated: 2024/04/11 22:21:32 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/12 01:22:42 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	free_tree(t_tree **tree)
 	t_left = (*tree)->left;
 	t_right = (*tree)->right;
 	free_node(tree);
-	if ((*tree)->left != NULL)
+	if (t_left != NULL)
 		free_tree(&t_left);
-	if ((*tree)->right != NULL)
+	if (t_right != NULL)
 		free_tree(&t_right);
 }
