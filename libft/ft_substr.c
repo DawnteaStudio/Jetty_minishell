@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 14:12:16 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/05 14:12:28 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/11 22:03:17 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		end = len;
 	str = (char *)malloc(end + 1);
 	if (str == NULL)
-		return (NULL);
+		ft_error(MEMORY);
 	if (start >= s_len)
 		start = s_len;
 	ft_strlcpy(str, s + start, end + 1);
