@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:05:09 by erho              #+#    #+#             */
-/*   Updated: 2024/04/12 02:09:11 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/12 02:42:35 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int	pipe_node(t_tree **tree, t_token *tokens, t_env_node **env_list, int idx)
 	{
 		(*tree)->right = create_node(TREE_TYPE_PIPE);
 		if (pipe_node(&((*tree)->right), tokens, env_list, idx + 1)
-				== CODE_ERROR)
+			== CODE_ERROR)
 			return (CODE_ERROR);
 	}
 	return (CODE_SUCCESS);
