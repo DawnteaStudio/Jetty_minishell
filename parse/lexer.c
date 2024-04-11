@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 20:34:57 by erho              #+#    #+#             */
-/*   Updated: 2024/04/11 22:42:52 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/12 01:16:23 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,6 @@ t_token	*lexical_analyze(char *str)
 		}
 		i++;
 	}
+	tokens[i].type = TOKEN_TYPE_NULL;
 	return (tokens);
 }

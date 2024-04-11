@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/11 21:45:17 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/12 01:28:36 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ typedef enum e_token_type
 {
 	TOKEN_TYPE_WORD,
 	TOKEN_TYPE_PIPE,
-	TOKEN_TYPE_REDIRECTION
+	TOKEN_TYPE_REDIRECTION,
+	TOKEN_TYPE_NULL
 }	t_token_type;
 
 typedef enum e_tree_type
@@ -129,22 +130,23 @@ typedef struct s_token
 /* ************************************************************************** */
 
 // tokenizer
-t_token *tokenize(char *s, char c);
+t_token		*tokenize(char *s, char c);
 
 // bool_check
-int		is_quote(char c);
-int		is_bracket(char c);
-int		is_dollar(char c);
-int		is_pipe(char c);
+int			is_quote(char c);
+int			is_bracket(char c);
+int			is_dollar(char c);
+int			is_pipe(char c);
 
 // tokenizer_helper
-int 	check_sign(char *str, t_command *cmd);
+int			check_sign(char *str, t_command *cmd);
 
 // lexer
-t_token	*lexical_analyze(char *str);
+t_token		*lexical_analyze(char *str);
 
 // parse_helper
-void	free_tokens(t_token *tokens);
+void		free_tokens(t_token *tokens);
+void		free_tree(t_tree **tree);
 
 /* ************************************************************************** */
 /*************************************EXEC*************************************/
