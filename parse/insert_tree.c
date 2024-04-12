@@ -48,7 +48,7 @@ void	command_node(t_tree **tree, t_token *tokens, t_env_node **env_list,
 		new_node->exp = (char **)malloc(sizeof(char *) * 2);
 		if (new_node->exp == NULL)
 			exit(1);
-		new_node->exp[0] = extract_data(tokens[*idx].str, env_list);
+		new_node->exp[0] = ft_strdup(new_node->cmd);
 		new_node->exp[1] = NULL;
 		(*idx)++;
 	}

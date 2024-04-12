@@ -51,9 +51,7 @@ char	*get_env_value(t_env_node **env_list, char *str, char **res,
 	char	*value;
 	char	*m_str;
 
-	printf("test zz success\n");
 	cmd->word = ++(cmd->width);
-	printf("width : %d\n", cmd->width);
 	value = check_key(env_list, str, cmd);
 	m_str = res_join(res, &value);
 	if (str[cmd->width] == cmd->quotes)

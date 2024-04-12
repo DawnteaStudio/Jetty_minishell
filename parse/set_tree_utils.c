@@ -23,7 +23,7 @@ void	tree_make_word(char *s1, char *s2, t_command cmd)
 	{
 		if (is_quote(cmd.quotes) || is_quote(s2[s2_idx]))
 		{
-			if (!(cmd.quotes))
+			if (cmd.quotes == '\0')
 				cmd.quotes = s2[s2_idx++];
 			while (s1_idx < cmd.len && s2[s2_idx] && (!is_quote(s2[s2_idx])
 					|| s2[s2_idx] != cmd.quotes))
@@ -47,12 +47,10 @@ void	tree_find_idx(char *str, t_command *cmd)
 		if (is_quote(cmd->quotes) || is_quote(str[cmd->width]))
 		{
 			if (cmd->quotes == '\0')
-				cmd->quotes = str[cmd->width];
-			cmd->width++;
+				cmd->quotes = str[cmd->width++];
 			while (str[cmd->width] && (!is_quote(str[cmd->width])
 					|| str[cmd->width] != cmd->quotes))
 			{
-				printf("test: %c\n", str[cmd->width]);
 				if (cmd->quotes == '"' && str[cmd->width] == '$')
 					return ;
 				cmd->width++;
@@ -64,7 +62,7 @@ void	tree_find_idx(char *str, t_command *cmd)
 			return ;
 		else
 			cmd->len++;
-		if (str[cmd->width])
+		if (str[cmd->width] != '\0')
 			cmd->width++;
 	}
 }
