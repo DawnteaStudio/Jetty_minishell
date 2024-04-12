@@ -36,10 +36,12 @@ void	tree_make_word(char *s1, char *s2, t_command cmd)
 			s1[s1_idx++] = s2[s2_idx];
 		s2_idx++;
 	}
+	s1[s1_idx] = '\0';
 }
 
 void	tree_find_idx(char *str, t_command *cmd)
 {
+	cmd->word = cmd->width;
 	while (str[cmd->width])
 	{
 		if (is_quote(cmd->quotes) || is_quote(str[cmd->width]))

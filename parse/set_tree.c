@@ -20,19 +20,19 @@ char	*extract_data(char *str, t_env_node **env_list)
 	char		*res;
 
 	res = (char *)malloc(sizeof(char));
+	if (res == NULL)
+		exit(1);
 	res[0] = '\0';
 	ft_memset(&cmd, 0, sizeof(t_command));
 	while (str[cmd.width])
 	{
 		cmd.len = 0;
-		cmd.word = cmd.width;
 		tree_find_idx(str, &cmd);
 		swap_ch(&cmd.quotes, &q_back_up);
 		temp = (char *)malloc(sizeof(char) * (cmd.len + 1));
 		if (temp == NULL)
 			exit(1);
 		tree_make_word(temp, &str[cmd.word], cmd);
-		temp[cmd.len] = '\0';
 		swap_ch(&cmd.quotes, &q_back_up);
 		res = res_join(&res, &temp);
 		if (str[cmd.width])
