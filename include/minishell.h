@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/04/12 02:48:00 by erho             ###   ########.fr       */
-=======
-/*   Updated: 2024/04/11 21:24:50 by sewopark         ###   ########.fr       */
->>>>>>> exec
+/*   Updated: 2024/04/12 18:19:22 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +63,6 @@ typedef enum e_token_type
 
 typedef enum e_tree_type
 {
-<<<<<<< HEAD
-=======
-	TREE_TYPE_HEAD,
->>>>>>> exec
 	TREE_TYPE_PHRASE,
 	TREE_TYPE_COMMAND,
 	TREE_TYPE_PIPE,
