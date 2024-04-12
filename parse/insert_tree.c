@@ -45,18 +45,16 @@ void	command_node(t_tree **tree, t_token *tokens, t_env_node **env_list,
 	if (new_node->cmd == NULL)
 	{
 		new_node->cmd = extract_data(tokens[*idx].str, env_list);
+		new_node->exp = (char **)malloc(sizeof(char *) * 2);
+		if (new_node->exp == NULL)
+			exit(1);
+		new_node->exp[0] = extract_data(tokens[*idx].str, env_list);
+		new_node->exp[1] = NULL;
 		(*idx)++;
 	}
 	while (tokens[*idx].type == TOKEN_TYPE_WORD)
 	{
-		if (new_node->exp == NULL)
-		{
-			new_node->exp = (char **)malloc(sizeof(char *) * 2);
-			new_node->exp[0] = extract_data(tokens[*idx].str, env_list);
-			new_node->exp[1] = NULL;
-		}
-		else
-			join_exp(&new_node, tokens[*idx].str, env_list);
+		join_exp(&new_node, tokens[*idx].str, env_list);
 		(*idx)++;
 	}
 }
