@@ -6,7 +6,7 @@
 /*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/12 18:19:22 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/12 23:04:40 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@
 # define DEFAULT	0
 # define IGNORE		1
 # define CUSTOM		2
+
+# define DIRLEFT	0
+# define DIRRIGT	1
 
 extern int	g_exit_code;
 
@@ -69,6 +72,14 @@ typedef enum e_tree_type
 	TREE_TYPE_REDIRECTIONS,
 	TREE_TYPE_REDIRECTION
 }	t_tree_type;
+
+typedef enum e_error_type
+{
+	ERR_CMD_NOT_FND,
+	ERR_NO_SUCH_FILE,
+	ERR_PER_DENIED,
+	ERR_AMBIGUOUS
+}	t_error_type;
 
 typedef struct s_tree
 {
@@ -209,7 +220,7 @@ char		*heap_handler(char *ptr);
 void		clean_all(t_shell_info *shell);
 
 //exec
-int			ft_exec(t_shell_info *shell, char *str);
+int			ft_exec(t_shell_info *shell, t_tree *tree);
 
 //exec_node
 int			ft_exec_node(t_shell_info *shell, char *str);
@@ -218,7 +229,21 @@ int			ft_exec_node(t_shell_info *shell, char *str);
 int			is_builtin(char *cmd);
 int			ft_exec_builtin(t_shell_info *shell, int builtin);
 
+//exec_redirection
+int			ft_exec_redirection(t_tree *tree);
+void		ft_restore_fd(t_shell_info *shell);
+
 //exec_util
 char		**ft_get_all_path(t_shell_info *shell);
+void		ft_close_and_wait(int *status, int fd[2], pid_t left, pid_t right);
+int			ft_exit_status(int status);
+void		ft_restore_fd(t_shell_info *shell);
+
+//exec_access
+t_exit_code	is_read(char *file);
+t_exit_code	is_write(char *file);
+
+//exec_error
+t_exit_code	putstr_error(char *str, t_exit_code code, t_error_type type);
 
 #endif

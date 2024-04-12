@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 20:11:28 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/04 12:33:41 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/12 23:43:56 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@ void	signal_handler(int num)
 	}
 	else if (num == SIGQUIT)
 	{
-		rl_on_new_line();
-		rl_redisplay();
+		ft_putstr_fd("Quit: 3\n", 1);
 	}
 }
 
 void	set_signal(int sig_int, int sig_quit)
 {
+	struct termios	term;
+
 	if (sig_int == DEFAULT)
 		signal(SIGINT, SIG_DFL);
 	if (sig_int == IGNORE)
@@ -42,4 +43,7 @@ void	set_signal(int sig_int, int sig_quit)
 		signal(SIGQUIT, SIG_IGN);
 	if (sig_quit == CUSTOM)
 		signal(SIGQUIT, signal_handler);
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag &= ~(ECHOCTL);
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }

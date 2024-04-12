@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+         #
+#    By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 14:06:13 by sewopark          #+#    #+#              #
-#    Updated: 2024/04/11 21:07:53 by sewopark         ###   ########.fr        #
+#    Updated: 2024/04/12 22:20:55 by parksewon        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ RM		= rm -f
 CFLAGS	= -Wall -Wextra -Werror 
 
 BUILTIN	= echo.c env_node.c env.c exit.c pwd.c unset.c export.c
-RUN		= exec_builtin.c exec_node.c exec_redirect.c exec_util.c exec.c
+RUN		= exec_builtin.c exec_node.c exec_redirect.c exec_util.c exec.c exec_access.c\
+exec_error.c
 EXEC	= main.c signal/signal.c $(addprefix builtin/, $(BUILTIN)) $(addprefix run/, $(RUN)) clean/gb_cltr.c
 
 SRCS	= $(addprefix ./, $(EXEC))
