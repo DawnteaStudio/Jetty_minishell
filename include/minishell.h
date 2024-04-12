@@ -63,7 +63,6 @@ typedef enum e_token_type
 
 typedef enum e_tree_type
 {
-	TREE_TYPE_HEAD,
 	TREE_TYPE_PHRASE,
 	TREE_TYPE_COMMAND,
 	TREE_TYPE_PIPE,

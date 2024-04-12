@@ -21,7 +21,7 @@ t_tree	*parse(char *str, t_env_node **env_list)
 	tokens = lexical_analyze(str);
 	if (tokens == NULL)
 		return (NULL);
-	tree = create_node(TREE_TYPE_HEAD);
+	tree = create_node(TREE_TYPE_PIPE);
 	error_flag = pipe_node(&tree, tokens, env_list, 0);
 	free_tokens(tokens);
 	if (error_flag == CODE_ERROR)
