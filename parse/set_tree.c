@@ -24,6 +24,7 @@ char	*extract_data(char *str, t_env_node **env_list)
 		exit(1);
 	res[0] = '\0';
 	ft_memset(&cmd, 0, sizeof(t_command));
+	q_back_up = '\0';
 	while (str[cmd.width])
 	{
 		cmd.len = 0;
@@ -35,7 +36,7 @@ char	*extract_data(char *str, t_env_node **env_list)
 		tree_make_word(temp, &str[cmd.word], cmd);
 		swap_ch(&cmd.quotes, &q_back_up);
 		res = res_join(&res, &temp);
-		if (str[cmd.width])
+		if (str[cmd.width] != '\0')
 			res = get_env_value(env_list, str, &res, &cmd);
 	}
 	return (res);

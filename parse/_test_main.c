@@ -16,9 +16,7 @@ int	g_exit_code;
 
 void	print_tree_type(t_tree *tree)
 {
-	if (tree->type == TREE_TYPE_HEAD)
-		printf("tree head\n");
-	else if (tree->type == TREE_TYPE_PHRASE)
+	if (tree->type == TREE_TYPE_PHRASE)
 		printf("tree phrase\n");
 	else if (tree->type == TREE_TYPE_REDIRECTIONS)	
 		printf("tree redirections\n");
@@ -90,7 +88,11 @@ int	main(int argc, char **argv, char **envp)
 		if (str[0] != 0)
 			add_history(str);
 		tree = parse(str, &env_list);
-		print_tree_type(tree);
+		if (tree != NULL)
+		{
+			print_tree_type(tree);
+			free_tree(&tree);
+		}
 		// tokens = lexical_analyze(str);
 		// int idx = 0;
 		// while (tokens[idx].str)

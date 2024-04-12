@@ -46,11 +46,13 @@ void	tree_find_idx(char *str, t_command *cmd)
 	{
 		if (is_quote(cmd->quotes) || is_quote(str[cmd->width]))
 		{
-			if (!(cmd->quotes))
-				cmd->quotes = str[cmd->width++];
+			if (cmd->quotes == '\0')
+				cmd->quotes = str[cmd->width];
+			cmd->width++;
 			while (str[cmd->width] && (!is_quote(str[cmd->width])
 					|| str[cmd->width] != cmd->quotes))
 			{
+				printf("test: %c\n", str[cmd->width]);
 				if (cmd->quotes == '"' && str[cmd->width] == '$')
 					return ;
 				cmd->width++;
