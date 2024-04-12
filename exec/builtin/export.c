@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 08:21:18 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/10 09:36:58 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/11 21:34:49 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,16 @@ int	ft_export(t_shell_info *shell)
 
 	i = 1;
 	exit_code = CODE_SUCCESS;
-	if (shell->d_array[1] == NULL)
+	if (shell->tree->exp[1] == NULL)
 		ft_print_export_list(shell);
 	else
 	{
-		while (shell->d_array[i])
+		while (shell->tree->exp[i])
 		{
-			if (is_valid_key(shell->d_array[i]) == FALSE)
-				exit_code = ft_print_export_error(shell->d_array[i]);
+			if (is_valid_key(shell->tree->exp[i]) == FALSE)
+				exit_code = ft_print_export_error(shell->tree->exp[i]);
 			else
-				make_env_component(&(shell->env_list), shell->d_array[i]);
+				make_env_component(&(shell->env_list), shell->tree->exp[i]);
 			i++;
 		}
 	}

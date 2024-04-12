@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:12:05 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/10 09:35:00 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/11 22:26:45 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ int	main(int argc, char **argv, char **envp)
 {
 	char			*str;
 	t_shell_info	shell;
+	t_tree			tree;
 
+	shell.tree = &tree;
 	tcgetattr(STDIN_FILENO, &(shell.term));
 	set_minishell(argc, argv, envp, &shell);
 	while (1)
@@ -52,9 +54,9 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (str[0] != 0)
 			add_history(str);
-		shell.d_array = ft_split(str, ' ');
-		shell.data = shell.d_array[0];
-		ft_exec(&shell, shell.data);
+		tree.exp = ft_split(str, ' ');
+		tree.cmd = tree.exp[0];
+		ft_exec(&shell, tree.cmd);
 		free(str);
 	}
 	clean_all(&shell);

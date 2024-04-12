@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 06:08:50 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/10 07:16:54 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/11 21:34:04 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ int	ft_echo(t_shell_info *shell)
 
 	i = 1;
 	option = 0;
-	while (shell->d_array[i] != NULL && ft_option(shell->d_array[i]) == 1)
+	while (shell->tree->exp[i] != NULL && ft_option(shell->tree->exp[i]) == 1)
 	{
 		option = 1;
 		i++;
 	}
-	while (shell->d_array[i])
+	while (shell->tree->exp[i])
 	{
-		ft_putstr_fd(shell->d_array[i], 1);
-		if (shell->d_array[i + 1])
+		ft_putstr_fd(shell->tree->exp[i], 1);
+		if (shell->tree->exp[i + 1])
 			ft_putstr_fd(" ", 1);
 		i++;
 	}
