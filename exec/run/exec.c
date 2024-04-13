@@ -6,23 +6,26 @@
 /*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:40:49 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/12 21:21:54 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/13 08:47:05 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_exec_cmd(t_shell_info *shell)
+int	ft_exec_cmd(t_shell_info *shell, t_tree *tree)
 {
 	int	builtin;
+	int	status;
 
-	builtin = is_builtin(str);
+	builtin = is_builtin(tree->cmd);
 	if (builtin != FALSE)
 	{
-		g_exit_code = ft_exec_builtin(shell, builtin);
+		status = ft_exec_builtin(shell, builtin);
+		ft_restore_fd(shell);
+		return (status);
 	}
 	else
-		ft_exec_node(shell, str);
+		ft_exec_node(shell, tree);
 	return (0);
 }
 
@@ -79,22 +82,20 @@ int	ft_exec(t_shell_info *shell, t_tree *tree)
 	else if (tree->type == TREE_TYPE_PHRASE)
 	{
 		if (tree->left)
-			ft_exec(shell, tree->left);
+			return (ft_exec(shell, tree->left));
 		if (tree->right)
-			ft_exec(shell, tree->right);
+			return (ft_exec(shell, tree->right));
 	}
 	else if (tree->type == TREE_TYPE_REDIRECTIONS)
 	{
 		if (tree->left)
-			ft_exec(shell, tree->left);
+			return (ft_exec(shell, tree->left));
 		if (tree->right)
-			ft_exec(shell, tree->right);
+			return (ft_exec(shell, tree->right));
 	}
 	else if (tree->type == TREE_TYPE_REDIRECTION)
-	{
-		
-	}
-		
-	ft_exec_cmd(shell);
-	return (0);
+		return (ft_exec_redirection(tree));
+	else if (tree->type == TREE_TYPE_COMMAND)
+		return (ft_exec_cmd(shell, tree));
+	return (ft_exec(shell, tree->left));
 }

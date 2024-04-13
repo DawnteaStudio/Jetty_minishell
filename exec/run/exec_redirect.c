@@ -6,7 +6,7 @@
 /*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 21:02:28 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/12 23:47:10 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/13 00:51:00 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,8 @@ int	ft_exec_redirection(t_tree *tree)
 		status = ft_out(tree);
 	else if (ft_strcmp(tree->redir, ">>") == CODE_SUCCESS)
 		status = ft_append(tree);
-	else if (ft_strcmp(tree->redir, "<<") == CODE_SUCCESS)
-	{
+	// else if (ft_strcmp(tree->redir, "<<") == CODE_SUCCESS)
+	// {
 		
-	}
-	
+	// }
 }
