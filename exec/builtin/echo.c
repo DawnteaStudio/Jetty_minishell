@@ -6,11 +6,9 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 06:08:50 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/11 21:34:04 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/12 08:05:53 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-//char **node is node's d_array;
 
 #include "../include/minishell.h"
 

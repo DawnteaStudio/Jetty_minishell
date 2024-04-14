@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 08:21:18 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/11 21:34:49 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/12 07:23:05 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_print_export_error(char *str)
 {
 	ft_putstr_fd("jetty: export: `", 2);
 	ft_putstr_fd(str, 2);
-	ft_putstr_fd("': not a valid identifier\n", 2);
+	ft_putstr_fd("': not a valid identifier\n", 2);                               
 	return (CODE_ERROR);
 }
 
@@ -45,7 +45,7 @@ void	ft_print_export_list(t_shell_info *shell)
 			printf("declare -x %s\n", list->key);
 		list = list->next;
 	}
-}
+}        
 
 int	ft_export(t_shell_info *shell)
 {

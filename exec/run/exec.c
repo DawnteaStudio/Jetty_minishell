@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:40:49 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/10 09:44:28 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/11 23:18:36 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,5 @@ int	ft_exec_cmd(t_shell_info *shell, char *str)
 int	ft_exec(t_shell_info *shell, char *str)
 {
 	ft_exec_cmd(shell, str);
-	// dup2(shell->backup_stdin, 0);
-	// dup2(shell->backup_stdout, 1);
 	return (0);
 }

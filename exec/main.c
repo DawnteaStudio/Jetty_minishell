@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:12:05 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/11 22:26:45 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/12 09:44:15 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	set_minishell(int argc, char **argv, char **envp, t_shell_info *shell)
 		exit(1);
 	}
 	(void)argv;
+	shell->backup_pwd = ft_strdup("");
+	shell->oldpwd = 1;
 	shell->envp = envp;
 	shell->backup_stdin = dup(0);
 	shell->backup_stdout = dup(1);

@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:02:59 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/10 08:43:46 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/12 08:09:20 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,7 @@ int	ft_exec_builtin(t_shell_info *shell, int builtin)
 		return (ft_unset(shell));
 	else if (builtin == BLT_EXPORT)
 		return (ft_export(shell));
+	else if (builtin == BLT_CD)
+		return (ft_cd(shell));
 	return (ft_exit(shell));
 }

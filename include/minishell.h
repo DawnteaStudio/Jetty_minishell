@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/11 21:24:50 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/12 09:43:54 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,12 @@ typedef struct s_env_node
 
 typedef struct s_shell_info
 {
+	char			*backup_pwd;
 	char			**envp;
 	t_tree			*tree;
 	int				backup_stdin;
 	int				backup_stdout;
+	int				oldpwd;
 	struct termios	term;
 	t_env_node		*env_list;
 }	t_shell_info;
@@ -158,7 +160,7 @@ int			ft_exit(t_shell_info *shell);
 int			ft_env(t_shell_info *shell);
 int			ft_unset(t_shell_info *shell);
 int			ft_export(t_shell_info *shell);
-
+int			ft_cd(t_shell_info *shell);
 //env
 t_env_node	*is_include_env(t_env_node	**env_list, char *key);
 
