@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:06:51 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/11 22:22:00 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/14 17:14:17 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,15 @@ void	make_env_component(t_env_node **new_env_list, char *env_line)
 		if (env_line[cp.i] == '=')
 		{
 			cp.key = heap_handler(ft_substr(env_line, 0, cp.i++));
-			cp.flag_check_value = TRUE;
+			if (env_line[cp.i + 1])
+				cp.flag_check_value = TRUE;
 			break ;
 		}
 		cp.i++;
 	}
 	if (cp.flag_check_value == TRUE && cp.i < cp.len)
 		cp.value = heap_handler(ft_substr(env_line, cp.i, cp.len - 1));
-	else if (cp.flag_check_value == FALSE)
+	else if (cp.flag_check_value == FALSE && cp.key == NULL)
 		cp.key = heap_handler(ft_substr(env_line, 0, cp.len));
 	update_env_list(new_env_list, cp.key, cp.value);
 }

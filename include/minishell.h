@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/14 10:17:11 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/14 16:36:46 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ typedef struct s_shell_info
 	t_tree			*tree;
 	int				backup_stdin;
 	int				backup_stdout;
-	int				oldpwd;
+	int				unset_pwd;
 	struct termios	term;
 	t_env_node		*env_list;
 }	t_shell_info;
@@ -199,12 +199,12 @@ void		set_signal(int sig_int, int sig_quit);
 
 //builtins
 int			ft_pwd(void);
-int			ft_echo(t_shell_info *shell);
-int			ft_exit(t_shell_info *shell);
+int			ft_echo(t_tree * tree);
+int			ft_exit(t_shell_info *shell, t_tree *tree);
 int			ft_env(t_shell_info *shell);
-int			ft_unset(t_shell_info *shell);
-int			ft_export(t_shell_info *shell);
-int			ft_cd(t_shell_info *shell);
+int			ft_unset(t_shell_info *shell, t_tree *tree);
+int			ft_export(t_shell_info *shell, t_tree *tree);
+int			ft_cd(t_shell_info *shell, t_tree *tree);
 //env
 t_env_node	*is_include_env(t_env_node	**env_list, char *key);
 
@@ -225,11 +225,11 @@ void		clean_all(t_shell_info *shell);
 int			ft_exec(t_shell_info *shell, t_tree *tree);
 
 //exec_node
-int			ft_exec_node(t_shell_info *shell, char *str);
+int			ft_exec_node(t_shell_info *shell, t_tree *tree);
 
 //exec_builitin
 int			is_builtin(char *cmd);
-int			ft_exec_builtin(t_shell_info *shell, int builtin);
+int			ft_exec_builtin(t_shell_info *shell, t_tree *tree, int builtin);
 
 //exec_redirection
 int			ft_exec_redirection(t_tree *tree);

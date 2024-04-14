@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redirect.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 21:02:28 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/13 00:51:00 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/14 15:51:15 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,16 @@ int	ft_append(t_tree *tree)
 	return (CODE_SUCCESS);
 }
 
-int	ft_here_doc(t_tree *tree)
-{
+// int	ft_here_doc(t_tree *tree)
+// {
 	
-}
+// }
 
 int	ft_exec_redirection(t_tree *tree)
 {
 	int	status;
 
+	status = CODE_ERROR;
 	if (ft_strcmp(tree->redir, "<") == CODE_SUCCESS)
 		status = ft_in(tree);
 	else if (ft_strcmp(tree->redir, ">") == CODE_SUCCESS)
@@ -79,4 +80,5 @@ int	ft_exec_redirection(t_tree *tree)
 	// {
 		
 	// }
+	return (status);
 }

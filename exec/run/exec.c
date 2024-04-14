@@ -6,21 +6,29 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:40:49 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/14 10:16:51 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/14 16:30:36 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_exec_cmd(t_shell_info *shell, t_tree *tree)
+int	ft_exec_cmd(t_shell_info *shell, t_tree *tree, t_tree *redirs)
 {
 	int	builtin;
 	int	status;
 
+	while (redirs)
+	{
+		ft_exec_redirection(redirs->right);
+		if (redirs->left)
+			redirs = redirs->left;
+		else
+			break ;
+	}
 	builtin = is_builtin(tree->cmd);
 	if (builtin != FALSE)
 	{
-		status = ft_exec_builtin(shell, builtin);
+		status = ft_exec_builtin(shell, tree, builtin);
 		ft_restore_fd(shell);
 		return (status);
 	}
@@ -68,7 +76,7 @@ int	ft_exec_pipe(t_shell_info *shell, t_tree *tree)
 			ft_exec_pipe_node(shell, tree->right, fd, DIRRIGT);
 		else
 		{
-			ft_close_and_wait(status, fd, pid_left, pid_right);
+			ft_close_and_wait(&status, fd, pid_left, pid_right);
 			return (ft_exit_status(status));
 		}
 	}
@@ -80,22 +88,6 @@ int	ft_exec(t_shell_info *shell, t_tree *tree)
 	if (tree->type == TREE_TYPE_PIPE && tree->right)
 		return (ft_exec_pipe(shell, tree));
 	else if (tree->type == TREE_TYPE_PHRASE)
-	{
-		if (tree->left)
-			return (ft_exec(shell, tree->left));
-		if (tree->right)
-			return (ft_exec(shell, tree->right));
-	}
-	else if (tree->type == TREE_TYPE_REDIRECTIONS)
-	{
-		if (tree->left)
-			return (ft_exec(shell, tree->left));
-		if (tree->right)
-			return (ft_exec(shell, tree->right));
-	}
-	else if (tree->type == TREE_TYPE_REDIRECTION)
-		return (ft_exec_redirection(tree));
-	else if (tree->type == TREE_TYPE_COMMAND)
-		return (ft_exec_cmd(shell, tree));
+		return (ft_exec_cmd(shell, tree->right, tree->left));
 	return (ft_exec(shell, tree->left));
 }

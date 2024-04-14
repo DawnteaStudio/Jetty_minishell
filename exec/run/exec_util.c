@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_util.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:56:21 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/12 21:33:06 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/14 15:51:43 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	ft_close_and_wait(int *status, int fd[2], pid_t left, pid_t right)
 {
 	close(fd[0]);
 	close(fd[1]);
-	waitpid(left, &status, 0);
-	waitpid(right, &status, 0);
+	waitpid(left, &(*status), 0);
+	waitpid(right, &(*status), 0);
 }
 
 int	ft_exit_status(int status)

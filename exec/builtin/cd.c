@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 08:05:45 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/12 09:47:13 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/14 16:31:43 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_change_pwd(t_shell_info *shell)
 		shell->backup_pwd = ft_strdup(cwd);
 	}
 	free(cwd);
-	return (CODE_ERROR);
+	return (CODE_SUCCESS);
 }
 
 int	ft_cd_only(t_shell_info *shell)
@@ -74,33 +74,24 @@ int	ft_cd_only(t_shell_info *shell)
 	return (ft_cd_err(home, 0));
 }
 
-int	ft_cd(t_shell_info *shell)
+int	ft_cd(t_shell_info *shell, t_tree *tree)
 {
 	t_env_node	*check_pwd;
 	t_env_node	*check_oldpwd;
 
-	if (shell->tree->exp[1] == NULL)
+	if (tree->exp[1] == NULL)
 		return (ft_cd_only(shell));
-	if (chdir(shell->tree->exp[1]) != CODE_SUCCESS)
-		return (ft_cd_err(shell->tree->exp[1], 0));
+	if (chdir(tree->exp[1]) != CODE_SUCCESS)
+		return (ft_cd_err(tree->exp[1], 0));
 	check_pwd = is_include_env(&(shell->env_list), "PWD");
 	check_oldpwd = is_include_env(&(shell->env_list), "OLDPWD");
 	if (check_pwd)
+		update_env_list(&(shell->env_list), "OLDPWD", check_pwd->value);
+	else if (shell->unset_pwd == 1)
 	{
-		if (check_oldpwd)
-		{
-			
-		}
-		else if (shell->oldpwd == 1)
-		{
-			
-		}
-		else
-		{
-			
-		}
+		shell->unset_pwd = 0;
+		update_env_list(&(shell->env_list), "OLDPWD", "");
 	}
-		update_env_list(&(shell->env_list), "OLDPWD", check->value);
 	else
 		update_env_list(&(shell->env_list), "OLDPWD", shell->backup_pwd);
 	return (ft_change_pwd(shell));

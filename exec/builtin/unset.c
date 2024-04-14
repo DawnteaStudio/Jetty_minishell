@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 07:20:24 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/11 21:34:39 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/14 16:40:00 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,14 @@ void	unset(t_shell_info *shell, char *key)
 	cur = shell->env_list;
 	while (cur)
 	{
-		if (!ft_strcmp(key, cur->key))
+		if (ft_strcmp(key, cur->key) == CODE_SUCCESS)
 		{
 			if (pre)
 				pre->next = cur->next;
 			else
 				shell->env_list = cur->next;
+			if (ft_strcmp("PWD", key)== CODE_SUCCESS)
+				shell->unset_pwd = 1;
 			free(cur);
 			return ;
 		}
@@ -65,24 +67,24 @@ void	unset(t_shell_info *shell, char *key)
 	}
 }
 
-int	ft_unset(t_shell_info *shell)
+int	ft_unset(t_shell_info *shell, t_tree *tree)
 {
 	int	i;
 	int	exit_code;
 
 	i = 1;
 	exit_code = CODE_SUCCESS;
-	while (shell->tree->exp[i])
+	while (tree->exp[i])
 	{
-		if (is_valid_key(shell->tree->exp[i]) == FALSE)
+		if (is_valid_key(tree->exp[i]) == FALSE)
 		{
 			ft_putstr_fd("jetty: unset: `", 2);
-			ft_putstr_fd(shell->tree->exp[i], 2);
+			ft_putstr_fd(tree->exp[i], 2);
 			ft_putstr_fd("': not a valid identifier\n", 2);
 			exit_code = CODE_ERROR;
 		}
 		else
-			unset(shell, shell->tree->exp[i]);
+			unset(shell, tree->exp[i]);
 		i++;
 	}
 	return (exit_code);

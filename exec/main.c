@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:12:05 by sewopark          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/04/12 09:44:15 by sewopark         ###   ########.fr       */
-=======
-/*   Updated: 2024/04/12 23:43:51 by parksewon        ###   ########.fr       */
->>>>>>> 51cf1227b5bf049b054003da64b7b5d3b45a74c1
+/*   Updated: 2024/04/14 16:58:26 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +14,11 @@
 
 int	g_exit_code;
 
-int	start_exec(t_shell_info *shell, t_tree *tree)
+int	start_exec(t_shell_info *shell)
 {
 	set_signal(DEFAULT, CUSTOM);
 	tcsetattr(STDIN_FILENO, TCSANOW, &(shell->term));
-	return (ft_exec(shell, tree));
+	return (ft_exec(shell, shell->tree));
 }
 
 void	set_minishell(int argc, char **argv, char **envp, t_shell_info *shell)
@@ -34,7 +30,7 @@ void	set_minishell(int argc, char **argv, char **envp, t_shell_info *shell)
 	}
 	(void)argv;
 	shell->backup_pwd = ft_strdup("");
-	shell->oldpwd = 1;
+	shell->unset_pwd = 1;
 	shell->envp = envp;
 	shell->backup_stdin = dup(0);
 	shell->backup_stdout = dup(1);
@@ -46,9 +42,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	char			*str;
 	t_shell_info	shell;
-	t_tree			*tree;
 
-	shell.tree = &tree;
 	tcgetattr(STDIN_FILENO, &(shell.term));
 	set_minishell(argc, argv, envp, &shell);
 	while (1)
@@ -57,15 +51,15 @@ int	main(int argc, char **argv, char **envp)
 		str = readline("jetty_shell>");
 		if (str == NULL)
 		{
-			ft_putstr_fd("exit\n", 1);
+			printf("\033[1A\033[13Cexit\n");
 			break ;
 		}
 		if (str[0] != 0)
 			add_history(str);
-		tree = parse(str, &(shell.env_list));
-		g_exit_code = start_exec(&shell, tree);
+		shell.tree = parse(str, &(shell.env_list));
+		g_exit_code = start_exec(&shell);
 		free(str);
 	}
 	clean_all(&shell);
-	return (g_exit_code);
+	return (CODE_SUCCESS);
 }
