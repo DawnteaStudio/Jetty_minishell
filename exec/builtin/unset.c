@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 07:20:24 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/14 16:40:00 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/14 23:25:42 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	unset(t_shell_info *shell, char *key)
 				pre->next = cur->next;
 			else
 				shell->env_list = cur->next;
-			if (ft_strcmp("PWD", key)== CODE_SUCCESS)
+			if (ft_strcmp("PWD", key) == CODE_SUCCESS)
 				shell->unset_pwd = 1;
 			free(cur);
 			return ;

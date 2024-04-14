@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 06:08:50 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/14 16:33:32 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/14 23:26:35 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_option(char *s)
 	return (TRUE);
 }
 
-int	ft_echo(t_tree * tree)
+int	ft_echo(t_tree *tree)
 {
 	int	i;
 	int	option;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_access.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 21:39:57 by parksewon         #+#    #+#             */
-/*   Updated: 2024/04/14 15:54:46 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/14 23:25:14 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_exit_code	is_read(char *file)
 {
 	if (file[0] == 0)
-		return(putstr_error(file, CODE_ERROR, ERR_NO_SUCH_FILE));
+		return (putstr_error(file, CODE_ERROR, ERR_NO_SUCH_FILE));
 	if (access(file, F_OK) == 0)
 	{
 		if (access(file, R_OK) == -1)
@@ -28,7 +28,7 @@ t_exit_code	is_read(char *file)
 t_exit_code	is_write(char *file)
 {
 	if (file[0] == 0)
-		return(putstr_error(file, CODE_ERROR, ERR_NO_SUCH_FILE));
+		return (putstr_error(file, CODE_ERROR, ERR_NO_SUCH_FILE));
 	if (access(file, F_OK) == 0)
 	{
 		if (access(file, W_OK) == -1)
@@ -41,7 +41,7 @@ t_exit_code	is_write(char *file)
 t_exit_code	is_append(char *file)
 {
 	if (file[0] == 0)
-		return(putstr_error(file, CODE_ERROR, ERR_NO_SUCH_FILE));
+		return (putstr_error(file, CODE_ERROR, ERR_NO_SUCH_FILE));
 	if (access(file, F_OK) == 0)
 	{
 		if (access(file, W_OK) == -1)
