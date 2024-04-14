@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_node.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:06:51 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/14 17:14:17 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/14 23:06:39 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,6 @@ void	make_env_list(t_shell_info *shell)
 		make_env_component(&(shell->env_list), (shell->envp)[i]);
 		i++;
 	}
+	if (is_include_env(&(shell->env_list), "OLDPWD") == NULL)
+		update_env_list(&(shell->env_list), "OLDPWD", NULL);
 }
