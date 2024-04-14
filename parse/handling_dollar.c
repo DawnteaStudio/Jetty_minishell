@@ -6,21 +6,34 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 02:21:04 by erho              #+#    #+#             */
-/*   Updated: 2024/04/10 04:10:37 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/12 16:37:07 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	is_valid_character(char c)
+{
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
+			|| c == '_')
+		return (TRUE);
+	return (FALSE);
+}
 
 char	*check_key(t_env_node **env_list, char *str, t_command *cmd)
 {
 	char		*key;
 	t_env_node	*tmp;
 
-	if (str[cmd->width] == ' ' || str[cmd->width] == '\0')
-		return (ft_strdup("$"));
-	if (is_quote(str[cmd->width]))
+	if (str[cmd->width] == '?')
+	{
+		cmd->width++;
+		return (ft_itoa(g_exit_code));
+	}
+	if (cmd->quotes == '\0' && is_quote(str[cmd->width]))
 		return (ft_strdup(""));
+	if (!is_valid_character(str[cmd->width]))
+		return (ft_strdup("$"));
 	while (str[cmd->width] && str[cmd->width] != ' '
 		&& !is_quote(str[cmd->width]))
 		cmd->width++;
@@ -38,7 +51,9 @@ char	*get_env_value(t_env_node **env_list, char *str, char **res,
 	char	*value;
 	char	*m_str;
 
+	printf("test zz success\n");
 	cmd->word = ++(cmd->width);
+	printf("width : %d\n", cmd->width);
 	value = check_key(env_list, str, cmd);
 	m_str = res_join(res, &value);
 	if (str[cmd->width] == cmd->quotes)

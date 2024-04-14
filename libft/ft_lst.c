@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lst.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:41:18 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/05 14:53:01 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/11 22:03:09 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_list	*ft_lstnew(char *content)
 
 	node = (t_list *)malloc(sizeof(t_list));
 	if (!node)
-		return (NULL);
+		ft_error(MEMORY);
 	node->content = content;
 	node->next = NULL;
 	return (node);

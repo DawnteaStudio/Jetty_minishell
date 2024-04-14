@@ -6,13 +6,13 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:17:11 by erho              #+#    #+#             */
-/*   Updated: 2024/04/08 21:57:34 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/12 02:43:07 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int check_bracket(char *str, t_command *cmd)
+int	check_bracket(char *str, t_command *cmd)
 {
 	if (!is_bracket(str[cmd->width - 1]))
 		return (is_bracket(str[cmd->width]));
@@ -23,7 +23,7 @@ int check_bracket(char *str, t_command *cmd)
 	return (0);
 }
 
-int check_sign(char *str, t_command *cmd)
+int	check_sign(char *str, t_command *cmd)
 {
 	if (is_dollar(str[cmd->width]) && !is_dollar(str[cmd->width - 1]))
 		return (1);

@@ -6,7 +6,7 @@
 #    By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 14:06:13 by sewopark          #+#    #+#              #
-#    Updated: 2024/04/08 20:20:19 by erho             ###   ########.fr        #
+#    Updated: 2024/04/12 01:33:12 by erho             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,10 @@ CC		= cc
 RM		= rm -f
 CFLAGS	= -Wall -Wextra -Werror
 
-PARSE	= _test_main.c tokenizer.c tokenizer_helper.c bool_check.c lexer.c
+PARSE	= _test_main.c tokenizer.c tokenizer_helper.c bool_check.c lexer.c \
+			parse_helper.c handling_dollar.c parser.c set_tree_utils.c \
+			set_tree.c _test_env_lst.c insert_tree.c insert_tree_utils.c
+			
 SRCS	= $(PARSE)
 OBJS	= $(SRCS:%.c=%.o)
 LIBFT	= ../libft/libft.a
