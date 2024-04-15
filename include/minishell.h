@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/12 18:17:26 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/15 20:18:18 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_tree
 	char			*redir;
 	char			*redir_info;
 	char			**exp;
+	int				is_env;
 	struct s_tree	*left;
 	struct s_tree	*right;
 }	t_tree;
@@ -116,6 +117,7 @@ typedef struct s_command
 	char	quotes;
 	int		word_count;
 	int		len;
+	char	q_back_up;
 }	t_command;
 
 typedef struct s_token
@@ -159,11 +161,11 @@ void		tree_make_word(char *s1, char *s2, t_command cmd);
 
 // set_tree
 t_tree		*create_node(int type);
-char		*extract_data(char *str, t_env_node **env_list);
+char		*extract_data(char *str, t_env_node **env_list, int *flag);
 
 // handling_dollar
 char		*get_env_value(t_env_node **env_list, char *str, char **res,
-				t_command *cmd);
+				t_command *cmd, int *flag);
 
 // insert_tree
 int			pipe_node(t_tree **tree, t_token *tokens, t_env_node **env_list,

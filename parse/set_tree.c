@@ -6,17 +6,16 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 20:48:27 by erho              #+#    #+#             */
-/*   Updated: 2024/04/11 23:16:15 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/15 20:24:27 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*extract_data(char *str, t_env_node **env_list)
+char	*extract_data(char *str, t_env_node **env_list, int *flag)
 {
 	t_command	cmd;
 	char		*temp;
-	char		q_back_up;
 	char		*res;
 
 	res = (char *)malloc(sizeof(char));
@@ -24,20 +23,19 @@ char	*extract_data(char *str, t_env_node **env_list)
 		exit(1);
 	res[0] = '\0';
 	ft_memset(&cmd, 0, sizeof(t_command));
-	q_back_up = '\0';
 	while (str[cmd.width])
 	{
 		cmd.len = 0;
 		tree_find_idx(str, &cmd);
-		swap_ch(&cmd.quotes, &q_back_up);
+		swap_ch(&cmd.quotes, &cmd.q_back_up);
 		temp = (char *)malloc(sizeof(char) * (cmd.len + 1));
 		if (temp == NULL)
 			exit(1);
 		tree_make_word(temp, &str[cmd.word], cmd);
-		swap_ch(&cmd.quotes, &q_back_up);
+		swap_ch(&cmd.quotes, &cmd.q_back_up);
 		res = res_join(&res, &temp);
 		if (str[cmd.width] != '\0')
-			res = get_env_value(env_list, str, &res, &cmd);
+			res = get_env_value(env_list, str, &res, &cmd, flag);
 	}
 	return (res);
 }
@@ -56,5 +54,6 @@ t_tree	*create_node(int type)
 	new_node->exp = NULL;
 	new_node->left = NULL;
 	new_node->right = NULL;
+	new_node->is_env = FALSE;
 	return (new_node);
 }
