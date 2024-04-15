@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 02:21:04 by erho              #+#    #+#             */
-/*   Updated: 2024/04/15 20:23:41 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/16 01:27:27 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,27 @@
 
 int	is_valid_character(char c)
 {
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
-			|| c == '_')
+	if (ft_isalpha(c) || ft_isdigit(c) || c == '_')
 		return (TRUE);
 	return (FALSE);
 }
 
-char	*check_key(t_env_node **env_list, char *str, t_command *cmd, int *flag)
+int	find_key_idx(char *str, t_command *cmd)
 {
-	char		*key;
+	if (str[cmd->width] == '\0')
+		return (FALSE);
+	if (str[cmd->width] != ' ' && !is_quote(str[cmd->width])
+		&& !(cmd->width != cmd->word && ft_isdigit(str[cmd->width])))
+		return (TRUE);
+	return (FALSE);
+}
+
+char	*check_key(t_env_node **env_list, char *str, t_command *cmd,
+		t_tree **tree)
+{
 	t_env_node	*tmp;
 
+	cmd->word = ++(cmd->width);
 	if (str[cmd->width] == '?')
 	{
 		cmd->width++;
@@ -34,27 +44,21 @@ char	*check_key(t_env_node **env_list, char *str, t_command *cmd, int *flag)
 		return (ft_strdup(""));
 	if (!is_valid_character(str[cmd->width]))
 		return (ft_strdup("$"));
-	*flag = TRUE;
-	while (str[cmd->width] && str[cmd->width] != ' '
-		&& !is_quote(str[cmd->width]))
+	while (find_key_idx(str, cmd))
 		cmd->width++;
-	key = ft_substr(str, cmd->word, cmd->width - cmd->word);
-	tmp = is_include_env(env_list, key);
+	(*tree)->env_key = ft_substr(str, cmd->word, cmd->width - cmd->word);
+	(*tree)->is_env = TRUE;
+	tmp = is_include_env(env_list, (*tree)->env_key);
 	if (tmp == NULL)
 		return (ft_strdup(""));
-	free(key);
 	return (ft_strdup(tmp->value));
 }
 
-char	*get_env_value(t_env_node **env_list, char *str, char **res,
-		t_command *cmd, int *flag)
+char	*get_env_value(char **value, char *str, char **res, t_command *cmd)
 {
-	char	*value;
 	char	*m_str;
 
-	cmd->word = ++(cmd->width);
-	value = check_key(env_list, str, cmd, flag);
-	m_str = res_join(res, &value);
+	m_str = res_join(res, value);
 	if (str[cmd->width] == cmd->quotes)
 	{
 		cmd->width++;

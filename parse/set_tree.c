@@ -6,22 +6,20 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 20:48:27 by erho              #+#    #+#             */
-/*   Updated: 2024/04/15 20:24:27 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/16 01:10:06 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*extract_data(char *str, t_env_node **env_list, int *flag)
+char	*extract_data(char *str, t_env_node **env_list, t_tree	**tree)
 {
 	t_command	cmd;
 	char		*temp;
 	char		*res;
+	char		*value;
 
-	res = (char *)malloc(sizeof(char));
-	if (res == NULL)
-		exit(1);
-	res[0] = '\0';
+	res = ft_strdup("");
 	ft_memset(&cmd, 0, sizeof(t_command));
 	while (str[cmd.width])
 	{
@@ -35,7 +33,10 @@ char	*extract_data(char *str, t_env_node **env_list, int *flag)
 		swap_ch(&cmd.quotes, &cmd.q_back_up);
 		res = res_join(&res, &temp);
 		if (str[cmd.width] != '\0')
-			res = get_env_value(env_list, str, &res, &cmd, flag);
+		{
+			value = check_key(env_list, str, &cmd, tree);
+			res = get_env_value(&value, str, &res, &cmd);
+		}
 	}
 	return (res);
 }
@@ -55,5 +56,6 @@ t_tree	*create_node(int type)
 	new_node->left = NULL;
 	new_node->right = NULL;
 	new_node->is_env = FALSE;
+	new_node->env_key = NULL;
 	return (new_node);
 }

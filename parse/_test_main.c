@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 20:50:58 by erho              #+#    #+#             */
-/*   Updated: 2024/04/12 02:05:33 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/16 01:08:37 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,13 @@ int	g_exit_code;
 
 void	print_tree_type(t_tree *tree)
 {
-	if (tree->type == TREE_TYPE_PHRASE)
-		printf("tree phrase\n");
-	else if (tree->type == TREE_TYPE_REDIRECTIONS)	
-		printf("tree redirections\n");
-	else if (tree->type == TREE_TYPE_REDIRECTION)
-	{	
-		printf("tree redirection\n");
-		printf("%s %s\n", tree->redir, tree->redir_info);
+	if (tree->type == TREE_TYPE_REDIRECTION)
+	{
+		printf("%s %s flag: %d\n", tree->redir, tree->redir_info, tree->is_env);
+		printf("key: %s\n", tree->env_key);
 	}
 	else if (tree->type == TREE_TYPE_COMMAND)
 	{
-		printf("tree command\n");
 		printf("%s\n", tree->cmd);
 		int i=0;
 		while (tree->exp && tree->exp[i])
@@ -36,8 +31,6 @@ void	print_tree_type(t_tree *tree)
 			i++;
 		}
 	}
-	else if (tree->type == TREE_TYPE_PIPE)
-		printf("tree pipe\n");
 	if (tree->left != NULL)
 		print_tree_type(tree->left);
 	if (tree->right != NULL)

@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 18:37:23 by erho              #+#    #+#             */
-/*   Updated: 2024/04/12 02:35:36 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/16 01:24:40 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_atoi(const char *str);
 int		ft_isdigit(int c);
 char	*ft_itoa(int n);
+int		ft_isdigit(int c);
+int		ft_isalpha(int c);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:17:11 by erho              #+#    #+#             */
-/*   Updated: 2024/04/12 01:50:53 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/16 01:06:31 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	free_node(t_tree **tree)
 		}
 		free((*tree)->exp);
 	}
+	if ((*tree)->env_key != NULL)
+		free((*tree)->env_key);
 	free(*tree);
 	*tree = NULL;
 }
