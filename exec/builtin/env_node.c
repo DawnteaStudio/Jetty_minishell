@@ -6,7 +6,7 @@
 /*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:06:51 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/16 22:06:03 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/16 22:54:52 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,27 +55,43 @@ void	update_env_list(t_env_node	**env_list, char *key, char *value)
 	}
 }
 
+void	make_env_component_checker(t_component *cp, char *env_line)
+{
+	while (env_line[cp->i])
+	{
+		if (env_line[cp->i] == '=')
+		{
+			cp->key = heap_handler(ft_substr(env_line, 0, cp->i++));
+			cp->flag_check_value = TRUE;
+			break ;
+		}
+		cp->i++;
+	}
+}
+
 void	make_env_component(t_env_node **new_env_list, char *env_line)
 {
 	t_component	cp;
+	t_env_node	*check;
 
 	ft_memset(&cp, 0, sizeof(t_component));
 	cp.len = ft_strlen(env_line);
-	while (env_line[cp.i])
+	make_env_component_checker(&cp, env_line);
+	if (cp.flag_check_value == TRUE)
 	{
-		if (env_line[cp.i] == '=')
-		{
-			cp.key = heap_handler(ft_substr(env_line, 0, cp.i++));
-			cp.flag_check_value = TRUE;
-			break ;
-		}
-		cp.i++;
+		if (cp.i < cp.len)
+			cp.value = heap_handler(ft_substr(env_line, cp.i, cp.len - 1));
+		else if (cp.i == cp.len)
+			cp.value = heap_handler(ft_strdup(""));
+		update_env_list(new_env_list, cp.key, cp.value);
 	}
-	if (cp.flag_check_value == TRUE && cp.i < cp.len)
-		cp.value = heap_handler(ft_substr(env_line, cp.i, cp.len - 1));
-	else if (cp.flag_check_value == FALSE && cp.key == NULL)
+	else
+	{
 		cp.key = heap_handler(ft_substr(env_line, 0, cp.len));
-	update_env_list(new_env_list, cp.key, cp.value);
+		check = is_include_env(new_env_list, cp.key);
+		if (check == NULL)
+			update_env_list(new_env_list, cp.key, cp.value);
+	}
 }
 
 void	make_env_list(t_shell_info *shell)

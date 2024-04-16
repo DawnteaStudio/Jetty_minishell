@@ -6,7 +6,7 @@
 /*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 08:21:18 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/16 22:28:24 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/16 23:24:40 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,20 @@ void	ft_print_export_list(t_shell_info *shell)
 	}
 }
 
+void	ft_restore_pwd(t_shell_info *shell, t_tree *tree, int i)
+{
+	if (ft_strcmp("PWD", tree->exp[i]) == CODE_SUCCESS)
+	{
+		if (is_include_env(&(shell->env_list), "PWD")->value == NULL)
+			update_env_list(&(shell->env_list), "PWD", shell->backup_pwd);
+	}
+	else if (ft_strcmp("OLDPWD", tree->exp[i]) == CODE_SUCCESS)
+	{
+		if (is_include_env(&(shell->env_list), "OLDPWD") == NULL)
+			shell->pure_oldpwd = TRUE;
+	}
+}
+
 int	ft_export(t_shell_info *shell, t_tree *tree)
 {
 	int		i;
@@ -82,11 +96,7 @@ int	ft_export(t_shell_info *shell, t_tree *tree)
 				exit_code = ft_print_export_error(tree->exp[i]);
 			else
 				make_env_component(&(shell->env_list), tree->exp[i]);
-			if (ft_strcmp("PWD", tree->exp[i]) == CODE_SUCCESS)
-				update_env_list(&(shell->env_list), "PWD", shell->backup_pwd);
-			else if (ft_strcmp("OLDPWD", tree->exp[i]) == CODE_SUCCESS && \
-			is_include_env(&(shell->env_list), "OLDPWD") == NULL)
-				shell->pure_oldpwd = TRUE;
+			ft_restore_pwd(shell, tree, i);
 			i++;
 		}
 	}
