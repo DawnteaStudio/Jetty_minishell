@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/16 10:50:56 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/16 17:08:41 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@
 # define DEFAULT	0
 # define IGNORE		1
 # define CUSTOM		2
+# define CHSIGINT	3
+
+# define DIRLEFT	0
+# define DIRRIGT	1
 
 extern int	g_exit_code;
 
@@ -70,6 +74,14 @@ typedef enum e_tree_type
 	TREE_TYPE_REDIRECTION
 }	t_tree_type;
 
+typedef enum e_error_type
+{
+	ERR_CMD_NOT_FND,
+	ERR_NO_SUCH_FILE,
+	ERR_PER_DENIED,
+	ERR_AMBIGUOUS
+}	t_error_type;
+
 typedef struct s_tree
 {
 	int				type;
@@ -91,10 +103,12 @@ typedef struct s_env_node
 
 typedef struct s_shell_info
 {
+	char			*backup_pwd;
 	char			**envp;
 	t_tree			*tree;
 	int				backup_stdin;
 	int				backup_stdout;
+	int				unset_pwd;
 	struct termios	term;
 	t_env_node		*env_list;
 }	t_shell_info;
@@ -188,11 +202,12 @@ void		set_signal(int sig_int, int sig_quit);
 
 //builtins
 int			ft_pwd(void);
-int			ft_echo(t_shell_info *shell);
-int			ft_exit(t_shell_info *shell);
+int			ft_echo(t_tree * tree);
+int			ft_exit(t_shell_info *shell, t_tree *tree);
 int			ft_env(t_shell_info *shell);
-int			ft_unset(t_shell_info *shell);
-int			ft_export(t_shell_info *shell);
+int			ft_unset(t_shell_info *shell, t_tree *tree);
+int			ft_export(t_shell_info *shell, t_tree *tree);
+int			ft_cd(t_shell_info *shell, t_tree *tree);
 
 //env
 t_env_node	*is_include_env(t_env_node	**env_list, char *key);
@@ -203,6 +218,9 @@ void		update_env_list(t_env_node	**env_list, char *key, char *value);
 void		make_env_list(t_shell_info *shell);
 void		make_env_component(t_env_node **new_env_list, char *env_line);
 
+//pwd
+int			ft_change_pwd(t_shell_info *shell);
+
 //unset
 int			is_valid_key(char *str);
 
@@ -211,16 +229,30 @@ char		*heap_handler(char *ptr);
 void		clean_all(t_shell_info *shell);
 
 //exec
-int			ft_exec(t_shell_info *shell, char *str);
+int			ft_exec(t_shell_info *shell, t_tree *tree);
 
 //exec_node
-int			ft_exec_node(t_shell_info *shell, char *str);
+int			ft_exec_node(t_shell_info *shell, t_tree *tree);
 
 //exec_builitin
 int			is_builtin(char *cmd);
-int			ft_exec_builtin(t_shell_info *shell, int builtin);
+int			ft_exec_builtin(t_shell_info *shell, t_tree *tree, int builtin);
+
+//exec_redirection
+int			ft_exec_redirection(t_tree *tree);
+void		ft_restore_fd(t_shell_info *shell);
 
 //exec_util
 char		**ft_get_all_path(t_shell_info *shell);
+void		ft_close_and_wait(int *status, int fd[2]);
+int			ft_exit_status(int status);
+void		ft_restore_fd(t_shell_info *shell);
+
+//exec_access
+t_exit_code	is_read(char *file);
+t_exit_code	is_write(char *file);
+
+//exec_error
+t_exit_code	putstr_error(char *str, t_exit_code code, t_error_type type);
 
 #endif

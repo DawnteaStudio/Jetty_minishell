@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_node.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:06:51 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/11 22:22:00 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/14 23:06:39 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,15 @@ void	make_env_component(t_env_node **new_env_list, char *env_line)
 		if (env_line[cp.i] == '=')
 		{
 			cp.key = heap_handler(ft_substr(env_line, 0, cp.i++));
-			cp.flag_check_value = TRUE;
+			if (env_line[cp.i + 1])
+				cp.flag_check_value = TRUE;
 			break ;
 		}
 		cp.i++;
 	}
 	if (cp.flag_check_value == TRUE && cp.i < cp.len)
 		cp.value = heap_handler(ft_substr(env_line, cp.i, cp.len - 1));
-	else if (cp.flag_check_value == FALSE)
+	else if (cp.flag_check_value == FALSE && cp.key == NULL)
 		cp.key = heap_handler(ft_substr(env_line, 0, cp.len));
 	update_env_list(new_env_list, cp.key, cp.value);
 }
@@ -90,4 +91,6 @@ void	make_env_list(t_shell_info *shell)
 		make_env_component(&(shell->env_list), (shell->envp)[i]);
 		i++;
 	}
+	if (is_include_env(&(shell->env_list), "OLDPWD") == NULL)
+		update_env_list(&(shell->env_list), "OLDPWD", NULL);
 }

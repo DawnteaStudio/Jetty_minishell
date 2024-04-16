@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:15:16 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/11 22:04:12 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/11 23:19:14 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ t_env_node	*is_include_env(t_env_node	**env_list, char *key)
 		if (ft_strcmp(key, tmp->key) == 0)
 			return (tmp);
 		tmp = tmp->next;
-		if (tmp == NULL)
-			break;
 	}
 	return (NULL);
 }

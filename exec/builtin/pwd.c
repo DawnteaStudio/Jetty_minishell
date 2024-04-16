@@ -6,11 +6,31 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 21:58:07 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/10 07:20:04 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/16 11:17:40 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	ft_change_pwd(t_shell_info *shell)
+{
+	t_env_node	*check;
+	char		*cwd;
+
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
+		return (CODE_ERROR);
+	check = is_include_env(&(shell->env_list), "PWD");
+	if (check)
+		update_env_list(&(shell->env_list), "PWD", cwd);
+	else
+	{
+		free(shell->backup_pwd);
+		shell->backup_pwd = ft_strdup(cwd);
+	}
+	free(cwd);
+	return (CODE_SUCCESS);
+}
 
 int	ft_pwd(void)
 {

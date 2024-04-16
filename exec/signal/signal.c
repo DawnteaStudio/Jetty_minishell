@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 20:11:28 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/04 12:33:41 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/16 10:58:43 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@ void	signal_handler(int num)
 		rl_redisplay();
 	}
 	else if (num == SIGQUIT)
-	{
-		rl_on_new_line();
-		rl_redisplay();
-	}
+		ft_putstr_fd("Quit: 3\n", 1);
+}
+
+void	child_signal_handler(int num)
+{
+	if (num == SIGINT)
+		ft_putstr_fd("\n", 1);
 }
 
 void	set_signal(int sig_int, int sig_quit)
@@ -42,4 +45,6 @@ void	set_signal(int sig_int, int sig_quit)
 		signal(SIGQUIT, SIG_IGN);
 	if (sig_quit == CUSTOM)
 		signal(SIGQUIT, signal_handler);
+	if (sig_int == CHSIGINT)
+		signal(SIGINT, child_signal_handler);
 }

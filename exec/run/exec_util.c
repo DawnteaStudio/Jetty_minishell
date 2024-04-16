@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:56:21 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/08 22:01:45 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/16 11:04:15 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,25 @@ char	**ft_get_all_path(t_shell_info *shell)
 	else
 		res = ft_split(tmp->value, ':');
 	return (res);
+}
+
+void	ft_close_and_wait(int *status, int fd[2])
+{
+	close(fd[0]);
+	close(fd[1]);
+	waitpid(-1, &(*status), 0);
+	waitpid(-1, &(*status), 0);
+}
+
+int	ft_exit_status(int status)
+{
+	if (WIFSIGNALED(status))
+		return (128 + WTERMSIG(status));
+	return (WEXITSTATUS(status));
+}
+
+void	ft_restore_fd(t_shell_info *shell)
+{
+	dup2(shell->backup_stdin, 0);
+	dup2(shell->backup_stdout, 1);
 }

@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:38:49 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/08 21:01:52 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/16 11:07:31 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,17 @@ void	free_env_list(t_shell_info *shell)
 		free(free_node);
 	}
 	shell->env_list = NULL;
+	free(shell->backup_pwd);
 }
 
 void	clean_all(t_shell_info *shell)
 {
+	struct termios	term;
+
 	heap_handler(NULL);
 	free_env_list(shell);
 	rl_clear_history();
-	tcsetattr(STDIN_FILENO, TCSANOW, &(shell->term));
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag |= ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }

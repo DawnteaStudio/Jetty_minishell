@@ -3,14 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 06:08:50 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/11 21:34:04 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/14 23:26:35 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-//char **node is node's d_array;
 
 #include "../include/minishell.h"
 
@@ -31,22 +29,22 @@ int	ft_option(char *s)
 	return (TRUE);
 }
 
-int	ft_echo(t_shell_info *shell)
+int	ft_echo(t_tree *tree)
 {
 	int	i;
 	int	option;
 
 	i = 1;
 	option = 0;
-	while (shell->tree->exp[i] != NULL && ft_option(shell->tree->exp[i]) == 1)
+	while (tree->exp[i] != NULL && ft_option(tree->exp[i]) == 1)
 	{
 		option = 1;
 		i++;
 	}
-	while (shell->tree->exp[i])
+	while (tree->exp[i])
 	{
-		ft_putstr_fd(shell->tree->exp[i], 1);
-		if (shell->tree->exp[i + 1])
+		ft_putstr_fd(tree->exp[i], 1);
+		if (tree->exp[i + 1])
 			ft_putstr_fd(" ", 1);
 		i++;
 	}
