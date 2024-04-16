@@ -6,7 +6,7 @@
 /*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/16 21:14:13 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/16 22:33:07 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ void		set_signal(int sig_int, int sig_quit);
 
 //builtins
 int			ft_pwd(void);
-int			ft_echo(t_tree * tree);
+int			ft_echo(t_tree *tree);
 int			ft_exit(t_shell_info *shell, t_tree *tree);
 int			ft_env(t_shell_info *shell);
 int			ft_unset(t_shell_info *shell, t_tree *tree);
