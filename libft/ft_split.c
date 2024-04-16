@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 19:00:21 by erho              #+#    #+#             */
-/*   Updated: 2024/01/18 19:23:51 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/16 22:32:16 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static char	**ft_insert(char const *s, char **res, char c)
 	i = 0;
 	array = 0;
 	while (s[i])
-	{	
+	{
 		while (s[i] && s[i] == c)
 			i++;
 		word = i;
