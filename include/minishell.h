@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/16 01:05:47 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/16 10:50:56 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,7 @@ typedef struct s_tree
 	char			*redir;
 	char			*redir_info;
 	char			**exp;
-	int				is_env;
-	char			*env_key;
+	char			*origin_token;
 	struct s_tree	*left;
 	struct s_tree	*right;
 }	t_tree;
@@ -162,13 +161,11 @@ void		tree_make_word(char *s1, char *s2, t_command cmd);
 
 // set_tree
 t_tree		*create_node(int type);
-char		*extract_data(char *str, t_env_node **env_list, t_tree **tree);
+char		*extract_data(char *str, t_env_node **env_list);
 
 // handling_dollar
-char		*get_env_value(char **value, char *str, char **res,
+char		*get_env_value(t_env_node **env_list, char *str, char **res,
 				t_command *cmd);
-char		*check_key(t_env_node **env_list, char *str, t_command *cmd,
-				t_tree **tree);
 
 // insert_tree
 int			pipe_node(t_tree **tree, t_token *tokens, t_env_node **env_list,

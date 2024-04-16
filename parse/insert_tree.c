@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:05:09 by erho              #+#    #+#             */
-/*   Updated: 2024/04/16 01:14:11 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/16 10:50:47 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	join_exp(t_tree **tree, char *str, t_env_node **env_list)
 		tmp[i] = (*tree)->exp[i];
 		i++;
 	}
-	tmp[i] = extract_data(str, env_list, tree);
+	tmp[i] = extract_data(str, env_list);
 	free((*tree)->exp);
 	(*tree)->exp = tmp;
 }
@@ -44,7 +44,8 @@ void	command_node(t_tree **tree, t_token *tokens, t_env_node **env_list,
 	new_node = (*tree)->right;
 	if (new_node->cmd == NULL)
 	{
-		new_node->cmd = extract_data(tokens[*idx].str, env_list, &new_node);
+		new_node->cmd = extract_data(tokens[*idx].str, env_list);
+		new_node->origin_token = ft_strdup(tokens[*idx].str);
 		new_node->exp = (char **)malloc(sizeof(char *) * 2);
 		if (new_node->exp == NULL)
 			exit(1);
@@ -81,7 +82,8 @@ int	redirects_node(t_tree **tree, t_token *tokens, t_env_node **env_list,
 	(*idx)++;
 	if (tokens[*idx].type != TOKEN_TYPE_WORD)
 		return (CODE_ERROR);
-	new_node->redir_info = extract_data(tokens[*idx].str, env_list, &new_node);
+	new_node->redir_info = extract_data(tokens[*idx].str, env_list);
+	new_node->origin_token = ft_strdup(tokens[*idx].str);
 	(*idx)++;
 	return (CODE_SUCCESS);
 }

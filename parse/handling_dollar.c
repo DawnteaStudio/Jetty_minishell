@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 02:21:04 by erho              #+#    #+#             */
-/*   Updated: 2024/04/16 01:27:27 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/16 10:52:06 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ int	find_key_idx(char *str, t_command *cmd)
 	return (FALSE);
 }
 
-char	*check_key(t_env_node **env_list, char *str, t_command *cmd,
-		t_tree **tree)
+char	*check_key(t_env_node **env_list, char *str, t_command *cmd)
 {
 	t_env_node	*tmp;
+	char		*key;
 
 	cmd->word = ++(cmd->width);
 	if (str[cmd->width] == '?')
@@ -46,19 +46,22 @@ char	*check_key(t_env_node **env_list, char *str, t_command *cmd,
 		return (ft_strdup("$"));
 	while (find_key_idx(str, cmd))
 		cmd->width++;
-	(*tree)->env_key = ft_substr(str, cmd->word, cmd->width - cmd->word);
-	(*tree)->is_env = TRUE;
-	tmp = is_include_env(env_list, (*tree)->env_key);
+	key = ft_substr(str, cmd->word, cmd->width - cmd->word);
+	tmp = is_include_env(env_list, key);
+	free(key);
 	if (tmp == NULL)
 		return (ft_strdup(""));
 	return (ft_strdup(tmp->value));
 }
 
-char	*get_env_value(char **value, char *str, char **res, t_command *cmd)
+char	*get_env_value(t_env_node **env_list, char *str, char **res,
+		t_command *cmd)
 {
 	char	*m_str;
+	char	*value;
 
-	m_str = res_join(res, value);
+	value = check_key(env_list, str, cmd);
+	m_str = res_join(res, &value);
 	if (str[cmd->width] == cmd->quotes)
 	{
 		cmd->width++;
