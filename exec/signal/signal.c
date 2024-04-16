@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 20:11:28 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/12 23:43:56 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/16 10:58:43 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,17 @@ void	signal_handler(int num)
 		rl_redisplay();
 	}
 	else if (num == SIGQUIT)
-	{
 		ft_putstr_fd("Quit: 3\n", 1);
-	}
+}
+
+void	child_signal_handler(int num)
+{
+	if (num == SIGINT)
+		ft_putstr_fd("\n", 1);
 }
 
 void	set_signal(int sig_int, int sig_quit)
 {
-	struct termios	term;
-
 	if (sig_int == DEFAULT)
 		signal(SIGINT, SIG_DFL);
 	if (sig_int == IGNORE)
@@ -43,7 +45,6 @@ void	set_signal(int sig_int, int sig_quit)
 		signal(SIGQUIT, SIG_IGN);
 	if (sig_quit == CUSTOM)
 		signal(SIGQUIT, signal_handler);
-	tcgetattr(STDIN_FILENO, &term);
-	term.c_lflag &= ~(ECHOCTL);
-	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	if (sig_int == CHSIGINT)
+		signal(SIGINT, child_signal_handler);
 }

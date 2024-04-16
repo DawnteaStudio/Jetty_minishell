@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:40:49 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/14 16:30:36 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/16 11:05:12 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	ft_exec_cmd(t_shell_info *shell, t_tree *tree, t_tree *redirs)
 
 	while (redirs)
 	{
-		ft_exec_redirection(redirs->right);
-		if (redirs->left)
-			redirs = redirs->left;
+		ft_exec_redirection(redirs->left);
+		if (redirs->right)
+			redirs = redirs->right;
 		else
 			break ;
 	}
@@ -76,7 +76,7 @@ int	ft_exec_pipe(t_shell_info *shell, t_tree *tree)
 			ft_exec_pipe_node(shell, tree->right, fd, DIRRIGT);
 		else
 		{
-			ft_close_and_wait(&status, fd, pid_left, pid_right);
+			ft_close_and_wait(&status, fd);
 			return (ft_exit_status(status));
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:12:05 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/14 16:58:26 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/16 11:07:39 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,24 @@
 
 int	g_exit_code;
 
+void	set_roop(void)
+{
+	struct termios	term;
+
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag &= ~(ECHOCTL);
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	set_signal(CUSTOM, IGNORE);
+}
+
 int	start_exec(t_shell_info *shell)
 {
-	set_signal(DEFAULT, CUSTOM);
-	tcsetattr(STDIN_FILENO, TCSANOW, &(shell->term));
+	struct termios	term;
+
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag |= ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	set_signal(CHSIGINT, CUSTOM);
 	return (ft_exec(shell, shell->tree));
 }
 
@@ -43,11 +57,10 @@ int	main(int argc, char **argv, char **envp)
 	char			*str;
 	t_shell_info	shell;
 
-	tcgetattr(STDIN_FILENO, &(shell.term));
 	set_minishell(argc, argv, envp, &shell);
 	while (1)
 	{
-		set_signal(CUSTOM, IGNORE);
+		set_roop();
 		str = readline("jetty_shell>");
 		if (str == NULL)
 		{

@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/14 16:36:46 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/16 11:05:18 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define DEFAULT	0
 # define IGNORE		1
 # define CUSTOM		2
+# define CHSIGINT	3
 
 # define DIRLEFT	0
 # define DIRRIGT	1
@@ -237,7 +238,7 @@ void		ft_restore_fd(t_shell_info *shell);
 
 //exec_util
 char		**ft_get_all_path(t_shell_info *shell);
-void		ft_close_and_wait(int *status, int fd[2], pid_t left, pid_t right);
+void		ft_close_and_wait(int *status, int fd[2]);
 int			ft_exit_status(int status);
 void		ft_restore_fd(t_shell_info *shell);
 

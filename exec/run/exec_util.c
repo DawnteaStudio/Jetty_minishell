@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:56:21 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/14 15:51:43 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/16 11:04:15 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ char	**ft_get_all_path(t_shell_info *shell)
 	return (res);
 }
 
-void	ft_close_and_wait(int *status, int fd[2], pid_t left, pid_t right)
+void	ft_close_and_wait(int *status, int fd[2])
 {
 	close(fd[0]);
 	close(fd[1]);
-	waitpid(left, &(*status), 0);
-	waitpid(right, &(*status), 0);
+	waitpid(-1, &(*status), 0);
+	waitpid(-1, &(*status), 0);
 }
 
 int	ft_exit_status(int status)
