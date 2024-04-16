@@ -6,7 +6,7 @@
 /*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:12:05 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/16 21:14:32 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/17 01:19:14 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,9 @@ int	main(int argc, char **argv, char **envp)
 		if (str[0] != 0)
 			add_history(str);
 		shell.tree = parse(str, &(shell.env_list));
-		g_exit_code = start_exec(&shell);
-		free(str);
+		if (shell.tree != NULL)
+			g_exit_code = start_exec(&shell);
+		del(str);
 	}
 	clean_all(&shell);
 	return (CODE_SUCCESS);

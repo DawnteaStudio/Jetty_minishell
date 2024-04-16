@@ -6,7 +6,7 @@
 /*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/16 22:33:07 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/17 00:10:25 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 
 # define TRUE		1
 # define FALSE		0
+# define ADDBACK	2
 
 # define DEFAULT	0
 # define IGNORE		1
@@ -34,6 +35,9 @@
 
 # define DIRLEFT	0
 # define DIRRIGT	1
+
+# define K_UNSET	0
+# define K_EXPRT	1
 
 extern int	g_exit_code;
 
@@ -120,7 +124,8 @@ typedef struct s_component
 	int			flag_check_value;
 	size_t		i;
 	size_t		len;
-	t_env_node	*tmp;
+	t_env_node	*check;
+	t_env_node	**new_env_list;
 }	t_component;
 
 typedef struct s_command
@@ -225,11 +230,12 @@ void		make_env_component(t_env_node **new_env_list, char *env_line);
 int			ft_change_pwd(t_shell_info *shell);
 
 //unset
-int			is_valid_key(char *str);
+int			is_valid_key(char *str, int	check);
 
 //clean
 char		*heap_handler(char *ptr);
 void		clean_all(t_shell_info *shell);
+void		del(char *ptr);
 
 //exec
 int			ft_exec(t_shell_info *shell, t_tree *tree);

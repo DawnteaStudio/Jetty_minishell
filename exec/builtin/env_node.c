@@ -6,7 +6,7 @@
 /*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:06:51 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/16 22:54:52 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/17 00:13:54 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,30 @@ void	update_env_list(t_env_node	**env_list, char *key, char *value)
 	}
 }
 
+void	add_env_value_back(t_component *cp, char *env_line)
+{
+	char	*tmp;
+
+	tmp = NULL;
+	if (cp->i < cp->len)
+		cp->value = heap_handler(ft_substr(env_line, cp->i, cp->len - 1));
+	else if (cp->i == cp->len)
+		cp->value = heap_handler(ft_strdup(""));
+	if (cp->check)
+	{
+		if (cp->check->value == NULL)
+			update_env_list(cp->new_env_list, cp->key, cp->value);
+		else
+		{
+			tmp = ft_strdup(cp->check->value);
+			cp->check->value = heap_handler(ft_strjoin(tmp, cp->value));
+			del(tmp);
+		}
+	}
+	else
+		update_env_list(cp->new_env_list, cp->key, cp->value);
+}
+
 void	make_env_component_checker(t_component *cp, char *env_line)
 {
 	while (env_line[cp->i])
@@ -63,7 +87,19 @@ void	make_env_component_checker(t_component *cp, char *env_line)
 		{
 			cp->key = heap_handler(ft_substr(env_line, 0, cp->i++));
 			cp->flag_check_value = TRUE;
-			break ;
+			return ;
+		}
+		else if (env_line[cp->i] == '+' && cp->i + 1 < cp->len)
+		{
+			if (env_line[cp->i + 1] == '=')
+			{
+				cp->key = heap_handler(ft_substr(env_line, 0, cp->i));
+				cp->flag_check_value = ADDBACK;
+				cp->check = is_include_env(cp->new_env_list, cp->key);
+				cp->i += 2;
+				add_env_value_back(cp, env_line);
+				return ;
+			}
 		}
 		cp->i++;
 	}
@@ -72,10 +108,10 @@ void	make_env_component_checker(t_component *cp, char *env_line)
 void	make_env_component(t_env_node **new_env_list, char *env_line)
 {
 	t_component	cp;
-	t_env_node	*check;
 
 	ft_memset(&cp, 0, sizeof(t_component));
 	cp.len = ft_strlen(env_line);
+	cp.new_env_list = new_env_list;
 	make_env_component_checker(&cp, env_line);
 	if (cp.flag_check_value == TRUE)
 	{
@@ -85,26 +121,11 @@ void	make_env_component(t_env_node **new_env_list, char *env_line)
 			cp.value = heap_handler(ft_strdup(""));
 		update_env_list(new_env_list, cp.key, cp.value);
 	}
-	else
+	else if (cp.flag_check_value == FALSE)
 	{
 		cp.key = heap_handler(ft_substr(env_line, 0, cp.len));
-		check = is_include_env(new_env_list, cp.key);
-		if (check == NULL)
+		cp.check = is_include_env(new_env_list, cp.key);
+		if (cp.check == NULL)
 			update_env_list(new_env_list, cp.key, cp.value);
 	}
-}
-
-void	make_env_list(t_shell_info *shell)
-{
-	int	i;
-
-	i = 0;
-	if (!(shell->envp))
-		return ;
-	while ((shell->envp)[i])
-	{
-		make_env_component(&(shell->env_list), (shell->envp)[i]);
-		i++;
-	}
-	update_env_list(&(shell->env_list), "OLDPWD", NULL);
 }

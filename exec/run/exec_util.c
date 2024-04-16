@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_util.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:56:21 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/16 11:04:15 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/17 00:12:17 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ char	*ft_get_path_line(char *path, char **envp)
 		head = ft_substr(envp[i], 0, j);
 		if (ft_strcmp(head, path) == 0)
 		{
-			free(head);
+			del(head);
 			return (envp[i] + j + 1);
 		}
-		free(head);
+		del(head);
 		i++;
 	}
 	return (NULL);

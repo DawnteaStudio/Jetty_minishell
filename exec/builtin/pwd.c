@@ -6,7 +6,7 @@
 /*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 21:58:07 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/16 22:22:01 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/17 00:11:27 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ int	ft_change_pwd(t_shell_info *shell)
 	else
 	{
 		if (shell->backup_pwd)
-			free(shell->backup_pwd);
+			del(shell->backup_pwd);
 		shell->backup_pwd = ft_strdup(cwd);
 	}
-	free(cwd);
+	del(cwd);
 	shell->pure_oldpwd = FALSE;
 	return (CODE_SUCCESS);
 }
@@ -43,6 +43,6 @@ int	ft_pwd(void)
 		return (1);
 	ft_putstr_fd(pwd, 1);
 	ft_putstr_fd("\n", 1);
-	free(pwd);
+	del(pwd);
 	return (CODE_SUCCESS);
 }

@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:15:16 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/11 23:19:14 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/17 00:00:46 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	make_env_list(t_shell_info *shell)
+{
+	int	i;
+
+	i = 0;
+	if (!(shell->envp))
+		return ;
+	while ((shell->envp)[i])
+	{
+		make_env_component(&(shell->env_list), (shell->envp)[i]);
+		i++;
+	}
+	update_env_list(&(shell->env_list), "OLDPWD", NULL);
+}
 
 t_env_node	*is_include_env(t_env_node	**env_list, char *key)
 {

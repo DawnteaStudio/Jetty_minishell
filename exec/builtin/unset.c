@@ -6,7 +6,7 @@
 /*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 07:20:24 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/16 22:27:25 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/17 00:11:47 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_pwds_helper(t_shell_info *shell, char *key)
 	if (ft_strcmp("PWD", key) == CODE_SUCCESS)
 	{
 		if (shell->backup_pwd)
-			free(shell->backup_pwd);
+			del(shell->backup_pwd);
 		shell->backup_pwd = NULL;
 	}
 	else if (ft_strcmp("OLDPWD", key) == CODE_SUCCESS)
@@ -35,7 +35,7 @@ int	ft_isalnum_unset(int c)
 	return (FALSE);
 }
 
-int	is_valid_key(char *str)
+int	is_valid_key(char *str, int	check)
 {
 	int	i;
 
@@ -43,9 +43,13 @@ int	is_valid_key(char *str)
 	if ((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z') \
 	|| str[i] == '_')
 	{
-		while (str[i] && str[i] != '=')
+		while (str[i])
 		{
-			if (ft_isalnum_unset(str[i]) == FALSE && str[i] != '_')
+			if (str[i] == '+' && str[i + 1] == '=' && check == K_EXPRT)
+				return (TRUE);
+			else if (str[i] == '=' && check == K_EXPRT)
+				return (TRUE);
+			else if (ft_isalnum_unset(str[i]) == FALSE && str[i] != '_')
 				return (FALSE);
 			i++;
 		}
@@ -87,7 +91,7 @@ int	ft_unset(t_shell_info *shell, t_tree *tree)
 	exit_code = CODE_SUCCESS;
 	while (tree->exp[i])
 	{
-		if (is_valid_key(tree->exp[i]) == FALSE)
+		if (is_valid_key(tree->exp[i], K_UNSET) == FALSE)
 		{
 			ft_putstr_fd("jetty: unset: `", 2);
 			ft_putstr_fd(tree->exp[i], 2);

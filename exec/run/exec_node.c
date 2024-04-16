@@ -6,7 +6,7 @@
 /*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:32:53 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/13 08:52:18 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/17 00:12:06 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	no_include_slash_case(t_shell_info *shell, t_tree *tree, char **path)
 	{
 		tmp2 = ft_strjoin(path[i], "/");
 		tmp = ft_strjoin(tmp2, tree->cmd);
-		free(tmp2);
+		del(tmp2);
 		if (access(tmp, F_OK) == 0)
 		{
 			if (access(tmp, X_OK) == 0)
@@ -45,7 +45,7 @@ void	no_include_slash_case(t_shell_info *shell, t_tree *tree, char **path)
 					exit(2);
 			// error_handler(PERCOMD, target.arr_cmd[0]);
 		}
-		free(tmp);
+		del(tmp);
 		i++;
 	}
 	exit(1);

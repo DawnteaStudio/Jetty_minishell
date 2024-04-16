@@ -6,7 +6,7 @@
 /*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 08:21:18 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/16 23:24:40 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/17 00:29:40 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,13 @@ void	ft_restore_pwd(t_shell_info *shell, t_tree *tree, int i)
 	}
 	else if (ft_strcmp("OLDPWD", tree->exp[i]) == CODE_SUCCESS)
 	{
-		if (is_include_env(&(shell->env_list), "OLDPWD") == NULL)
+		if (is_include_env(&(shell->env_list), "OLDPWD")->value == NULL)
 			shell->pure_oldpwd = TRUE;
+	}
+	else if (is_include_env(&(shell->env_list), "OLDPWD"))
+	{
+		if (is_include_env(&(shell->env_list), "OLDPWD")->value != NULL)
+			shell->pure_oldpwd = FALSE;
 	}
 }
 
@@ -92,7 +97,7 @@ int	ft_export(t_shell_info *shell, t_tree *tree)
 	{
 		while (tree->exp[i])
 		{
-			if (is_valid_key(tree->exp[i]) == FALSE)
+			if (is_valid_key(tree->exp[i], K_EXPRT) == FALSE)
 				exit_code = ft_print_export_error(tree->exp[i]);
 			else
 				make_env_component(&(shell->env_list), tree->exp[i]);

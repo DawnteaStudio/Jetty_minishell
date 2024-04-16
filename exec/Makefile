@@ -6,7 +6,7 @@
 #    By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 14:06:13 by sewopark          #+#    #+#              #
-#    Updated: 2024/04/16 18:10:28 by parksewon        ###   ########.fr        #
+#    Updated: 2024/04/17 01:16:38 by parksewon        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@
 
 NAME	= minishell
 INCLUDE	= ../include/
-CC		= gcc
+CC		= cc
 RM		= rm -f
 CFLAGS	= -Wall -Wextra -Werror -I/usr/local/opt/readline/include
 LDFLAGS	= -L/usr/local/opt/readline/lib

@@ -6,7 +6,7 @@
 /*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:38:49 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/16 18:50:31 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/17 01:23:52 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	clean_all(t_shell_info *shell)
 
 	heap_handler(NULL);
 	free_env_list(shell);
+	free_tree(&(shell->tree));
 	rl_clear_history();
 	tcgetattr(STDIN_FILENO, &term);
 	term.c_lflag |= ECHOCTL;
