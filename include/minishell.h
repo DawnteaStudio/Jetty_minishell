@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/16 11:05:18 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/16 11:18:13 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,6 +206,7 @@ int			ft_env(t_shell_info *shell);
 int			ft_unset(t_shell_info *shell, t_tree *tree);
 int			ft_export(t_shell_info *shell, t_tree *tree);
 int			ft_cd(t_shell_info *shell, t_tree *tree);
+
 //env
 t_env_node	*is_include_env(t_env_node	**env_list, char *key);
 
@@ -214,6 +215,9 @@ t_env_node	*ft_env_node_new(char *key, char *value);
 void		update_env_list(t_env_node	**env_list, char *key, char *value);
 void		make_env_list(t_shell_info *shell);
 void		make_env_component(t_env_node **new_env_list, char *env_line);
+
+//pwd
+int			ft_change_pwd(t_shell_info *shell);
 
 //unset
 int			is_valid_key(char *str);
