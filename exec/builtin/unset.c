@@ -6,13 +6,25 @@
 /*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 07:20:24 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/14 23:25:42 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/16 22:27:25 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_isalnum(int c)
+void	ft_pwds_helper(t_shell_info *shell, char *key)
+{
+	if (ft_strcmp("PWD", key) == CODE_SUCCESS)
+	{
+		if (shell->backup_pwd)
+			free(shell->backup_pwd);
+		shell->backup_pwd = NULL;
+	}
+	else if (ft_strcmp("OLDPWD", key) == CODE_SUCCESS)
+		shell->pure_oldpwd = TRUE;
+}
+
+int	ft_isalnum_unset(int c)
 {
 	if (c >= '0' && c <= '9')
 		return (TRUE);
@@ -33,7 +45,7 @@ int	is_valid_key(char *str)
 	{
 		while (str[i] && str[i] != '=')
 		{
-			if (ft_isalnum(str[i]) == FALSE && str[i] != '_')
+			if (ft_isalnum_unset(str[i]) == FALSE && str[i] != '_')
 				return (FALSE);
 			i++;
 		}
@@ -57,8 +69,7 @@ void	unset(t_shell_info *shell, char *key)
 				pre->next = cur->next;
 			else
 				shell->env_list = cur->next;
-			if (ft_strcmp("PWD", key) == CODE_SUCCESS)
-				shell->unset_pwd = 1;
+			ft_pwds_helper(shell, key);
 			free(cur);
 			return ;
 		}

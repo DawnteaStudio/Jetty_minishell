@@ -6,7 +6,7 @@
 /*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 08:21:18 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/14 23:26:07 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/16 22:28:24 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,22 @@ int	ft_print_export_error(char *str)
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);
 	return (CODE_ERROR);
+}
+
+void	ft_check_backup_pwd(t_shell_info *shell)
+{
+	t_env_node	*check_pwd;
+	t_env_node	*check_oldpwd;
+
+	check_pwd = is_include_env(&(shell->env_list), "PWD");
+	check_oldpwd = is_include_env(&(shell->env_list), "OLDPWD");
+	if (check_pwd && check_pwd->value)
+		return ;
+	if (check_oldpwd)
+	{
+		if (shell->backup_pwd == NULL)
+			shell->backup_pwd = ft_strdup("");
+	}
 }
 
 void	ft_print_export_list(t_shell_info *shell)
@@ -41,6 +57,8 @@ void	ft_print_export_list(t_shell_info *shell)
 			}
 			printf("\"\n");
 		}
+		else if (!(ft_strcmp(list->key, "OLDPWD") || shell->pure_oldpwd))
+			printf("declare -x %s=\"\"\n", list->key);
 		else if (list->value == NULL && (ft_strcmp(list->key, "_") != 0))
 			printf("declare -x %s\n", list->key);
 		list = list->next;
@@ -64,6 +82,11 @@ int	ft_export(t_shell_info *shell, t_tree *tree)
 				exit_code = ft_print_export_error(tree->exp[i]);
 			else
 				make_env_component(&(shell->env_list), tree->exp[i]);
+			if (ft_strcmp("PWD", tree->exp[i]) == CODE_SUCCESS)
+				update_env_list(&(shell->env_list), "PWD", shell->backup_pwd);
+			else if (ft_strcmp("OLDPWD", tree->exp[i]) == CODE_SUCCESS && \
+			is_include_env(&(shell->env_list), "OLDPWD") == NULL)
+				shell->pure_oldpwd = TRUE;
 			i++;
 		}
 	}

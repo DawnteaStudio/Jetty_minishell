@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gb_cltr.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:38:49 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/16 11:07:31 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:50:31 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	free_env_list(t_shell_info *shell)
 		free(free_node);
 	}
 	shell->env_list = NULL;
-	free(shell->backup_pwd);
+	if (shell->backup_pwd)
+		free(shell->backup_pwd);
 }
 
 void	clean_all(t_shell_info *shell)

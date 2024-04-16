@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 21:58:07 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/16 11:17:40 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/16 22:22:01 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,12 @@ int	ft_change_pwd(t_shell_info *shell)
 		update_env_list(&(shell->env_list), "PWD", cwd);
 	else
 	{
-		free(shell->backup_pwd);
+		if (shell->backup_pwd)
+			free(shell->backup_pwd);
 		shell->backup_pwd = ft_strdup(cwd);
 	}
 	free(cwd);
+	shell->pure_oldpwd = FALSE;
 	return (CODE_SUCCESS);
 }
 

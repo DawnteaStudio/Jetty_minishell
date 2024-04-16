@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:40:49 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/16 11:05:12 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/16 20:59:31 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,26 @@ int	ft_exec_pipe(t_shell_info *shell, t_tree *tree)
 		}
 	}
 	return (CODE_ERROR);
+}
+
+void	ft_exec_preprocess(t_shell_info *shell, t_tree *tree)
+{
+	t_tree	*tmp;
+
+	tmp = tree;
+	if (tmp->cmd && ft_strcmp(tmp->cmd, "export") == CODE_SUCCESS)
+	{
+		if (tmp->exp[1] == NULL)
+			ft_check_backup_pwd(shell);
+	}
+	// else if (tree->redir && ft_strcmp(tmp->redir, "<<") == CODE_SUCCESS)
+	// {
+		
+	// }
+	if (tmp->right)
+		ft_exec_preprocess(shell, tmp->right);
+	if (tmp->left)
+		ft_exec_preprocess(shell, tmp->left);
 }
 
 int	ft_exec(t_shell_info *shell, t_tree *tree)

@@ -6,7 +6,7 @@
 /*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/16 17:08:41 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/16 21:14:13 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ typedef struct s_shell_info
 	t_tree			*tree;
 	int				backup_stdin;
 	int				backup_stdout;
-	int				unset_pwd;
+	int				pure_oldpwd;
 	struct termios	term;
 	t_env_node		*env_list;
 }	t_shell_info;
@@ -212,6 +212,9 @@ int			ft_cd(t_shell_info *shell, t_tree *tree);
 //env
 t_env_node	*is_include_env(t_env_node	**env_list, char *key);
 
+//export
+void		ft_check_backup_pwd(t_shell_info *shell);
+
 //env_node
 t_env_node	*ft_env_node_new(char *key, char *value);
 void		update_env_list(t_env_node	**env_list, char *key, char *value);
@@ -230,6 +233,7 @@ void		clean_all(t_shell_info *shell);
 
 //exec
 int			ft_exec(t_shell_info *shell, t_tree *tree);
+void		ft_exec_preprocess(t_shell_info *shell, t_tree *tree);
 
 //exec_node
 int			ft_exec_node(t_shell_info *shell, t_tree *tree);

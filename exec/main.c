@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:12:05 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/16 11:07:39 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/16 21:14:32 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	start_exec(t_shell_info *shell)
 	term.c_lflag |= ECHOCTL;
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 	set_signal(CHSIGINT, CUSTOM);
+	ft_exec_preprocess(shell, shell->tree);
 	return (ft_exec(shell, shell->tree));
 }
 
@@ -43,12 +44,12 @@ void	set_minishell(int argc, char **argv, char **envp, t_shell_info *shell)
 		exit(1);
 	}
 	(void)argv;
-	shell->backup_pwd = ft_strdup("");
-	shell->unset_pwd = 1;
+	shell->backup_pwd = NULL;
 	shell->envp = envp;
 	shell->backup_stdin = dup(0);
 	shell->backup_stdout = dup(1);
 	shell->env_list = NULL;
+	shell->pure_oldpwd = TRUE;
 	make_env_list(shell);
 }
 
