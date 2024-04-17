@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gb_cltr.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:38:49 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/17 01:23:52 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/17 20:24:24 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	clean_all(t_shell_info *shell)
 
 	heap_handler(NULL);
 	free_env_list(shell);
-	free_tree(&(shell->tree));
 	rl_clear_history();
 	tcgetattr(STDIN_FILENO, &term);
 	term.c_lflag |= ECHOCTL;

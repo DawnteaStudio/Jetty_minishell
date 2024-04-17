@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/17 14:10:04 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/17 19:31:19 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ typedef enum e_error_type
 	ERR_CMD_NOT_FND,
 	ERR_NO_SUCH_FILE,
 	ERR_PER_DENIED,
-	ERR_AMBIGUOUS
+	ERR_AMBIGUOUS,
+	ERR_PERROR
 }	t_error_type;
 
 typedef struct s_tree
@@ -256,7 +257,7 @@ void		ft_restore_fd(t_shell_info *shell);
 
 //exec_util
 char		**ft_get_all_path(t_shell_info *shell);
-void		ft_close_and_wait(int *status, int fd[2]);
+int			ft_close_and_wait(int *status, int fd[2], pid_t pid_right);
 int			ft_exit_status(int status);
 void		ft_restore_fd(t_shell_info *shell);
 

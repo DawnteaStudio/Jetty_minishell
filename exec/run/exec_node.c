@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_node.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:32:53 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/17 00:12:06 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/17 21:03:17 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	include_slash_case(t_shell_info *shell, t_tree *tree)
 		if (access(tree->cmd, X_OK) == 0)
 		{
 			if (execve(tree->cmd, shell->tree->exp, shell->envp) == -1)
-				exit(1);
+				exit(putstr_error(tree->cmd, CODE_ERROR, ERR_PERROR));
 		}
 		exit(putstr_error(tree->cmd, CODE_NOT_EXEC, ERR_PER_DENIED));
 	}
@@ -41,15 +41,17 @@ void	no_include_slash_case(t_shell_info *shell, t_tree *tree, char **path)
 		if (access(tmp, F_OK) == 0)
 		{
 			if (access(tmp, X_OK) == 0)
+			{
+				printf("%s\n", tmp);
 				if (execve(tmp, tree->exp, shell->envp) == -1)
-					exit(2);
-			// error_handler(PERCOMD, target.arr_cmd[0]);
+					exit(putstr_error(tree->cmd, CODE_ERROR, ERR_PERROR));
+			}
+			exit(putstr_error(tree->cmd, CODE_NOT_EXEC, ERR_PER_DENIED));
 		}
 		del(tmp);
 		i++;
 	}
-	exit(1);
-	// error_handler(CMDNFND, target.arr_cmd[0]);
+	exit(putstr_error(tree->cmd, CODE_NOT_FOUND, ERR_CMD_NOT_FND));
 }
 
 void	ft_exec_child(t_shell_info *shell, t_tree *tree)
@@ -59,6 +61,7 @@ void	ft_exec_child(t_shell_info *shell, t_tree *tree)
 
 	path = ft_get_all_path(shell);
 	i = 0;
+	printf("i'm here exec_child\n");
 	while (tree->cmd[i])
 	{
 		if (tree->cmd[i] == '/')
@@ -72,6 +75,7 @@ int	ft_exec_node(t_shell_info *shell, t_tree *tree)
 {
 	pid_t	pid;
 	int		fd[2];
+	int		status;
 
 	if (pipe(fd) == -1)
 		exit(1);
@@ -79,11 +83,7 @@ int	ft_exec_node(t_shell_info *shell, t_tree *tree)
 	if (pid == -1)
 		exit(1);
 	if (!pid)
-	{
-		set_signal(DEFAULT, DEFAULT);
 		ft_exec_child(shell, tree);
-	}
-	waitpid(pid, NULL, 0);
-	set_signal(CUSTOM, IGNORE);
-	return (0);
+	waitpid(pid, &status, 0);
+	return (ft_exit_status(status));
 }

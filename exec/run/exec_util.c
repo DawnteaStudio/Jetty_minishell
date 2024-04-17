@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_util.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:56:21 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/17 00:12:17 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/17 19:31:52 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,17 @@ char	**ft_get_all_path(t_shell_info *shell)
 	return (res);
 }
 
-void	ft_close_and_wait(int *status, int fd[2])
+int	ft_close_and_wait(int *status, int fd[2], pid_t	pid_right)
 {
+	int	last_status;
+
 	close(fd[0]);
 	close(fd[1]);
-	waitpid(-1, &(*status), 0);
-	waitpid(-1, &(*status), 0);
+	if (waitpid(-1, &(*status), 0) == pid_right)
+		last_status = *status;
+	if (waitpid(-1, &(*status), 0) == pid_right)
+		last_status = *status;
+	return last_status;
 }
 
 int	ft_exit_status(int status)

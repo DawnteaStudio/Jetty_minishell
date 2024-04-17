@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:40:49 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/16 20:59:31 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/17 21:00:20 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,7 @@ int	ft_exec_cmd(t_shell_info *shell, t_tree *tree, t_tree *redirs)
 		ft_restore_fd(shell);
 		return (status);
 	}
-	else
-		ft_exec_node(shell, tree);
-	return (0);
+	return (ft_exec_node(shell, tree));
 }
 
 void	ft_exec_pipe_node(t_shell_info *s, t_tree *tree, int fd[2], int dir)
@@ -76,7 +74,7 @@ int	ft_exec_pipe(t_shell_info *shell, t_tree *tree)
 			ft_exec_pipe_node(shell, tree->right, fd, DIRRIGT);
 		else
 		{
-			ft_close_and_wait(&status, fd);
+			status = ft_close_and_wait(&status, fd, pid_right);
 			return (ft_exit_status(status));
 		}
 	}

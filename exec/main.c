@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:12:05 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/17 14:10:19 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/17 20:59:17 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	start_exec(t_shell_info *shell)
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 	set_signal(CHSIGINT, CUSTOM);
 	ft_exec_preprocess(shell, shell->tree);
+	printf("i'm here start_exec\n");
 	return (ft_exec(shell, shell->tree));
 }
 
@@ -74,7 +75,10 @@ int	main(int argc, char **argv, char **envp)
 			add_history(str);
 		shell.tree = parse(str, &(shell.env_list));
 		if (shell.tree != NULL)
+		{
 			g_exit_code = start_exec(&shell);
+			free_tree(&(shell.tree));
+		}
 		del(str);
 	}
 	clean_all(&shell);
