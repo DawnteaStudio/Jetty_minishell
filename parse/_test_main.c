@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   _test_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 20:50:58 by erho              #+#    #+#             */
-/*   Updated: 2024/04/16 01:08:37 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/17 19:24:26 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ int	g_exit_code;
 void	print_tree_type(t_tree *tree)
 {
 	if (tree->type == TREE_TYPE_REDIRECTION)
-	{
-		printf("%s %s flag: %d\n", tree->redir, tree->redir_info, tree->is_env);
-		printf("key: %s\n", tree->env_key);
-	}
+		printf("%s %s\n", tree->redir, tree->redir_info);
 	else if (tree->type == TREE_TYPE_COMMAND)
 	{
 		printf("%s\n", tree->cmd);

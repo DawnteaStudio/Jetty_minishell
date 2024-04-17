@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_tree.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 20:48:27 by erho              #+#    #+#             */
-/*   Updated: 2024/04/16 10:52:13 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/17 19:12:09 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,12 @@ char	*extract_data(char *str, t_env_node **env_list)
 	while (str[cmd.width])
 	{
 		cmd.len = 0;
+		cmd.q_back_up = cmd.quotes;
 		tree_find_idx(str, &cmd);
-		swap_ch(&cmd.quotes, &cmd.q_back_up);
 		temp = (char *)malloc(sizeof(char) * (cmd.len + 1));
 		if (temp == NULL)
 			exit(1);
 		tree_make_word(temp, &str[cmd.word], cmd);
-		swap_ch(&cmd.quotes, &cmd.q_back_up);
 		res = res_join(&res, &temp);
 		if (str[cmd.width])
 			res = get_env_value(env_list, str, &res, &cmd);
