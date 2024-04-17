@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:12:05 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/17 01:19:14 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/17 14:10:19 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,13 @@ void	set_minishell(int argc, char **argv, char **envp, t_shell_info *shell)
 	}
 	(void)argv;
 	shell->backup_pwd = NULL;
+	shell->backup_oldpwd = NULL;
 	shell->envp = envp;
 	shell->backup_stdin = dup(0);
 	shell->backup_stdout = dup(1);
 	shell->env_list = NULL;
 	shell->pure_oldpwd = TRUE;
+	shell->cd_before = FALSE;
 	make_env_list(shell);
 }
 

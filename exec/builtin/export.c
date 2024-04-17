@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 08:21:18 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/17 00:29:40 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/17 14:12:59 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,13 @@ void	ft_restore_pwd(t_shell_info *shell, t_tree *tree, int i)
 	}
 	else if (ft_strcmp("OLDPWD", tree->exp[i]) == CODE_SUCCESS)
 	{
-		if (is_include_env(&(shell->env_list), "OLDPWD")->value == NULL)
-			shell->pure_oldpwd = TRUE;
+		if (shell->backup_oldpwd == NULL)
+		{
+			if (is_include_env(&(shell->env_list), "OLDPWD")->value == NULL)
+				shell->pure_oldpwd = TRUE;	
+		}
+		else
+			update_env_list(&(shell->env_list), "OLDPWD", shell->backup_oldpwd);
 	}
 	else if (is_include_env(&(shell->env_list), "OLDPWD"))
 	{
@@ -92,7 +97,11 @@ int	ft_export(t_shell_info *shell, t_tree *tree)
 	i = 1;
 	exit_code = CODE_SUCCESS;
 	if (tree->exp[1] == NULL)
+	{
+		if (shell->cd_before == TRUE)
+			shell->pure_oldpwd = FALSE;
 		ft_print_export_list(shell);
+	}
 	else
 	{
 		while (tree->exp[i])

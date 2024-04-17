@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 08:05:45 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/17 00:58:03 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/17 11:49:23 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,7 @@ int	ft_cd_oldpwd(t_shell_info *shell, t_env_node *pwd, t_env_node *oldpwd)
 			shell->pure_oldpwd = FALSE;
 			return (ft_change_pwd(shell));
 		}
-		ft_putstr_fd("jetty: cd: ", 2);
-		ft_putstr_fd(oldpwd->value, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
+		ft_cd_err(oldpwd->value, 0);
 	}
 	else
 		ft_putstr_fd("jetty: cd: OLDPWD not set\n", 2);

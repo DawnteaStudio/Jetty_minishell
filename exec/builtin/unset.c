@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 07:20:24 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/17 00:11:47 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/17 14:11:04 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ void	ft_pwds_helper(t_shell_info *shell, char *key)
 		shell->backup_pwd = NULL;
 	}
 	else if (ft_strcmp("OLDPWD", key) == CODE_SUCCESS)
+	{
+		shell->cd_before = FALSE;
 		shell->pure_oldpwd = TRUE;
+	}
 }
 
 int	ft_isalnum_unset(int c)

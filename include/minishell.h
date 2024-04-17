@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/17 00:10:25 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/17 14:10:04 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,13 @@ typedef struct s_env_node
 typedef struct s_shell_info
 {
 	char			*backup_pwd;
+	char			*backup_oldpwd;
 	char			**envp;
 	t_tree			*tree;
 	int				backup_stdin;
 	int				backup_stdout;
 	int				pure_oldpwd;
+	int				cd_before;
 	struct termios	term;
 	t_env_node		*env_list;
 }	t_shell_info;
