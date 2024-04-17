@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_helper.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:17:11 by erho              #+#    #+#             */
-/*   Updated: 2024/04/12 02:43:07 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/17 21:17:59 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ int	check_bracket(char *str, t_command *cmd)
 
 int	check_sign(char *str, t_command *cmd)
 {
-	if (is_dollar(str[cmd->width]) && !is_dollar(str[cmd->width - 1]))
-		return (1);
 	if (is_pipe(str[cmd->width]) || is_pipe(str[cmd->width - 1]))
 		return (1);
 	return (check_bracket(str, cmd));
-}
+} 
