@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 20:11:28 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/16 10:58:43 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/22 02:29:35 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ void	child_signal_handler(int num)
 		ft_putstr_fd("\n", 1);
 }
 
+void	heredoc_signal_handler(int num)
+{
+	if (num == SIGINT)
+		exit(CODE_ERROR);
+}
+
 void	set_signal(int sig_int, int sig_quit)
 {
 	if (sig_int == DEFAULT)
@@ -47,4 +53,6 @@ void	set_signal(int sig_int, int sig_quit)
 		signal(SIGQUIT, signal_handler);
 	if (sig_int == CHSIGINT)
 		signal(SIGINT, child_signal_handler);
+	if (sig_int == HDSIGINT)
+		signal(SIGINT, heredoc_signal_handler);
 }

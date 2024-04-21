@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:40:49 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/17 21:00:20 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/22 04:06:12 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,16 @@ int	ft_exec_cmd(t_shell_info *shell, t_tree *tree, t_tree *redirs)
 	int	builtin;
 	int	status;
 
-	while (redirs)
-	{
-		ft_exec_redirection(redirs->left);
-		if (redirs->right)
-			redirs = redirs->right;
-		else
-			break ;
-	}
+	
 	builtin = is_builtin(tree->cmd);
 	if (builtin != FALSE)
 	{
+		ft_add_redirection(shell, tree, redirs);
 		status = ft_exec_builtin(shell, tree, builtin);
 		ft_restore_fd(shell);
 		return (status);
 	}
+	ft_add_redirection(shell, tree, redirs);
 	return (ft_exec_node(shell, tree));
 }
 
@@ -91,10 +86,15 @@ void	ft_exec_preprocess(t_shell_info *shell, t_tree *tree)
 		if (tmp->exp[1] == NULL)
 			ft_check_backup_pwd(shell);
 	}
-	// else if (tree->redir && ft_strcmp(tmp->redir, "<<") == CODE_SUCCESS)
-	// {
-		
-	// }
+	else if (tree->type == TREE_TYPE_REDIRECTIONS)
+	{
+		while (tree)
+		{
+			if (ft_strcmp(tree->left->redir, "<<") == CODE_SUCCESS)
+				ft_here_doc(shell, tree->left);;
+			tree = tree->right;
+		}
+	}
 	if (tmp->right)
 		ft_exec_preprocess(shell, tmp->right);
 	if (tmp->left)

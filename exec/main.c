@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:12:05 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/17 20:59:17 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/22 03:24:50 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,11 @@ int	start_exec(t_shell_info *shell)
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 	set_signal(CHSIGINT, CUSTOM);
 	ft_exec_preprocess(shell, shell->tree);
-	printf("i'm here start_exec\n");
+	if (shell->heredoc_quit == TRUE)
+	{
+		shell->heredoc_quit = FALSE;
+		return (g_exit_code);
+	}
 	return (ft_exec(shell, shell->tree));
 }
 
@@ -53,6 +57,8 @@ void	set_minishell(int argc, char **argv, char **envp, t_shell_info *shell)
 	shell->env_list = NULL;
 	shell->pure_oldpwd = TRUE;
 	shell->cd_before = FALSE;
+	shell->heredoc_tmp = ".tmp";
+	shell->heredoc_quit = FALSE;
 	make_env_list(shell);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redirect.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 21:02:28 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/14 15:51:15 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/22 04:04:45 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,19 @@ int	ft_append(t_tree *tree)
 	return (CODE_SUCCESS);
 }
 
-// int	ft_here_doc(t_tree *tree)
-// {
-	
-// }
+void	ft_add_redirection(t_shell_info *shell, t_tree *tree, t_tree *redirs)
+{
+	(void)shell;
+	(void)tree;
+	while (redirs)
+	{
+		ft_exec_redirection(redirs->left);
+		if (redirs->right)
+			redirs = redirs->right;
+		else
+			break ;
+	}
+}
 
 int	ft_exec_redirection(t_tree *tree)
 {
@@ -76,9 +85,11 @@ int	ft_exec_redirection(t_tree *tree)
 		status = ft_out(tree);
 	else if (ft_strcmp(tree->redir, ">>") == CODE_SUCCESS)
 		status = ft_append(tree);
-	// else if (ft_strcmp(tree->redir, "<<") == CODE_SUCCESS)
-	// {
-		
-	// }
+	else if (ft_strcmp(tree->redir, "<<") == CODE_SUCCESS)
+	{
+		dup2(tree->here_doc, STDIN_FILENO);
+		close(tree->here_doc);
+		status = CODE_SUCCESS;
+	}
 	return (status);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/17 19:31:19 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/22 04:03:00 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define IGNORE		1
 # define CUSTOM		2
 # define CHSIGINT	3
+# define HDSIGINT	4
 
 # define DIRLEFT	0
 # define DIRRIGT	1
@@ -95,6 +96,7 @@ typedef struct s_tree
 	char			*redir_info;
 	char			**exp;
 	char			*origin_token;
+	int				here_doc;
 	struct s_tree	*left;
 	struct s_tree	*right;
 }	t_tree;
@@ -111,11 +113,13 @@ typedef struct s_shell_info
 	char			*backup_pwd;
 	char			*backup_oldpwd;
 	char			**envp;
+	char			*heredoc_tmp;
 	t_tree			*tree;
 	int				backup_stdin;
 	int				backup_stdout;
 	int				pure_oldpwd;
 	int				cd_before;
+	int				heredoc_quit;
 	struct termios	term;
 	t_env_node		*env_list;
 }	t_shell_info;
@@ -254,6 +258,8 @@ int			ft_exec_builtin(t_shell_info *shell, t_tree *tree, int builtin);
 //exec_redirection
 int			ft_exec_redirection(t_tree *tree);
 void		ft_restore_fd(t_shell_info *shell);
+void		ft_here_doc(t_shell_info *shell, t_tree *tree);
+void		ft_add_redirection(t_shell_info *shell, t_tree *tree, t_tree *redirs);
 
 //exec_util
 char		**ft_get_all_path(t_shell_info *shell);

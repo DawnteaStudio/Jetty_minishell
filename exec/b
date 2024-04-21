@@ -1,0 +1,12 @@
+/bin/ls
+Makefile
+a
+b
+builtin
+clean
+main.c
+main.o
+minishell
+run
+signal
+test.txt

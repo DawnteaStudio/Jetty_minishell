@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_node.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:32:53 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/17 21:03:17 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/22 04:06:30 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	ft_exec_child(t_shell_info *shell, t_tree *tree)
 
 	path = ft_get_all_path(shell);
 	i = 0;
-	printf("i'm here exec_child\n");
 	while (tree->cmd[i])
 	{
 		if (tree->cmd[i] == '/')
@@ -85,5 +84,6 @@ int	ft_exec_node(t_shell_info *shell, t_tree *tree)
 	if (!pid)
 		ft_exec_child(shell, tree);
 	waitpid(pid, &status, 0);
+	ft_restore_fd(shell);
 	return (ft_exit_status(status));
 }

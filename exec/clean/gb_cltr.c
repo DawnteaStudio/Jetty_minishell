@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gb_cltr.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:38:49 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/17 20:24:24 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/22 03:13:55 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@ void	clean_all(t_shell_info *shell)
 {
 	struct termios	term;
 
+	if (shell->tree)
+		free_tree(&(shell->tree));
+	if (access(shell->heredoc_tmp, F_OK) == 0)
+		unlink(shell->heredoc_tmp);
 	heap_handler(NULL);
 	free_env_list(shell);
 	rl_clear_history();
