@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 20:34:57 by erho              #+#    #+#             */
-/*   Updated: 2024/04/12 01:16:23 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/21 19:16:25 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ t_token	*lexical_analyze(char *str)
 		tokens[i].type = check_str(tokens[i].str);
 		if (tokens[i].type == -1)
 		{
+			ft_putstr_fd("jetty: dquote error\n", 2);
+			g_exit_code = 1;
 			free_tokens(tokens);
 			return (NULL);
 		}
