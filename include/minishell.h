@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/24 18:38:19 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/24 18:43:45 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ typedef enum e_builtin
 	BLT_EXPORT,
 	BLT_UNSET,
 	BLT_ENV,
-	BLT_EXIT
+	BLT_EXIT,
+	BLT_NULL
 }	t_builtin;
 
 typedef enum e_exit_code
