@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 21:02:28 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/25 05:46:30 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/25 06:22:09 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	ft_in(t_tree *tree)
 	int	status;
 
 	if (tree->redir_info[1] != NULL)
+		return (putstr_error(tree->origin_token, CODE_ERROR, ERR_AMBIGUOUS));
+	if (tree->redir_info[0][0] == 0 && null_amb(tree->origin_token))
 		return (putstr_error(tree->origin_token, CODE_ERROR, ERR_AMBIGUOUS));
 	fd = open(tree->redir_info[0], O_RDONLY);
 	if (fd == -1)
@@ -37,6 +39,8 @@ int	ft_out(t_tree *tree)
 
 	if (tree->redir_info[1] != NULL)
 		return (putstr_error(tree->origin_token, CODE_ERROR, ERR_AMBIGUOUS));
+	if (tree->redir_info[0][0] == 0 && null_amb(tree->origin_token))
+		return (putstr_error(tree->origin_token, CODE_ERROR, ERR_AMBIGUOUS));
 	fd = open(tree->redir_info[0], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
 	{
@@ -54,6 +58,8 @@ int	ft_append(t_tree *tree)
 	int	status;
 
 	if (tree->redir_info[1] != NULL)
+		return (putstr_error(tree->origin_token, CODE_ERROR, ERR_AMBIGUOUS));
+	if (tree->redir_info[0][0] == 0 && null_amb(tree->origin_token))
 		return (putstr_error(tree->origin_token, CODE_ERROR, ERR_AMBIGUOUS));
 	fd = open(tree->redir_info[0], O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd == -1)
