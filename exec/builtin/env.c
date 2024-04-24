@@ -6,11 +6,30 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:15:16 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/25 02:45:15 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/25 04:53:18 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	make_new_envp_helper(t_shell_info *shell, t_env_node *list, int *i)
+{
+	char	*tmp;
+
+	while (list)
+	{
+		if (list->value)
+		{
+			tmp = ft_strjoin(list->key, "=");
+			shell->env[*i] = ft_strjoin(tmp, list->value);
+			free(tmp);
+		}
+		else
+			shell->env[*i] = ft_strdup(list->key);
+		list = list->next;
+		(*i)++;
+	}
+}
 
 int	is_include_env_path(t_env_node *path)
 {

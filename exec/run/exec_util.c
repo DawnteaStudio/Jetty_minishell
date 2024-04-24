@@ -6,37 +6,24 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:56:21 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/25 02:36:11 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/25 04:49:34 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-// char	*ft_get_path_line(char *path, char **envp)
-// {
-// 	int		i;
-// 	int		j;
-// 	char	*head;
+int	ft_get_len(t_env_node *list)
+{
+	int	len;
 
-// 	i = 0;
-// 	if (!envp)
-// 		return (NULL);
-// 	while (envp[i])
-// 	{
-// 		j = 0;
-// 		while (envp[i][j] && envp[i][j] != '=')
-// 			j++;
-// 		head = ft_substr(envp[i], 0, j);
-// 		if (ft_strcmp(head, path) == 0)
-// 		{
-// 			del(head);
-// 			return (envp[i] + j + 1);
-// 		}
-// 		del(head);
-// 		i++;
-// 	}
-// 	return (NULL);
-// }
+	len = 0;
+	while (list)
+	{
+		list = list->next;
+		len++;
+	}
+	return (len);
+}
 
 char	**ft_get_all_path(t_shell_info *shell)
 {
@@ -47,7 +34,7 @@ char	**ft_get_all_path(t_shell_info *shell)
 	if (tmp)
 		res = ft_split(tmp->value, ':');
 	else if (shell->path_avil == TRUE)
-		res = ft_split(getenv("PATH"), ':');
+		res = ft_split(ENV_PATH, ':');
 	else
 		res = NULL;
 	return (res);
@@ -73,8 +60,9 @@ int	ft_exit_status(int status)
 	return (WEXITSTATUS(status));
 }
 
-void	ft_restore_fd(t_shell_info *shell)
+int	ft_restore_fd(t_shell_info *shell, int status)
 {
 	dup2(shell->backup_stdin, 0);
 	dup2(shell->backup_stdout, 1);
+	return (status);
 }

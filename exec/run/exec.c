@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:40:49 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/25 02:47:05 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/25 02:57:08 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,18 @@ int	ft_exec_cmd(t_shell_info *shell, t_tree *tree, t_tree *redirs)
 		{
 			status = ft_add_redirection(shell, tree, redirs);
 			if (status == CODE_ERROR)
-			{
-				ft_restore_fd(shell);
-				return (status);
-			}
+				return (ft_restore_fd(shell, status));
 			status = ft_exec_builtin(shell, tree, builtin);
-			ft_restore_fd(shell);
-			return (status);
+			return (ft_restore_fd(shell, status));
 		}
 		status = ft_add_redirection(shell, tree, redirs);
 		if (status == CODE_ERROR)
-		{
-			ft_restore_fd(shell);
-			return (status);
-		}
+			return (ft_restore_fd(shell, status));
 		return (ft_exec_node(shell, tree));
 	}
 	else
 		status = ft_add_redirection(shell, tree, redirs);
-	ft_restore_fd(shell);
-	return (status);
+	return (ft_restore_fd(shell, status));
 }
 
 void	ft_exec_pipe_node(t_shell_info *s, t_tree *tree, int fd[2], int dir)

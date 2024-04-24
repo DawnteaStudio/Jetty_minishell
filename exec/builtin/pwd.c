@@ -6,11 +6,28 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 21:58:07 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/17 14:11:36 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/25 03:55:50 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	ft_pwds_helper(t_shell_info *shell, char *key)
+{
+	if (ft_strcmp("PWD", key) == CODE_SUCCESS)
+	{
+		if (shell->backup_pwd)
+			del(shell->backup_pwd);
+		shell->backup_pwd = NULL;
+	}
+	else if (ft_strcmp("OLDPWD", key) == CODE_SUCCESS)
+	{
+		shell->cd_before = FALSE;
+		shell->pure_oldpwd = TRUE;
+	}
+	else if (ft_strcmp("PATH", key) == CODE_SUCCESS)
+		shell->path_avil = FALSE;
+}
 
 void	ft_update_oldpwd(t_shell_info *shell, t_env_node *node, char *str)
 {

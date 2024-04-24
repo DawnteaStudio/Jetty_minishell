@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:12:05 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/25 00:06:38 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/25 04:59:50 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,24 @@ void	set_minishell(int argc, char **argv, char **envp, t_shell_info *shell)
 	shell->heredoc_quit = FALSE;
 	shell->origin = TRUE;
 	shell->path_avil = TRUE;
+	shell->env = NULL;
 	make_env_list(shell);
+	shell->backup_pocket = make_backup_env();
+}
+
+void	start_parse(t_shell_info *shell, char *str)
+{
+	shell->tree = parse(str, &(shell->env_list));
+	if (shell->tree != NULL)
+	{
+		g_exit_code = start_exec(shell);
+		free_tree(&(shell->tree));
+	}
+}
+
+void leaks()
+{
+	system("leaks minishell");
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -69,6 +86,7 @@ int	main(int argc, char **argv, char **envp)
 	char			*str;
 	t_shell_info	shell;
 
+	atexit(leaks);
 	set_minishell(argc, argv, envp, &shell);
 	while (1)
 	{
@@ -85,12 +103,7 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		add_history(str);
-		shell.tree = parse(str, &(shell.env_list));
-		if (shell.tree != NULL)
-		{
-			g_exit_code = start_exec(&shell);
-			free_tree(&(shell.tree));
-		}
+		start_parse(&shell, str);
 		del(str);
 	}
 	clean_all(&shell);

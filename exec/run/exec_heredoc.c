@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 00:26:48 by parksewon         #+#    #+#             */
-/*   Updated: 2024/04/25 02:46:30 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/25 05:15:59 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_here_doc(t_shell_info *shell, t_tree *tree)
 	if (shell->heredoc_quit == TRUE)
 		return ;
 	signal(SIGQUIT, SIG_IGN);
-	tree->tmp_file = make_tmp_file_name();
+	tree->tmp_file = heap_handler(make_tmp_file_name());
 	pid = fork();
 	if (!pid)
 		input_here_doc(shell, tree);

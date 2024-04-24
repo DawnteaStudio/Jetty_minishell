@@ -6,27 +6,24 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 07:20:24 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/25 02:47:37 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/25 05:18:30 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_pwds_helper(t_shell_info *shell, char *key)
+t_backup	*make_backup_env(void)
 {
-	if (ft_strcmp("PWD", key) == CODE_SUCCESS)
-	{
-		if (shell->backup_pwd)
-			del(shell->backup_pwd);
-		shell->backup_pwd = NULL;
-	}
-	else if (ft_strcmp("OLDPWD", key) == CODE_SUCCESS)
-	{
-		shell->cd_before = FALSE;
-		shell->pure_oldpwd = TRUE;
-	}
-	else if (ft_strcmp("PATH", key) == CODE_SUCCESS)
-		shell->path_avil = FALSE;
+	t_backup	*backup;
+	int			tmp;
+
+	backup = (t_backup *)malloc(sizeof(t_backup));
+	if (backup == NULL)
+		ft_error(MEMORY);
+	backup->pwd = getenv("PWD");
+	tmp = ft_atoi(getenv("SHLVL")) + 1;
+	backup->shlvl = heap_handler(ft_itoa(tmp));
+	return (backup);
 }
 
 int	ft_isalnum_unset(int c)

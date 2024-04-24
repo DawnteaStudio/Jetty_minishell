@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/25 02:31:20 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/25 04:50:25 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@
 
 # define K_UNSET	0
 # define K_EXPRT	1
+
+# define ENV_PATH	"/Users/sewopark/.brew/bin:/usr/local/bin:/usr/bin:/bin:\
+/usr/sbin:/sbin:/usr/local/munki:/Library/Apple/usr/bin:/Library/Frameworks/\
+Mono.framework/Versions/Current/Commands"
 
 extern int	g_exit_code;
 
@@ -110,11 +114,18 @@ typedef struct s_env_node
 	struct s_env_node	*next;
 }	t_env_node;
 
+typedef struct s_backup
+{
+	char	*pwd;
+	char	*shlvl;
+}	t_backup;
+
 typedef struct s_shell_info
 {
 	char			*backup_pwd;
 	char			*backup_oldpwd;
 	char			**envp;
+	char			**env;
 	t_tree			*tree;
 	int				backup_stdin;
 	int				backup_stdout;
@@ -125,6 +136,7 @@ typedef struct s_shell_info
 	int				path_avil;
 	struct termios	term;
 	t_env_node		*env_list;
+	t_backup		*backup_pocket;
 }	t_shell_info;
 
 typedef struct s_component
@@ -225,6 +237,8 @@ int			ft_cd(t_shell_info *shell, t_tree *tree);
 
 //env
 t_env_node	*is_include_env(t_env_node	**env_list, char *key);
+t_backup	*make_backup_env(void);
+void		make_new_envp_helper(t_shell_info *shell, t_env_node *list, int *i);
 
 //export
 void		ft_check_backup_pwd(t_shell_info *shell);
@@ -236,10 +250,12 @@ void		make_env_list(t_shell_info *shell);
 void		make_env_component(t_env_node **new_env_list, char *env_line);
 
 //pwd
+void		ft_pwds_helper(t_shell_info *shell, char *key);
 int			ft_change_pwd(t_shell_info *shell);
 
 //unset
-int			is_valid_key(char *str, int	check);
+int			is_valid_key(char *str, int check);
+void		unset(t_shell_info *shell, char *key);
 
 //clean
 char		*heap_handler(char *ptr);
@@ -259,15 +275,16 @@ int			ft_exec_builtin(t_shell_info *shell, t_tree *tree, int builtin);
 
 //exec_redirection
 int			ft_exec_redirection(t_shell_info *shell, t_tree *tree);
-void		ft_restore_fd(t_shell_info *shell);
 void		ft_here_doc(t_shell_info *shell, t_tree *tree);
-int			ft_add_redirection(t_shell_info *shell, t_tree *tree, t_tree *redirs);
+int			ft_add_redirection(t_shell_info *shell, t_tree *tree, \
+t_tree *redirs);
 
 //exec_util
 char		**ft_get_all_path(t_shell_info *shell);
 int			ft_close_and_wait(int *status, int fd[2], pid_t pid_right);
 int			ft_exit_status(int status);
-void		ft_restore_fd(t_shell_info *shell);
+int			ft_restore_fd(t_shell_info *shell, int status);
+int			ft_get_len(t_env_node *list);
 
 //exec_access
 t_exit_code	is_read(char *file);

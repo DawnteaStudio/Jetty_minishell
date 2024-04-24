@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:38:49 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/24 23:56:16 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/25 05:18:42 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	clean_all(t_shell_info *shell)
 
 	if (shell->tree)
 		free_tree(&(shell->tree));
+	free(shell->backup_pocket);
 	heap_handler(NULL);
 	free_env_list(shell);
 	rl_clear_history();

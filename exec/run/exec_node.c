@@ -6,19 +6,37 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:32:53 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/25 00:21:26 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/25 04:48:33 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+void	make_new_envp(t_shell_info *shell)
+{
+	int			i;
+	t_env_node	*list;
+
+	i = 0;
+	list = shell->env_list;
+	shell->env = (char **)malloc(sizeof(char *) * \
+	ft_get_len(shell->env_list) + 1);
+	if (shell->env == NULL)
+		ft_error(MEMORY);
+	update_env_list(&(shell->env_list), "PWD", shell->backup_pocket->pwd);
+	update_env_list(&(shell->env_list), "SHLVL", shell->backup_pocket->shlvl);
+	make_new_envp_helper(shell, list, &i);
+	shell->env[i] = NULL;
+}
+
 void	include_slash_case(t_shell_info *shell, t_tree *tree)
 {
+	make_new_envp(shell);
 	if (access(tree->cmd, F_OK) == 0)
 	{
 		if (access(tree->cmd, X_OK) == 0)
 		{
-			if (execve(tree->cmd, tree->exp, shell->envp) == -1)
+			if (execve(tree->cmd, tree->exp, shell->env) == -1)
 				exit(putstr_error(tree->cmd, CODE_ERROR, ERR_PERROR));
 		}
 		exit(putstr_error(tree->cmd, CODE_NOT_EXEC, ERR_PER_DENIED));
@@ -33,6 +51,7 @@ void	no_include_slash_case(t_shell_info *shell, t_tree *tree, char **path)
 	char	*tmp2;
 
 	i = 0;
+	make_new_envp(shell);
 	while (path[i])
 	{
 		tmp2 = ft_strjoin(path[i], "/");
@@ -42,7 +61,7 @@ void	no_include_slash_case(t_shell_info *shell, t_tree *tree, char **path)
 		{
 			if (access(tmp, X_OK) == 0)
 			{
-				if (execve(tmp, tree->exp, shell->envp) == -1)
+				if (execve(tmp, tree->exp, shell->env) == -1)
 					exit(putstr_error(tree->cmd, CODE_ERROR, ERR_PERROR));
 			}
 			exit(putstr_error(tree->cmd, CODE_NOT_EXEC, ERR_PER_DENIED));
@@ -86,6 +105,6 @@ int	ft_exec_node(t_shell_info *shell, t_tree *tree)
 	if (!pid)
 		ft_exec_child(shell, tree);
 	waitpid(pid, &status, 0);
-	ft_restore_fd(shell);
+	ft_restore_fd(shell, 0);
 	return (ft_exit_status(status));
 }
