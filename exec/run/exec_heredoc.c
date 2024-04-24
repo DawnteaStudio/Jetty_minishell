@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 00:26:48 by parksewon         #+#    #+#             */
-/*   Updated: 2024/04/22 03:20:12 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/24 19:54:31 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,11 @@ void	ft_here_doc(t_shell_info *shell, t_tree *tree)
 	int		status;
 	pid_t	pid;
 
+	if (shell->heredoc_quit == TRUE)
+		return ;
 	pipe(fd);
+	signal(SIGQUIT, SIG_IGN);
 	pid = fork();
-	set_signal(CUSTOM, IGNORE);
 	if (!pid)
 		input_here_doc(shell, tree, fd[1]);
 	else
@@ -54,13 +56,13 @@ void	ft_here_doc(t_shell_info *shell, t_tree *tree)
 		close(fd[1]);
 		waitpid(pid, &status, 0);
 		set_signal(CHSIGINT, CUSTOM);
-		if (WIFEXITED(status))
-			g_exit_code = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
+		if (WEXITSTATUS(status) == SIGINT)
 		{
 			shell->heredoc_quit = TRUE;
 			g_exit_code = CODE_ERROR;
 		}
+		else
+			g_exit_code = WEXITSTATUS(status);
 	}
 	tree->here_doc = fd[0];
 }

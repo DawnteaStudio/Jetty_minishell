@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:12:05 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/22 03:24:50 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/24 19:37:52 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@ int	start_exec(t_shell_info *shell)
 {
 	struct termios	term;
 
-	tcgetattr(STDIN_FILENO, &term);
-	term.c_lflag |= ECHOCTL;
-	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 	set_signal(CHSIGINT, CUSTOM);
 	ft_exec_preprocess(shell, shell->tree);
 	if (shell->heredoc_quit == TRUE)
@@ -38,6 +35,9 @@ int	start_exec(t_shell_info *shell)
 		shell->heredoc_quit = FALSE;
 		return (g_exit_code);
 	}
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag |= ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 	return (ft_exec(shell, shell->tree));
 }
 
@@ -59,6 +59,7 @@ void	set_minishell(int argc, char **argv, char **envp, t_shell_info *shell)
 	shell->cd_before = FALSE;
 	shell->heredoc_tmp = ".tmp";
 	shell->heredoc_quit = FALSE;
+	shell->origin = TRUE;
 	make_env_list(shell);
 }
 

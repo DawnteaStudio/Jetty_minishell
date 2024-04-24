@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 20:11:28 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/22 02:29:35 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/24 19:47:52 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	child_signal_handler(int num)
 void	heredoc_signal_handler(int num)
 {
 	if (num == SIGINT)
-		exit(CODE_ERROR);
+		exit(SIGINT);
 }
 
 void	set_signal(int sig_int, int sig_quit)
@@ -45,14 +45,14 @@ void	set_signal(int sig_int, int sig_quit)
 		signal(SIGINT, SIG_IGN);
 	if (sig_int == CUSTOM)
 		signal(SIGINT, signal_handler);
+	if (sig_int == CHSIGINT)
+		signal(SIGINT, child_signal_handler);
+	if (sig_int == HDSIGINT)
+		signal(SIGINT, heredoc_signal_handler);
 	if (sig_quit == DEFAULT)
 		signal(SIGQUIT, SIG_DFL);
 	if (sig_quit == IGNORE)
 		signal(SIGQUIT, SIG_IGN);
 	if (sig_quit == CUSTOM)
 		signal(SIGQUIT, signal_handler);
-	if (sig_int == CHSIGINT)
-		signal(SIGINT, child_signal_handler);
-	if (sig_int == HDSIGINT)
-		signal(SIGINT, heredoc_signal_handler);
 }

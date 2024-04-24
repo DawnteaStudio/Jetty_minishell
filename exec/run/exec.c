@@ -3,37 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:40:49 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/22 04:06:12 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/24 19:44:14 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_exec_cmd(t_shell_info *shell, t_tree *tree, t_tree *redirs)
+int ft_exec_cmd(t_shell_info *shell, t_tree *tree, t_tree *redirs)
 {
-	int	builtin;
-	int	status;
+	int builtin;
+	int status;
 
-	
-	builtin = is_builtin(tree->cmd);
-	if (builtin != FALSE)
+	if (tree != NULL)
 	{
-		ft_add_redirection(shell, tree, redirs);
-		status = ft_exec_builtin(shell, tree, builtin);
-		ft_restore_fd(shell);
-		return (status);
+		builtin = is_builtin(tree->cmd);
+		if (builtin != FALSE)
+		{
+			status = ft_add_redirection(shell, tree, redirs);
+			if (status == CODE_ERROR)
+			{
+				ft_restore_fd(shell);
+				return (status);
+			}
+			status = ft_exec_builtin(shell, tree, builtin);
+			ft_restore_fd(shell);
+			return (status);
+		}
+		status = ft_add_redirection(shell, tree, redirs);
+		if (status == CODE_ERROR)
+		{
+			ft_restore_fd(shell);
+			return (status);
+		}
+		return (ft_exec_node(shell, tree));
 	}
-	ft_add_redirection(shell, tree, redirs);
-	return (ft_exec_node(shell, tree));
+	else
+		status = ft_add_redirection(shell, tree, redirs);
+	ft_restore_fd(shell);
+	return (status);
 }
 
 void	ft_exec_pipe_node(t_shell_info *s, t_tree *tree, int fd[2], int dir)
 {
 	int	status;
 
+	s->origin = FALSE;
 	if (dir == DIRLEFT)
 	{
 		close(fd[0]);
@@ -60,6 +77,7 @@ int	ft_exec_pipe(t_shell_info *shell, t_tree *tree)
 
 	pipe(fd);
 	pid_left = fork();
+	set_signal(DEFAULT, DEFAULT);
 	if (!pid_left)
 		ft_exec_pipe_node(shell, tree->left, fd, DIRLEFT);
 	else
@@ -69,6 +87,8 @@ int	ft_exec_pipe(t_shell_info *shell, t_tree *tree)
 			ft_exec_pipe_node(shell, tree->right, fd, DIRRIGT);
 		else
 		{
+			if (shell->origin == TRUE)
+				set_signal(CHSIGINT, CUSTOM);
 			status = ft_close_and_wait(&status, fd, pid_right);
 			return (ft_exit_status(status));
 		}

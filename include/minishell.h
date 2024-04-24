@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/24 18:43:45 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/24 19:26:14 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ typedef struct s_shell_info
 	int				pure_oldpwd;
 	int				cd_before;
 	int				heredoc_quit;
+	int				origin;
 	struct termios	term;
 	t_env_node		*env_list;
 }	t_shell_info;
@@ -259,7 +260,7 @@ int			ft_exec_builtin(t_shell_info *shell, t_tree *tree, int builtin);
 int			ft_exec_redirection(t_tree *tree);
 void		ft_restore_fd(t_shell_info *shell);
 void		ft_here_doc(t_shell_info *shell, t_tree *tree);
-void		ft_add_redirection(t_shell_info *shell, t_tree *tree, t_tree *redirs);
+int			ft_add_redirection(t_shell_info *shell, t_tree *tree, t_tree *redirs);
 
 //exec_util
 char		**ft_get_all_path(t_shell_info *shell);

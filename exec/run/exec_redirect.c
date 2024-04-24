@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redirect.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 21:02:28 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/22 04:04:45 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/24 19:03:05 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,23 @@ int	ft_append(t_tree *tree)
 	return (CODE_SUCCESS);
 }
 
-void	ft_add_redirection(t_shell_info *shell, t_tree *tree, t_tree *redirs)
+int	ft_add_redirection(t_shell_info *shell, t_tree *tree, t_tree *redirs)
 {
+	int	status;
+
 	(void)shell;
 	(void)tree;
 	while (redirs)
 	{
-		ft_exec_redirection(redirs->left);
+		status = ft_exec_redirection(redirs->left);
+		if (status == CODE_ERROR)
+			return (status);
 		if (redirs->right)
 			redirs = redirs->right;
 		else
 			break ;
 	}
+	return (status);
 }
 
 int	ft_exec_redirection(t_tree *tree)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_node.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:32:53 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/22 04:06:30 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/24 19:14:58 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	no_include_slash_case(t_shell_info *shell, t_tree *tree, char **path)
 		{
 			if (access(tmp, X_OK) == 0)
 			{
-				printf("%s\n", tmp);
 				if (execve(tmp, tree->exp, shell->envp) == -1)
 					exit(putstr_error(tree->cmd, CODE_ERROR, ERR_PERROR));
 			}
