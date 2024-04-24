@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/24 22:40:52 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/25 03:22:28 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,8 @@ typedef struct s_tree
 	int				type;
 	char			*cmd;
 	char			*redir;
-	char			*redir_info;
+	char			**redir_info;
 	char			**exp;
-	char			*origin_token;
 	int				here_doc;
 	struct s_tree	*left;
 	struct s_tree	*right;
@@ -164,6 +163,7 @@ int			is_quote(char c);
 int			is_bracket(char c);
 int			is_dollar(char c);
 int			is_pipe(char c);
+int			is_white_space(char c);
 
 // tokenizer_helper
 int			check_sign(char *str, t_command *cmd);
@@ -186,7 +186,7 @@ void		tree_make_word(char *s1, char *s2, t_command cmd);
 
 // set_tree
 t_tree		*create_node(int type);
-char		*extract_data(char *str, t_env_node **env_list);
+t_token		*extract_data(char *str, t_env_node **env_list);
 
 // handling_dollar
 char		*get_env_value(t_env_node **env_list, char *str, char **res,
@@ -198,6 +198,8 @@ int			pipe_node(t_tree **tree, t_token *tokens, t_env_node **env_list,
 
 // insert_tree_util
 t_tree		*find_last_right(t_tree *tree);
+char		**set_exp(t_token *tmp);
+void		cpy_new_exp(char **new_exp, char **exp, char **tmp);
 
 // test
 t_env_node	*create_list(char *key, char *value);

@@ -6,17 +6,18 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 20:48:27 by erho              #+#    #+#             */
-/*   Updated: 2024/04/24 18:48:08 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/25 00:32:34 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*extract_data(char *str, t_env_node **env_list)
+t_token	*extract_data(char *str, t_env_node **env_list)
 {
 	t_command	cmd;
 	char		*temp;
 	char		*res;
+	t_token		*new_token;
 
 	res = ft_strdup("");
 	ft_memset(&cmd, 0, sizeof(t_command));
@@ -33,7 +34,8 @@ char	*extract_data(char *str, t_env_node **env_list)
 		if (str[cmd.width])
 			res = get_env_value(env_list, str, &res, &cmd);
 	}
-	return (res);
+	new_token = tokenize(res);
+	return (new_token);
 }
 
 t_tree	*create_node(int type)
@@ -50,7 +52,6 @@ t_tree	*create_node(int type)
 	new_node->exp = NULL;
 	new_node->left = NULL;
 	new_node->right = NULL;
-	new_node->origin_token = NULL;
 	new_node->here_doc = -1;
 	return (new_node);
 }

@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:06:56 by erho              #+#    #+#             */
-/*   Updated: 2024/04/24 22:42:29 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/25 03:24:08 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ void	make_word(char *s1, char *s2, t_command *cmd)
 
 void	find_idx(t_command *cmd, char *s)
 {
-	while (s[cmd->width] && (s[cmd->width] == ' ' || s[cmd->width] == '\t'))
+	while (s[cmd->width] && is_white_space(s[cmd->width]))
 		cmd->width++;
 	if (s[cmd->width])
 		cmd->word_count++;
 	cmd->word = cmd->width;
-	while (s[cmd->width] && !(s[cmd->width] == ' ' || s[cmd->width] == '\t'))
+	while (s[cmd->width] && !is_white_space(s[cmd->width]))
 	{
 		if (is_quote(s[cmd->width]))
 		{

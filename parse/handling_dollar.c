@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handling_dollar.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 02:21:04 by erho              #+#    #+#             */
-/*   Updated: 2024/04/16 10:52:06 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/25 03:21:51 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	find_key_idx(char *str, t_command *cmd)
 {
 	if (str[cmd->width] == '\0')
 		return (FALSE);
-	if (str[cmd->width] != ' ' && !is_quote(str[cmd->width])
+	if (!is_white_space(str[cmd->width]) && !is_quote(str[cmd->width])
 		&& !(cmd->width != cmd->word && ft_isdigit(str[cmd->width])))
 		return (TRUE);
 	return (FALSE);
