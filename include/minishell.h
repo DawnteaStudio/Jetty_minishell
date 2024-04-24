@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/24 19:26:14 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/25 02:31:20 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # include <signal.h>
 # include <termios.h>
 
-# define TRUE		1
 # define FALSE		0
+# define TRUE		1
 # define ADDBACK	2
 
 # define DEFAULT	0
@@ -97,6 +97,7 @@ typedef struct s_tree
 	char			*redir_info;
 	char			**exp;
 	char			*origin_token;
+	char			*tmp_file;
 	int				here_doc;
 	struct s_tree	*left;
 	struct s_tree	*right;
@@ -114,7 +115,6 @@ typedef struct s_shell_info
 	char			*backup_pwd;
 	char			*backup_oldpwd;
 	char			**envp;
-	char			*heredoc_tmp;
 	t_tree			*tree;
 	int				backup_stdin;
 	int				backup_stdout;
@@ -122,6 +122,7 @@ typedef struct s_shell_info
 	int				cd_before;
 	int				heredoc_quit;
 	int				origin;
+	int				path_avil;
 	struct termios	term;
 	t_env_node		*env_list;
 }	t_shell_info;
@@ -257,7 +258,7 @@ int			is_builtin(char *cmd);
 int			ft_exec_builtin(t_shell_info *shell, t_tree *tree, int builtin);
 
 //exec_redirection
-int			ft_exec_redirection(t_tree *tree);
+int			ft_exec_redirection(t_shell_info *shell, t_tree *tree);
 void		ft_restore_fd(t_shell_info *shell);
 void		ft_here_doc(t_shell_info *shell, t_tree *tree);
 int			ft_add_redirection(t_shell_info *shell, t_tree *tree, t_tree *redirs);
@@ -274,5 +275,6 @@ t_exit_code	is_write(char *file);
 
 //exec_error
 t_exit_code	putstr_error(char *str, t_exit_code code, t_error_type type);
+int			is_ambiguous(t_tree *tree);
 
 #endif

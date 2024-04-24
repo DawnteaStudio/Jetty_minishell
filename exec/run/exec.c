@@ -6,16 +6,16 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:40:49 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/24 19:44:14 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/25 02:47:05 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int ft_exec_cmd(t_shell_info *shell, t_tree *tree, t_tree *redirs)
+int	ft_exec_cmd(t_shell_info *shell, t_tree *tree, t_tree *redirs)
 {
-	int builtin;
-	int status;
+	int	builtin;
+	int	status;
 
 	if (tree != NULL)
 	{
@@ -111,14 +111,14 @@ void	ft_exec_preprocess(t_shell_info *shell, t_tree *tree)
 		while (tree)
 		{
 			if (ft_strcmp(tree->left->redir, "<<") == CODE_SUCCESS)
-				ft_here_doc(shell, tree->left);;
+				ft_here_doc(shell, tree->left);
 			tree = tree->right;
 		}
 	}
-	if (tmp->right)
-		ft_exec_preprocess(shell, tmp->right);
 	if (tmp->left)
 		ft_exec_preprocess(shell, tmp->left);
+	if (tmp->right)
+		ft_exec_preprocess(shell, tmp->right);
 }
 
 int	ft_exec(t_shell_info *shell, t_tree *tree)

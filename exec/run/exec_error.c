@@ -6,11 +6,43 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 21:43:27 by parksewon         #+#    #+#             */
-/*   Updated: 2024/04/17 20:51:32 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/25 00:04:10 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+// char	*find_token_key(t_tree *tree)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while(tree->origin_token[i])
+// 	{
+		
+// 	}
+// }
+
+// int	is_ambiguous(t_tree *tree)
+// {
+// 	int	i;
+// 	int	is_true;
+
+// 	i = 0;
+// 	is_true = FALSE;
+// 	while (tree->origin_token && tree->origin_token[i])
+// 	{
+// 		if (tree->origin_token[i] == '$')
+// 		{
+// 			is_true = TRUE;
+// 			break ;
+// 		}
+// 		i++;
+// 	}
+// 	if (is_true == FALSE)
+// 		return (FALSE);
+	
+// }
 
 t_exit_code	putstr_error(char *str, t_exit_code code, t_error_type type)
 {

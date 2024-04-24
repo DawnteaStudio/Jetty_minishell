@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 08:21:18 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/17 14:12:59 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/25 02:47:23 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_restore_pwd(t_shell_info *shell, t_tree *tree, int i)
 		if (shell->backup_oldpwd == NULL)
 		{
 			if (is_include_env(&(shell->env_list), "OLDPWD")->value == NULL)
-				shell->pure_oldpwd = TRUE;	
+				shell->pure_oldpwd = TRUE;
 		}
 		else
 			update_env_list(&(shell->env_list), "OLDPWD", shell->backup_oldpwd);

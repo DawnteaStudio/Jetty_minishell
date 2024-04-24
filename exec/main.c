@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:12:05 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/24 19:37:52 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/25 00:06:38 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	set_minishell(int argc, char **argv, char **envp, t_shell_info *shell)
 		exit(1);
 	}
 	(void)argv;
+	shell->tree = NULL;
 	shell->backup_pwd = NULL;
 	shell->backup_oldpwd = NULL;
 	shell->envp = envp;
@@ -57,9 +58,9 @@ void	set_minishell(int argc, char **argv, char **envp, t_shell_info *shell)
 	shell->env_list = NULL;
 	shell->pure_oldpwd = TRUE;
 	shell->cd_before = FALSE;
-	shell->heredoc_tmp = ".tmp";
 	shell->heredoc_quit = FALSE;
 	shell->origin = TRUE;
+	shell->path_avil = TRUE;
 	make_env_list(shell);
 }
 
@@ -78,8 +79,12 @@ int	main(int argc, char **argv, char **envp)
 			printf("\033[1A\033[13Cexit\n");
 			break ;
 		}
-		if (str[0] != 0)
-			add_history(str);
+		if (str[0] == 0)
+		{
+			del(str);
+			continue ;
+		}
+		add_history(str);
 		shell.tree = parse(str, &(shell.env_list));
 		if (shell.tree != NULL)
 		{

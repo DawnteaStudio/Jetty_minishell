@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:32:53 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/24 19:14:58 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/25 00:21:26 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	include_slash_case(t_shell_info *shell, t_tree *tree)
 	{
 		if (access(tree->cmd, X_OK) == 0)
 		{
-			if (execve(tree->cmd, shell->tree->exp, shell->envp) == -1)
+			if (execve(tree->cmd, tree->exp, shell->envp) == -1)
 				exit(putstr_error(tree->cmd, CODE_ERROR, ERR_PERROR));
 		}
 		exit(putstr_error(tree->cmd, CODE_NOT_EXEC, ERR_PER_DENIED));
@@ -66,7 +66,10 @@ void	ft_exec_child(t_shell_info *shell, t_tree *tree)
 			include_slash_case(shell, tree);
 		i++;
 	}
-	no_include_slash_case(shell, tree, path);
+	if (path)
+		no_include_slash_case(shell, tree, path);
+	else
+		include_slash_case(shell, tree);
 }
 
 int	ft_exec_node(t_shell_info *shell, t_tree *tree)

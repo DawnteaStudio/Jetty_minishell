@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 20:11:28 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/24 19:47:52 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/24 23:05:51 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,26 @@ void	child_signal_handler(int num)
 
 void	heredoc_signal_handler(int num)
 {
+	int		i;
+	char	*file;
+	char	*itoa_str;
+
+	i = 0;
+	file = ft_strjoin(".tmp", "");
 	if (num == SIGINT)
+	{
+		while (access(file, F_OK) == 0)
+		{
+			unlink(file);
+			free(file);
+			itoa_str = ft_itoa(i);
+			file = ft_strjoin(".tmp", itoa_str);
+			free(itoa_str);
+			i++;
+		}
+		free(file);
 		exit(SIGINT);
+	}
 }
 
 void	set_signal(int sig_int, int sig_quit)

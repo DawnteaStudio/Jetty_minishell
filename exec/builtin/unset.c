@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 07:20:24 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/17 14:11:04 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/25 02:47:37 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	ft_pwds_helper(t_shell_info *shell, char *key)
 		shell->cd_before = FALSE;
 		shell->pure_oldpwd = TRUE;
 	}
+	else if (ft_strcmp("PATH", key) == CODE_SUCCESS)
+		shell->path_avil = FALSE;
 }
 
 int	ft_isalnum_unset(int c)
@@ -38,7 +40,7 @@ int	ft_isalnum_unset(int c)
 	return (FALSE);
 }
 
-int	is_valid_key(char *str, int	check)
+int	is_valid_key(char *str, int check)
 {
 	int	i;
 
@@ -68,6 +70,8 @@ void	unset(t_shell_info *shell, char *key)
 
 	pre = NULL;
 	cur = shell->env_list;
+	if (ft_strcmp(key, "_") == CODE_SUCCESS)
+		return ;
 	while (cur)
 	{
 		if (ft_strcmp(key, cur->key) == CODE_SUCCESS)
