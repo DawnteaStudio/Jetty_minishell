@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/24 18:38:19 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/24 22:40:52 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ typedef struct s_token
 /* ************************************************************************** */
 
 // tokenizer
-t_token		*tokenize(char *s, char c);
+t_token		*tokenize(char *s);
 
 // bool_check
 int			is_quote(char c);

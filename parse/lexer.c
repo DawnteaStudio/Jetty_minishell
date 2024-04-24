@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 20:34:57 by erho              #+#    #+#             */
-/*   Updated: 2024/04/21 19:16:25 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/24 22:41:05 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_token	*lexical_analyze(char *str)
 	int		i;
 	t_token	*tokens;
 
-	tokens = tokenize(str, ' ');
+	tokens = tokenize(str);
 	cnt = cnt_token(tokens);
 	i = 0;
 	while (i < cnt)
