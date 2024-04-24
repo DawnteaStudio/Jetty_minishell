@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:06:56 by erho              #+#    #+#             */
-/*   Updated: 2024/04/25 03:24:08 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/25 06:18:51 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	find_idx(t_command *cmd, char *s)
 
 void	ft_insert(char *s, t_token *res, t_command cmd)
 {
+	if (s[cmd.width] == '\0')
+		res[cmd.height].str = ft_strdup("");
 	while (s[cmd.width])
 	{
 		cmd.len = 0;
@@ -73,6 +75,8 @@ void	ft_insert(char *s, t_token *res, t_command cmd)
 
 int	count_word(char *s, t_command cmd)
 {
+	if (s[cmd.width] == '\0')
+		cmd.word_count++;
 	while (s[cmd.width])
 	{
 		cmd.len = 0;

@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 20:48:27 by erho              #+#    #+#             */
-/*   Updated: 2024/04/25 05:27:37 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/25 06:26:19 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_token	*extract_data(char *str, t_env_node **env_list)
 			res = get_env_value(env_list, str, &res, &cmd);
 	}
 	new_token = tokenize(res);
+	free(res);
 	return (new_token);
 }
 
@@ -52,6 +53,8 @@ t_tree	*create_node(int type)
 	new_node->exp = NULL;
 	new_node->left = NULL;
 	new_node->right = NULL;
+	new_node->origin_token = NULL;
 	new_node->here_doc = -1;
+	new_node->tmp_file = NULL;
 	return (new_node);
 }
