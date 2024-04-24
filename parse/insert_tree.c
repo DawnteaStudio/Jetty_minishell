@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   insert_tree.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:05:09 by erho              #+#    #+#             */
-/*   Updated: 2024/04/25 03:08:34 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/25 05:50:43 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	redirects_node(t_tree **tree, t_token *tokens, t_env_node **env_list,
 		return (CODE_ERROR);
 	tmp = extract_data(tokens[*idx].str, env_list);
 	new_node->redir_info = set_exp(tmp);
+	new_node->origin_token = ft_strdup(tokens[*idx].str);
 	free_tokens(tmp);
 	(*idx)++;
 	return (CODE_SUCCESS);

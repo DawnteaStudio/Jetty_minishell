@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 00:26:48 by parksewon         #+#    #+#             */
-/*   Updated: 2024/04/25 05:15:59 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/25 05:43:01 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	input_here_doc(t_shell_info *shell, t_tree *tree)
 		line = readline("> ");
 		if (!line)
 			break ;
-		if (ft_strcmp(tree->redir_info, line) == CODE_SUCCESS)
+		if (ft_strcmp(tree->redir_info[0], line) == CODE_SUCCESS)
 			break ;
 		ft_putstr_fd(line, fd);
 		ft_putstr_fd("\n", fd);

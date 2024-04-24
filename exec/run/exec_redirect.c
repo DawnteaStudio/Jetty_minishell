@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 21:02:28 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/25 05:16:15 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/25 05:46:30 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ int	ft_in(t_tree *tree)
 	int	fd;
 	int	status;
 
-	// if (is_ambiguous(tree) == TRUE)
-	// 	return (putstr_error(tree->origin_token, CODE_ERROR, ERR_AMBIGUOUS));
-	fd = open(tree->redir_info, O_RDONLY);
+	if (tree->redir_info[1] != NULL)
+		return (putstr_error(tree->origin_token, CODE_ERROR, ERR_AMBIGUOUS));
+	fd = open(tree->redir_info[0], O_RDONLY);
 	if (fd == -1)
 	{
-		status = is_read(tree->redir_info);
+		status = is_read(tree->redir_info[0]);
 		return (status);
 	}
 	dup2(fd, STDIN_FILENO);
@@ -35,12 +35,12 @@ int	ft_out(t_tree *tree)
 	int	fd;
 	int	status;
 
-	// if (is_ambiguous(tree) == TRUE)
-	// 	return (putstr_error(tree->origin_token, CODE_ERROR, ERR_AMBIGUOUS));
-	fd = open(tree->redir_info, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (tree->redir_info[1] != NULL)
+		return (putstr_error(tree->origin_token, CODE_ERROR, ERR_AMBIGUOUS));
+	fd = open(tree->redir_info[0], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
 	{
-		status = is_write(tree->redir_info);
+		status = is_write(tree->redir_info[0]);
 		return (status);
 	}
 	dup2(fd, STDOUT_FILENO);
@@ -53,12 +53,12 @@ int	ft_append(t_tree *tree)
 	int	fd;
 	int	status;
 
-	// if (is_ambiguous(tree) == TRUE)
-	// 	return (putstr_error(tree->origin_token, CODE_ERROR, ERR_AMBIGUOUS));
-	fd = open(tree->redir_info, O_CREAT | O_WRONLY | O_APPEND, 0644);
+	if (tree->redir_info[1] != NULL)
+		return (putstr_error(tree->origin_token, CODE_ERROR, ERR_AMBIGUOUS));
+	fd = open(tree->redir_info[0], O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd == -1)
 	{
-		status = is_write(tree->redir_info);
+		status = is_write(tree->redir_info[0]);
 		return (status);
 	}
 	dup2(fd, STDOUT_FILENO);

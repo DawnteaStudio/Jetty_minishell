@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_helper.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:17:11 by erho              #+#    #+#             */
-/*   Updated: 2024/04/25 03:11:06 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/25 05:50:35 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	free_node(t_tree **tree)
 		free((*tree)->cmd);
 	if ((*tree)->redir != NULL)
 		free((*tree)->redir);
+	if ((*tree)->origin_token != NULL)
+		free((*tree)->origin_token);
 	if ((*tree)->redir_info != NULL)
 	{
 		free_exp((*tree)->redir_info);

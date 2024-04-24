@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/25 05:26:40 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/25 05:39:35 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 # define K_UNSET	0
 # define K_EXPRT	1
 
-# define ENV_PATH	"/Users/sewopark/.brew/bin:/usr/local/bin:/usr/bin:/bin:\
+# define ENV_PATH	"/usr/local/bin:/usr/bin:/bin:\
 /usr/sbin:/sbin:/usr/local/munki:/Library/Apple/usr/bin:/Library/Frameworks/\
 Mono.framework/Versions/Current/Commands"
 
@@ -101,6 +101,7 @@ typedef struct s_tree
 	char			**redir_info;
 	char			**exp;
 	char			*tmp_file;
+	char			*origin_token;
 	int				here_doc;
 	struct s_tree	*left;
 	struct s_tree	*right;
