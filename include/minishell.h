@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/25 05:39:35 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/04/25 06:15:46 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,6 +295,6 @@ t_exit_code	is_write(char *file);
 
 //exec_error
 t_exit_code	putstr_error(char *str, t_exit_code code, t_error_type type);
-int			is_ambiguous(t_tree *tree);
+int			null_amb(char *str);
 
 #endif
