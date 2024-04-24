@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 20:48:27 by erho              #+#    #+#             */
-/*   Updated: 2024/04/17 19:12:09 by erho             ###   ########.fr       */
+/*   Updated: 2024/04/24 18:48:08 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ t_tree	*create_node(int type)
 	new_node->left = NULL;
 	new_node->right = NULL;
 	new_node->origin_token = NULL;
+	new_node->here_doc = -1;
 	return (new_node);
 }
