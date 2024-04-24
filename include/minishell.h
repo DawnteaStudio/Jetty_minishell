@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/22 04:03:00 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/24 18:38:19 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,6 @@ t_tree		*parse(char *str, t_env_node **env_list);
 
 // set_tree_utils
 char		*res_join(char **str, char **temp);
-void		swap_ch(char *c1, char *c2);
 void		tree_find_idx(char *str, t_command *cmd);
 void		tree_make_word(char *s1, char *s2, t_command cmd);
 
