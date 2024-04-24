@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:40:49 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/22 04:06:12 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/25 02:57:08 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,32 @@ int	ft_exec_cmd(t_shell_info *shell, t_tree *tree, t_tree *redirs)
 	int	builtin;
 	int	status;
 
-	
-	builtin = is_builtin(tree->cmd);
-	if (builtin != FALSE)
+	if (tree != NULL)
 	{
-		ft_add_redirection(shell, tree, redirs);
-		status = ft_exec_builtin(shell, tree, builtin);
-		ft_restore_fd(shell);
-		return (status);
+		builtin = is_builtin(tree->cmd);
+		if (builtin != FALSE)
+		{
+			status = ft_add_redirection(shell, tree, redirs);
+			if (status == CODE_ERROR)
+				return (ft_restore_fd(shell, status));
+			status = ft_exec_builtin(shell, tree, builtin);
+			return (ft_restore_fd(shell, status));
+		}
+		status = ft_add_redirection(shell, tree, redirs);
+		if (status == CODE_ERROR)
+			return (ft_restore_fd(shell, status));
+		return (ft_exec_node(shell, tree));
 	}
-	ft_add_redirection(shell, tree, redirs);
-	return (ft_exec_node(shell, tree));
+	else
+		status = ft_add_redirection(shell, tree, redirs);
+	return (ft_restore_fd(shell, status));
 }
 
 void	ft_exec_pipe_node(t_shell_info *s, t_tree *tree, int fd[2], int dir)
 {
 	int	status;
 
+	s->origin = FALSE;
 	if (dir == DIRLEFT)
 	{
 		close(fd[0]);
@@ -60,6 +69,7 @@ int	ft_exec_pipe(t_shell_info *shell, t_tree *tree)
 
 	pipe(fd);
 	pid_left = fork();
+	set_signal(DEFAULT, DEFAULT);
 	if (!pid_left)
 		ft_exec_pipe_node(shell, tree->left, fd, DIRLEFT);
 	else
@@ -69,6 +79,8 @@ int	ft_exec_pipe(t_shell_info *shell, t_tree *tree)
 			ft_exec_pipe_node(shell, tree->right, fd, DIRRIGT);
 		else
 		{
+			if (shell->origin == TRUE)
+				set_signal(CHSIGINT, CUSTOM);
 			status = ft_close_and_wait(&status, fd, pid_right);
 			return (ft_exit_status(status));
 		}
@@ -91,14 +103,14 @@ void	ft_exec_preprocess(t_shell_info *shell, t_tree *tree)
 		while (tree)
 		{
 			if (ft_strcmp(tree->left->redir, "<<") == CODE_SUCCESS)
-				ft_here_doc(shell, tree->left);;
+				ft_here_doc(shell, tree->left);
 			tree = tree->right;
 		}
 	}
-	if (tmp->right)
-		ft_exec_preprocess(shell, tmp->right);
 	if (tmp->left)
 		ft_exec_preprocess(shell, tmp->left);
+	if (tmp->right)
+		ft_exec_preprocess(shell, tmp->right);
 }
 
 int	ft_exec(t_shell_info *shell, t_tree *tree)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:02:59 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/22 04:04:03 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/24 18:50:09 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	is_builtin(char *cmd)
 		return (BLT_ENV);
 	else if (!ft_strcmp(cmd, "exit"))
 		return (BLT_EXIT);
+	else if (!ft_strcmp(cmd, ""))
+		return (BLT_NULL);
 	else
 		return (FALSE);
 }
@@ -48,5 +50,7 @@ int	ft_exec_builtin(t_shell_info *shell, t_tree *tree, int builtin)
 		return (ft_export(shell, tree));
 	else if (builtin == BLT_CD)
 		return (ft_cd(shell, tree));
+	else if (builtin == BLT_NULL)
+		return (putstr_error("", CODE_NOT_FOUND, ERR_CMD_NOT_FND));
 	return (ft_exit(shell, tree));
 }

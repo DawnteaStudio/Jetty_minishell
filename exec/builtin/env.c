@@ -3,14 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:15:16 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/17 00:00:46 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/04/25 04:53:18 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	make_new_envp_helper(t_shell_info *shell, t_env_node *list, int *i)
+{
+	char	*tmp;
+
+	while (list)
+	{
+		if (list->value)
+		{
+			tmp = ft_strjoin(list->key, "=");
+			shell->env[*i] = ft_strjoin(tmp, list->value);
+			free(tmp);
+		}
+		else
+			shell->env[*i] = ft_strdup(list->key);
+		list = list->next;
+		(*i)++;
+	}
+}
+
+int	is_include_env_path(t_env_node *path)
+{
+	char	**tmp;
+	int		i;
+
+	i = 0;
+	tmp = ft_split(path->value, ':');
+	while (tmp[i])
+	{
+		if (ft_strcmp(tmp[i], "/usr/bin") == CODE_SUCCESS)
+			return (TRUE);
+		i++;
+	}
+	return (FALSE);
+}
 
 void	make_env_list(t_shell_info *shell)
 {
@@ -44,7 +79,22 @@ t_env_node	*is_include_env(t_env_node	**env_list, char *key)
 int	ft_env(t_shell_info *shell)
 {
 	t_env_node	*list;
+	t_env_node	*under_bar;
+	t_env_node	*path;
 
+	under_bar = is_include_env(&(shell->env_list), "_");
+	update_env_list(&(shell->env_list), "_", "/usr/bin/env");
+	path = is_include_env(&(shell->env_list), "PATH");
+	if (path == NULL)
+	{
+		if (shell->path_avil == FALSE)
+			return (putstr_error("env", CODE_ERROR, ERR_NO_SUCH_FILE));
+	}
+	else
+	{
+		if (is_include_env_path(path) == FALSE)
+			return (putstr_error("env", CODE_ERROR, ERR_NO_SUCH_FILE));
+	}
 	list = shell->env_list;
 	while (list)
 	{
