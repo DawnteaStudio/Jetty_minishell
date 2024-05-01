@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 20:11:28 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/24 23:05:51 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/01 21:22:44 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ void	heredoc_signal_handler(int num)
 		while (access(file, F_OK) == 0)
 		{
 			unlink(file);
-			free(file);
+			del(&file);
 			itoa_str = ft_itoa(i);
 			file = ft_strjoin(".tmp", itoa_str);
-			free(itoa_str);
+			del(&itoa_str);
 			i++;
 		}
-		free(file);
+		del(&file);
 		exit(SIGINT);
 	}
 }

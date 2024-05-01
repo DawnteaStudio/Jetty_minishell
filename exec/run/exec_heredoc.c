@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 00:26:48 by parksewon         #+#    #+#             */
-/*   Updated: 2024/04/25 05:43:01 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/01 21:21:57 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ char	*make_tmp_file_name(void)
 	str = ft_strjoin(".tmp", "");
 	while (access(str, F_OK) == 0)
 	{
-		free(str);
+		del(&str);
 		itoa_str = ft_itoa(i);
 		str = ft_strjoin(".tmp", itoa_str);
-		free(itoa_str);
+		del(&itoa_str);
 		i++;
 	}
 	return (str);
@@ -47,10 +47,10 @@ void	input_here_doc(t_shell_info *shell, t_tree *tree)
 			break ;
 		ft_putstr_fd(line, fd);
 		ft_putstr_fd("\n", fd);
-		free(line);
+		del(&line);
 	}
 	if (line)
-		free(line);
+		del(&line);
 	close(fd);
 	clean_all(shell);
 	exit(CODE_SUCCESS);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_node.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:06:51 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/17 00:13:54 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/05/01 21:16:22 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_env_node	*ft_env_node_new(char *key, char *value)
 
 	node = (t_env_node *)malloc(sizeof(t_env_node));
 	if (!node)
-		return (NULL);
+		ft_error(MEMORY);
 	node->key = heap_handler(ft_strdup(key));
 	if (value)
 		node->value = heap_handler(ft_strdup(value));
@@ -72,7 +72,7 @@ void	add_env_value_back(t_component *cp, char *env_line)
 		{
 			tmp = ft_strdup(cp->check->value);
 			cp->check->value = heap_handler(ft_strjoin(tmp, cp->value));
-			del(tmp);
+			del(&tmp);
 		}
 	}
 	else

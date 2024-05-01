@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:12:05 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/01 20:48:26 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/01 21:16:01 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,12 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (str[0] == 0)
 		{
-			del(str);
+			del(&str);
 			continue ;
 		}
 		add_history(str);
 		start_parse(&shell, str);
-		del(str);
+		del(&str);
 	}
 	clean_all(&shell);
 	return (CODE_SUCCESS);

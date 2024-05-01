@@ -6,16 +6,16 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:38:49 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/25 07:26:48 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/01 21:20:49 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	del(char *ptr)
+void	del(char **ptr)
 {
-	free(ptr);
-	ptr = NULL;
+	free(*ptr);
+	*ptr = NULL;
 }
 
 char	*heap_handler(char *ptr)
@@ -43,7 +43,7 @@ void	free_env_list(t_shell_info *shell)
 	}
 	shell->env_list = NULL;
 	if (shell->backup_pwd)
-		free(shell->backup_pwd);
+		del(&shell->backup_pwd);
 }
 
 void	clean_all(t_shell_info *shell)
