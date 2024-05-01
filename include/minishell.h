@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/25 06:15:46 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/01 20:24:07 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,10 +277,9 @@ int			is_builtin(char *cmd);
 int			ft_exec_builtin(t_shell_info *shell, t_tree *tree, int builtin);
 
 //exec_redirection
-int			ft_exec_redirection(t_shell_info *shell, t_tree *tree);
+int			ft_exec_redirection(t_tree *tree);
 void		ft_here_doc(t_shell_info *shell, t_tree *tree);
-int			ft_add_redirection(t_shell_info *shell, t_tree *tree, \
-t_tree *redirs);
+int			ft_add_redirection(t_tree *redirs);
 
 //exec_util
 char		**ft_get_all_path(t_shell_info *shell);
