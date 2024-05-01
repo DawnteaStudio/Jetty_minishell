@@ -6,11 +6,26 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:38:49 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/01 21:20:49 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/01 21:44:01 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	free_split_arr(char **ptr)
+{
+	int	i;
+
+	i = 0;
+	if (ptr == NULL)
+		return ;
+	while (ptr[i])
+	{
+		free(ptr[i]);
+		i++;
+	}
+	free(ptr);
+}
 
 void	del(char **ptr)
 {

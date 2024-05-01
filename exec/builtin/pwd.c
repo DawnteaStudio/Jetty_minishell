@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 21:58:07 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/01 21:16:44 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/01 21:30:37 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,15 @@ void	ft_pwds_helper(t_shell_info *shell, char *key)
 
 void	ft_update_oldpwd(t_shell_info *shell, t_env_node *node, char *str)
 {
-	if (shell->backup_oldpwd)
-		del(&shell->backup_oldpwd);
 	if (node)
 	{
 		if (node->value)
-			shell->backup_oldpwd = ft_strdup(node->value);
+			shell->backup_oldpwd = heap_handler(ft_strdup(node->value));
 		else
-			shell->backup_oldpwd = ft_strdup("");
+			shell->backup_oldpwd = heap_handler(ft_strdup(""));
 	}
 	else if (str != NULL)
-		shell->backup_oldpwd = ft_strdup(str);
+		shell->backup_oldpwd = heap_handler(ft_strdup(str));
 	else
 	{
 		shell->backup_oldpwd = NULL;
@@ -66,9 +64,7 @@ int	ft_change_pwd(t_shell_info *shell)
 	else
 	{
 		ft_update_oldpwd(shell, NULL, shell->backup_pwd);
-		if (shell->backup_pwd)
-			del(&shell->backup_pwd);
-		shell->backup_pwd = ft_strdup(cwd);
+		shell->backup_pwd = heap_handler(ft_strdup(cwd));
 	}
 	del(&cwd);
 	shell->pure_oldpwd = FALSE;

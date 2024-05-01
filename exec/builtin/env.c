@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:15:16 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/01 21:18:27 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/01 22:39:01 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,19 @@ int	is_include_env_path(t_env_node *path)
 	int		i;
 
 	i = 0;
+	if (path->value == NULL)
+		return (FALSE);
 	tmp = ft_split(path->value, ':');
 	while (tmp[i])
 	{
 		if (ft_strcmp(tmp[i], "/usr/bin") == CODE_SUCCESS)
+		{
+			free_split_arr(tmp);
 			return (TRUE);
+		}
 		i++;
 	}
+	free_split_arr(tmp);
 	return (FALSE);
 }
 
@@ -62,7 +68,7 @@ void	make_env_list(t_shell_info *shell)
 	update_env_list(&(shell->env_list), "OLDPWD", NULL);
 }
 
-t_env_node	*is_include_env(t_env_node	**env_list, char *key)
+t_env_node	*is_include_env(t_env_node **env_list, char *key)
 {
 	t_env_node	*tmp;
 
@@ -80,7 +86,6 @@ int	ft_env(t_shell_info *shell)
 {
 	t_env_node	*list;
 	t_env_node	*path;
-
 	update_env_list(&(shell->env_list), "_", "/usr/bin/env");
 	path = is_include_env(&(shell->env_list), "PATH");
 	if (path == NULL)

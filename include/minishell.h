@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/01 21:14:42 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/01 21:40:54 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,6 +264,7 @@ void		unset(t_shell_info *shell, char *key);
 char		*heap_handler(char *ptr);
 void		clean_all(t_shell_info *shell);
 void		del(char **ptr);
+void		free_split_arr(char **ptr);
 
 //exec
 int			ft_exec(t_shell_info *shell, t_tree *tree);
