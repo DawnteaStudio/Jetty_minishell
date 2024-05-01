@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 21:43:27 by parksewon         #+#    #+#             */
-/*   Updated: 2024/04/25 06:15:03 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/01 19:44:38 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int	null_amb(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '$')
-			return (TRUE);
+		if (str[i] == '\"' || str[i] == '\'')
+			return (FALSE);
 		i++;
 	}
-	return (FALSE);
+	return (TRUE);
 }
 
 t_exit_code	putstr_error(char *str, t_exit_code code, t_error_type type)
