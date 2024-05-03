@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+         #
+#    By: erho <erho@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 14:06:13 by sewopark          #+#    #+#              #
-#    Updated: 2024/04/12 01:33:12 by erho             ###   ########.fr        #
+#    Updated: 2024/05/03 18:49:12 by erho             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	= minishell
 INCLUDE	= ../include/
 CC		= cc
 RM		= rm -f
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -g -fsanitize=address
 
 PARSE	= _test_main.c tokenizer.c tokenizer_helper.c bool_check.c lexer.c \
 			parse_helper.c handling_dollar.c parser.c set_tree_utils.c \

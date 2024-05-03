@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_helper.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:17:11 by erho              #+#    #+#             */
-/*   Updated: 2024/04/25 05:50:35 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/03 19:52:05 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	free_exp(char **exp)
 		free(exp[idx]);
 		idx++;
 	}
+	free(exp[idx]);
+	free(exp);
 }
 
 void	free_node(t_tree **tree)
@@ -46,15 +48,9 @@ void	free_node(t_tree **tree)
 	if ((*tree)->origin_token != NULL)
 		free((*tree)->origin_token);
 	if ((*tree)->redir_info != NULL)
-	{
 		free_exp((*tree)->redir_info);
-		free((*tree)->redir_info);
-	}
 	if ((*tree)->exp != NULL)
-	{
 		free_exp((*tree)->exp);
-		free((*tree)->exp);
-	}
 	free(*tree);
 	*tree = NULL;
 }

@@ -3,56 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   insert_tree.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:05:09 by erho              #+#    #+#             */
-/*   Updated: 2024/04/25 05:50:43 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/03 20:03:43 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	join_exp(t_tree **tree, char *str, t_env_node **env_list)
-{
-	int		cnt;
-	t_token	*tmp_token;
-	char	**new_exp;
-	char	**tmp;
-
-	tmp_token = extract_data(str, env_list);
-	tmp = set_exp(tmp_token);
-	cnt = cnt_exp((*tree)->exp) + cnt_exp(tmp);
-	new_exp = (char **)malloc(sizeof(char *) * (cnt + 1));
-	if (new_exp == NULL)
-		exit(1);
-	new_exp[cnt] = NULL;
-	cpy_new_exp(new_exp, (*tree)->exp, tmp);
-	free((*tree)->exp);
-	free_tokens(tmp_token);
-	free(tmp);
-	(*tree)->exp = new_exp;
-}
-
 void	command_node(t_tree **tree, t_token *tokens, t_env_node **env_list,
 		int *idx)
 {
 	t_tree	*new_node;
-	t_token	*tmp;
+	char	**tmp;
+	char	**exp;
 
 	if ((*tree)->right == NULL)
 		(*tree)->right = create_node(TREE_TYPE_COMMAND);
 	new_node = (*tree)->right;
 	if (new_node->cmd == NULL)
 	{
-		tmp = extract_data(tokens[*idx].str, env_list);
-		new_node->cmd = ft_strdup(tmp[0].str);
-		new_node->exp = set_exp(tmp);
-		free_tokens(tmp);
+		exp = extract_data(tokens[*idx].str, "", env_list);
+		new_node->cmd = ft_strdup(exp[0]);
+		new_node->exp = exp;
 		(*idx)++;
 	}
 	while (tokens[*idx].type == TOKEN_TYPE_WORD)
 	{
-		join_exp(&new_node, tokens[*idx].str, env_list);
+		tmp = extract_data(tokens[*idx].str, new_node->cmd, env_list);
+		new_node->exp = join_exp(new_node->exp, tmp);
 		(*idx)++;
 	}
 }
@@ -61,7 +41,6 @@ int	redirects_node(t_tree **tree, t_token *tokens, t_env_node **env_list,
 		int *idx)
 {
 	t_tree	*new_node;
-	t_token	*tmp;
 
 	if ((*tree)->left == NULL)
 	{
@@ -80,10 +59,8 @@ int	redirects_node(t_tree **tree, t_token *tokens, t_env_node **env_list,
 	(*idx)++;
 	if (tokens[*idx].type != TOKEN_TYPE_WORD)
 		return (CODE_ERROR);
-	tmp = extract_data(tokens[*idx].str, env_list);
-	new_node->redir_info = set_exp(tmp);
+	new_node->redir_info = extract_data(tokens[*idx].str, "", env_list);
 	new_node->origin_token = ft_strdup(tokens[*idx].str);
-	free_tokens(tmp);
 	(*idx)++;
 	return (CODE_SUCCESS);
 }

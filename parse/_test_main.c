@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 20:50:58 by erho              #+#    #+#             */
-/*   Updated: 2024/04/25 06:20:51 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/03 22:44:13 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_tree			*tree;
 	char			*str;
-	t_env_node *env_list = create_list("a", "t -e abc");
+	t_env_node *env_list = create_list("a", " a b");
 
-	atexit(leaks);
+	//atexit(leaks);
 	(void)argc;
 	(void)argv;
 	(void)envp;

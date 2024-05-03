@@ -6,74 +6,74 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:06:56 by erho              #+#    #+#             */
-/*   Updated: 2024/04/25 06:18:51 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/01 22:30:57 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	make_word(char *s1, char *s2, t_command *cmd)
+void	make_word(char *s1, char *s2, t_syntax *st)
 {
 	int	idx;
 
 	idx = 0;
-	while (idx < cmd->len)
+	while (idx < st->len)
 	{
 		s1[idx] = s2[idx];
 		idx++;
 	}
 }
 
-void	find_idx(t_command *cmd, char *s)
+void	find_idx(t_syntax *st, char *s)
 {
-	while (s[cmd->width] && is_white_space(s[cmd->width]))
-		cmd->width++;
-	if (s[cmd->width])
-		cmd->word_count++;
-	cmd->word = cmd->width;
-	while (s[cmd->width] && !is_white_space(s[cmd->width]))
+	while (s[st->width] && is_white_space(s[st->width]))
+		st->width++;
+	if (s[st->width])
+		st->word_count++;
+	st->word = st->width;
+	while (s[st->width] && !is_white_space(s[st->width]))
 	{
-		if (is_quote(s[cmd->width]))
+		if (is_quote(s[st->width]))
 		{
-			cmd->quotes = s[cmd->width];
-			cmd->width++;
-			cmd->len++;
-			while (s[cmd->width] && (!is_quote(s[cmd->width])
-					|| s[cmd->width] != cmd->quotes))
+			st->quotes = s[st->width];
+			st->width++;
+			st->len++;
+			while (s[st->width] && (!is_quote(s[st->width])
+					|| s[st->width] != st->quotes))
 			{
-				cmd->width++;
-				cmd->len++;
+				st->width++;
+				st->len++;
 			}
 		}
-		cmd->len++;
-		if (s[cmd->width])
-			cmd->width++;
-		if (check_sign(s, cmd))
+		st->len++;
+		if (s[st->width])
+			st->width++;
+		if (check_sign(s, st))
 			break ;
 	}
 }
 
-void	ft_insert(char *s, t_token *res, t_command cmd)
+void	ft_insert(char *s, t_token *res, t_syntax st)
 {
-	if (s[cmd.width] == '\0')
-		res[cmd.height].str = ft_strdup("");
-	while (s[cmd.width])
+	if (s[st.width] == '\0')
+		res[st.height].str = ft_strdup("");
+	while (s[st.width])
 	{
-		cmd.len = 0;
-		find_idx(&cmd, s);
-		if (cmd.width > cmd.word)
+		st.len = 0;
+		find_idx(&st, s);
+		if (st.width > st.word)
 		{
-			res[cmd.height].str = (char *)malloc(sizeof(char) * (cmd.len + 1));
-			if (res[cmd.height].str == NULL)
+			res[st.height].str = (char *)malloc(sizeof(char) * (st.len + 1));
+			if (res[st.height].str == NULL)
 				exit(1);
-			make_word(res[cmd.height].str, &s[cmd.word], &cmd);
-			(res[cmd.height].str)[cmd.len] = '\0';
-			cmd.height++;
+			make_word(res[st.height].str, &s[st.word], &st);
+			(res[st.height].str)[st.len] = '\0';
+			st.height++;
 		}
 	}
 }
 
-int	count_word(char *s, t_command cmd)
+int	count_word(char *s, t_syntax cmd)
 {
 	if (s[cmd.width] == '\0')
 		cmd.word_count++;
@@ -89,9 +89,9 @@ t_token	*tokenize(char *s)
 {
 	int			cnt;
 	t_token		*res;
-	t_command	cmd;
+	t_syntax	cmd;
 
-	ft_memset(&cmd, 0, sizeof(t_command));
+	ft_memset(&cmd, 0, sizeof(t_syntax));
 	cnt = count_word(s, cmd);
 	res = (t_token *)malloc(sizeof(t_token) * (cnt + 1));
 	if (res == NULL)

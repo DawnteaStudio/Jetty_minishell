@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redirect.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 21:02:28 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/25 06:22:09 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/01 22:55:37 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,14 @@ int	ft_append(t_tree *tree)
 	return (CODE_SUCCESS);
 }
 
-int	ft_add_redirection(t_shell_info *shell, t_tree *tree, t_tree *redirs)
+int	ft_add_redirection(t_tree *redirs)
 {
 	int	status;
 
-	(void)shell;
-	(void)tree;
+	status = CODE_SUCCESS;
 	while (redirs)
 	{
-		status = ft_exec_redirection(shell, redirs->left);
+		status = ft_exec_redirection(redirs->left);
 		if (status == CODE_ERROR)
 			return (status);
 		if (redirs->right)
@@ -91,11 +90,10 @@ int	ft_add_redirection(t_shell_info *shell, t_tree *tree, t_tree *redirs)
 	return (status);
 }
 
-int	ft_exec_redirection(t_shell_info *shell, t_tree *tree)
+int	ft_exec_redirection(t_tree *tree)
 {
 	int	status;
 
-	(void)shell;
 	status = CODE_ERROR;
 	if (ft_strcmp(tree->redir, "<") == CODE_SUCCESS)
 		status = ft_in(tree);

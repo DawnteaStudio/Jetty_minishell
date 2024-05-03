@@ -3,40 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   set_tree.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 20:48:27 by erho              #+#    #+#             */
-/*   Updated: 2024/04/25 07:47:13 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/03 20:02:10 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_token	*extract_data(char *str, t_env_node **env_list)
+char	**extract_data(char *str, char *cmd, t_env_node **env_list)
 {
-	t_command	cmd;
+	t_syntax	st;
 	char		*temp;
-	char		*res;
-	t_token		*new_token;
+	char		**res;
 
-	res = ft_strdup("");
-	ft_memset(&cmd, 0, sizeof(t_command));
-	while (str[cmd.width])
+	res = set_exp();
+	ft_memset(&st, 0, sizeof(t_syntax));
+	st.sample = cmd;
+	while (str[st.width])
 	{
-		cmd.len = 0;
-		cmd.q_back_up = cmd.quotes;
-		tree_find_idx(str, &cmd);
-		temp = (char *)malloc(sizeof(char) * (cmd.len + 1));
+		st.len = 0;
+		st.q_back_up = st.quotes;
+		tree_find_idx(str, &st);
+		temp = (char *)malloc(sizeof(char) * (st.len + 1));
 		if (temp == NULL)
 			exit(1);
-		tree_make_word(temp, &str[cmd.word], cmd);
-		res = res_join(&res, &temp);
-		if (str[cmd.width])
-			res = get_env_value(env_list, str, &res, &cmd);
+		tree_make_word(temp, &str[st.word], st);
+		res = join_exp_n_str(res, &temp);
+		st.height++;
+		if (str[st.width])
+			res = get_env_value(env_list, str, res, &st);
 	}
-	new_token = tokenize(res);
-	free(res);
-	return (new_token);
+	return (res);
 }
 
 t_tree	*create_node(int type)

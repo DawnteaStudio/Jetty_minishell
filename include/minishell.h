@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/25 06:15:46 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/03 20:02:22 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ typedef struct s_component
 	t_env_node	**new_env_list;
 }	t_component;
 
-typedef struct s_command
+typedef struct s_syntax
 {
 	int		word;
 	int		width;
@@ -159,7 +159,8 @@ typedef struct s_command
 	int		word_count;
 	int		len;
 	char	q_back_up;
-}	t_command;
+	char	*sample;
+}	t_syntax;
 
 typedef struct s_token
 {
@@ -182,10 +183,11 @@ int			is_pipe(char c);
 int			is_white_space(char c);
 
 // tokenizer_helper
-int			check_sign(char *str, t_command *cmd);
+int			check_sign(char *str, t_syntax *st);
 
 // lexer
 t_token		*lexical_analyze(char *str);
+int			cnt_token(t_token *tokens);
 
 // parse_helper
 void		free_tokens(t_token *tokens);
@@ -196,25 +198,28 @@ int			cnt_exp(char **exp);
 t_tree		*parse(char *str, t_env_node **env_list);
 
 // set_tree_utils
-char		*res_join(char **str, char **temp);
-void		tree_find_idx(char *str, t_command *cmd);
-void		tree_make_word(char *s1, char *s2, t_command cmd);
+char		*res_join(char *str, char *temp);
+void		tree_find_idx(char *str, t_syntax *st);
+void		tree_make_word(char *s1, char *s2, t_syntax st);
+char		**set_exp();
+char		**join_exp_n_str(char **exp, char **str);
 
 // set_tree
 t_tree		*create_node(int type);
-t_token		*extract_data(char *str, t_env_node **env_list);
+char		**extract_data(char *str, char *cmd, t_env_node **env_list);
 
 // handling_dollar
-char		*get_env_value(t_env_node **env_list, char *str, char **res,
-				t_command *cmd);
+char		**get_env_value(t_env_node **env_list, char *str, char **res,
+				t_syntax *st);
 
 // insert_tree
 int			pipe_node(t_tree **tree, t_token *tokens, t_env_node **env_list,
 				int idx);
 
 // insert_tree_util
+char		*ft_strndup(char *str, int len);
+char		**join_exp(char **tree_exp, char **tmp);
 t_tree		*find_last_right(t_tree *tree);
-char		**set_exp(t_token *tmp);
 void		cpy_new_exp(char **new_exp, char **exp, char **tmp);
 
 // test
@@ -277,10 +282,9 @@ int			is_builtin(char *cmd);
 int			ft_exec_builtin(t_shell_info *shell, t_tree *tree, int builtin);
 
 //exec_redirection
-int			ft_exec_redirection(t_shell_info *shell, t_tree *tree);
+int			ft_exec_redirection(t_tree *tree);
 void		ft_here_doc(t_shell_info *shell, t_tree *tree);
-int			ft_add_redirection(t_shell_info *shell, t_tree *tree, \
-t_tree *redirs);
+int			ft_add_redirection(t_tree *redirs);
 
 //exec_util
 char		**ft_get_all_path(t_shell_info *shell);
