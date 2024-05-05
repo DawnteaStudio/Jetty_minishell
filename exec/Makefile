@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+         #
+#    By: erho <erho@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 14:06:13 by sewopark          #+#    #+#              #
-#    Updated: 2024/04/25 06:04:27 by sewopark         ###   ########.fr        #
+#    Updated: 2024/05/05 14:48:48 by erho             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,9 +64,11 @@ BUILTIN	= echo.c env_node.c env.c exit.c pwd.c unset.c export.c cd.c
 RUN		= exec_builtin.c exec_node.c exec_redirect.c exec_util.c exec.c exec_access.c\
 exec_error.c exec_heredoc.c
 EXEC	= main.c signal/signal.c $(addprefix builtin/, $(BUILTIN)) $(addprefix run/, $(RUN)) clean/gb_cltr.c
-PARSE	= tokenizer.c tokenizer_helper.c bool_check.c lexer.c \
-			parse_helper.c handling_dollar.c parser.c set_tree_utils.c \
-			set_tree.c insert_tree.c insert_tree_utils.c
+LEXER	= lexer/lexer.c
+PARSER	= parser/handling_dollar.c parser/parser.c parser/set_tree_utils.c \
+			parser/set_tree.c parser/insert_tree.c parser/insert_tree_utils.c
+TOKEN	= tokenizer/tokenizer.c tokenizer/tokenizer_utils.c
+PARSE	= bool_check.c free.c $(LEXER) $(PARSER) $(TOKEN) $(TEST)
 
 SRCS	= $(addprefix ./, $(EXEC)) $(addprefix ../parse/, $(PARSE))
 OBJS	= $(SRCS:%.c=%.o)
