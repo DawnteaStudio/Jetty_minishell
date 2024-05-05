@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/05 14:42:03 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/05 14:46:38 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ typedef struct s_token
 // tokenizer
 t_token		*tokenize(char *s);
 
-// tokenizer_helper
+// tokenizer_utils
 int			check_sign(char *str, t_syntax *st);
 
 // lexer
