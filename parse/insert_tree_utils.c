@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:39:02 by erho              #+#    #+#             */
-/*   Updated: 2024/05/03 19:58:29 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/05 14:22:45 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,22 +49,4 @@ void	cpy_new_exp(char **new_exp, char **exp, char **tmp)
 	while (tmp[idx])
 		new_exp[new_idx++] = tmp[idx++];
 	free(tmp[idx]);
-}
-
-char	*ft_strndup(char *str, int len)
-{
-	char	*res;
-	int		i;
-
-	res = (char *)malloc(sizeof(char) * (len + 1));
-	if (res == NULL)
-		exit(1);
-	i = 0;
-	while (str[i] && i < len)
-	{
-		res[i] = str[i];
-		i++;
-	}
-	res[i] = '\0';
-	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/03 20:02:22 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/05 14:22:57 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,6 @@ int			pipe_node(t_tree **tree, t_token *tokens, t_env_node **env_list,
 				int idx);
 
 // insert_tree_util
-char		*ft_strndup(char *str, int len);
 char		**join_exp(char **tree_exp, char **tmp);
 t_tree		*find_last_right(t_tree *tree);
 void		cpy_new_exp(char **new_exp, char **exp, char **tmp);
