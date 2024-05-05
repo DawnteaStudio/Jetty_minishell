@@ -6,11 +6,11 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:24:34 by erho              #+#    #+#             */
-/*   Updated: 2024/05/03 19:52:55 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/05 14:36:01 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 void	tree_make_word(char *s1, char *s2, t_syntax st)
 {

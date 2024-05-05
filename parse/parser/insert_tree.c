@@ -6,11 +6,11 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:05:09 by erho              #+#    #+#             */
-/*   Updated: 2024/05/03 20:03:43 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/05 14:35:54 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 void	command_node(t_tree **tree, t_token *tokens, t_env_node **env_list,
 		int *idx)

@@ -6,11 +6,11 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 20:34:57 by erho              #+#    #+#             */
-/*   Updated: 2024/04/24 22:41:05 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/05 14:33:41 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 int	cnt_token(t_token *tokens)
 {

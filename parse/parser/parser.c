@@ -6,11 +6,11 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:19:03 by erho              #+#    #+#             */
-/*   Updated: 2024/04/21 18:54:34 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/05 14:35:57 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 t_tree	*parse(char *str, t_env_node **env_list)
 {

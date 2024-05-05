@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   _test_env_lst.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 20:32:28 by erho              #+#    #+#             */
-/*   Updated: 2024/04/12 01:02:38 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/05 14:36:20 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 t_env_node	*create_list(char *key, char *value)
 {

@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/05 14:27:34 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/05 14:42:03 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,23 +175,12 @@ typedef struct s_token
 // tokenizer
 t_token		*tokenize(char *s);
 
-// bool_check
-int			is_quote(char c);
-int			is_bracket(char c);
-int			is_dollar(char c);
-int			is_pipe(char c);
-int			is_white_space(char c);
-
 // tokenizer_helper
 int			check_sign(char *str, t_syntax *st);
 
 // lexer
 t_token		*lexical_analyze(char *str);
 int			cnt_token(t_token *tokens);
-
-// free
-void		free_tokens(t_token *tokens);
-void		free_tree(t_tree **tree);
 
 // parse
 t_tree		*parse(char *str, t_env_node **env_list);
@@ -220,6 +209,17 @@ char		**join_exp(char **tree_exp, char **tmp);
 t_tree		*find_last_right(t_tree *tree);
 void		cpy_new_exp(char **new_exp, char **exp, char **tmp);
 int			cnt_exp(char **exp);
+
+// bool_check
+int			is_quote(char c);
+int			is_bracket(char c);
+int			is_dollar(char c);
+int			is_pipe(char c);
+int			is_white_space(char c);
+
+// free
+void		free_tokens(t_token *tokens);
+void		free_tree(t_tree **tree);
 
 // test
 t_env_node	*create_list(char *key, char *value);
