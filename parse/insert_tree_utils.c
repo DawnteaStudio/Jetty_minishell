@@ -6,11 +6,21 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:39:02 by erho              #+#    #+#             */
-/*   Updated: 2024/05/05 14:22:45 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/05 14:24:43 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	cnt_exp(char **exp)
+{
+	int	i;
+
+	i = 0;
+	while (exp[i])
+		i++;
+	return (i);
+}
 
 char	**join_exp(char **tree_exp, char **tmp)
 {

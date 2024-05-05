@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/05 14:22:57 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/05 14:27:34 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,10 +189,9 @@ int			check_sign(char *str, t_syntax *st);
 t_token		*lexical_analyze(char *str);
 int			cnt_token(t_token *tokens);
 
-// parse_helper
+// free
 void		free_tokens(t_token *tokens);
 void		free_tree(t_tree **tree);
-int			cnt_exp(char **exp);
 
 // parse
 t_tree		*parse(char *str, t_env_node **env_list);
@@ -220,6 +219,7 @@ int			pipe_node(t_tree **tree, t_token *tokens, t_env_node **env_list,
 char		**join_exp(char **tree_exp, char **tmp);
 t_tree		*find_last_right(t_tree *tree);
 void		cpy_new_exp(char **new_exp, char **exp, char **tmp);
+int			cnt_exp(char **exp);
 
 // test
 t_env_node	*create_list(char *key, char *value);
