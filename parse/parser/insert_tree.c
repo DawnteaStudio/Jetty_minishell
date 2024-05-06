@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:05:09 by erho              #+#    #+#             */
-/*   Updated: 2024/05/06 18:57:19 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/06 23:15:53 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ int	redirects_node(t_tree **tree, t_token *tokens, t_env_node **env_list,
 	(*idx)++;
 	if (tokens[*idx].type != TOKEN_TYPE_WORD)
 		return (redir_error(CODE_ERROR, tokens[*idx]));
-	new_node->redir_info = extract_data(tokens[*idx].str, "", env_list);
+	new_node->redir_info = extract_data(tokens[*idx].str,
+			new_node->redir, env_list);
 	new_node->origin_token = ft_strdup(tokens[*idx].str);
 	(*idx)++;
 	return (CODE_SUCCESS);
