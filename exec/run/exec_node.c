@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_node.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:32:53 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/06 22:57:19 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/07 02:13:54 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	make_new_envp(t_shell_info *shell)
 	i = 0;
 	list = shell->env_list;
 	shell->env = (char **)malloc(sizeof(char *) * \
-	ft_get_len(shell->env_list) + 1);
+	(ft_get_len(shell->env_list) + 1));
 	if (shell->env == NULL)
 		ft_error(MEMORY);
 	update_env_list(&(shell->env_list), "PWD", shell->backup_pocket->pwd);

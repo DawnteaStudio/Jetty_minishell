@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 19:59:42 by erho              #+#    #+#             */
-/*   Updated: 2024/05/06 21:46:45 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/07 02:32:12 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,13 @@ char	**join_exp_n_str(char **exp, char *str, t_syntax *st)
 		free(str);
 		return (exp);
 	}
-	new_exp = set_exp(cnt_exp(exp));
+	new_exp = set_exp(st->height + 1);
 	i = 0;
-	while (i < st->height)
+	while (i < st->height && exp[i] != NULL)
 	{
 		new_exp[i] = exp[i];
 		i++;
 	}
-	st->height = i;
 	if (exp[i] != NULL)
 		new_exp[i] = str_join(exp[i], str);
 	else
