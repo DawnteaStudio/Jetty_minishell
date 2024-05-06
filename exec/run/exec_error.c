@@ -6,25 +6,23 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 21:43:27 by parksewon         #+#    #+#             */
-/*   Updated: 2024/05/06 20:21:56 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/06 20:42:28 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-// int	is_all_white_space(char *str)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (str && str[i])
-// 	{
-// 		if (is_white_space(str[i]) == FALSE)
-// 			return (CODE_ERROR);
-// 		i++;
-// 	}
-// 	return (CODE_SUCCESS);
-// }
+void	rearrange_exp(t_tree *tree, int i)
+{
+	while(tree->exp[i + 1])
+	{
+		free(tree->exp[i]);
+		tree->exp[i] = ft_strdup(tree->exp[i + 1]);
+		i++;
+	}
+	free(tree->exp[i]);
+	tree->exp[i] = NULL;
+}
 
 int	is_only_dollar_sign(char *str)
 {
@@ -55,19 +53,9 @@ void	ignore_white_node(t_shell_info *shell, t_tree *tree)
 	while (tree->exp && tree->exp[i])
 	{
 		if (tree->exp[i][0] == 0 && is_only_dollar_sign(token[i].str) == CODE_SUCCESS)
-		{
-			free(tree->exp[i]);
-			tree->exp[i] = NULL;
-		}
-		// else if (is_all_white_space(tree->exp[i]) == CODE_SUCCESS)
-		// {
-		// 	if (is_only_dollar_sign(token[i].str) == CODE_SUCCESS)
-		// 	{
-		// 		free(tree->exp[i]);
-		// 		tree->exp[i] = NULL;
-		// 	}
-		// }
-		i++;
+			rearrange_exp(tree, i);
+		else
+			i++;
 	}
 	free_tokens(token);
 }
