@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:12:05 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/06 19:09:07 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/06 19:26:38 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,14 @@ void	set_minishell(int argc, char **argv, char **envp, t_shell_info *shell)
 	shell->origin = TRUE;
 	shell->path_avil = TRUE;
 	shell->env = NULL;
+	shell->str = NULL;
 	make_env_list(shell);
 	shell->backup_pocket = make_backup_env();
 }
 
 void	start_parse(t_shell_info *shell, char *str)
 {
+	shell->str = str;
 	shell->tree = parse(str, &(shell->env_list));
 	if (shell->tree != NULL)
 	{

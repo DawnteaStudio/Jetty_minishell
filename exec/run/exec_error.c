@@ -6,11 +6,59 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 21:43:27 by parksewon         #+#    #+#             */
-/*   Updated: 2024/05/01 19:44:38 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/06 20:42:28 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	rearrange_exp(t_tree *tree, int i)
+{
+	while(tree->exp[i + 1])
+	{
+		free(tree->exp[i]);
+		tree->exp[i] = ft_strdup(tree->exp[i + 1]);
+		i++;
+	}
+	free(tree->exp[i]);
+	tree->exp[i] = NULL;
+}
+
+int	is_only_dollar_sign(char *str)
+{
+	int	i;
+	int	flag;
+
+	i  = 0;
+	flag = CODE_SUCCESS;
+	while (str && str[i])
+	{
+		if (str[i] == '\'' || str[i] == '"')
+		{
+			flag = CODE_ERROR;
+			return (CODE_ERROR);
+		}
+		i++;
+	}
+	return (CODE_SUCCESS);
+}
+
+void	ignore_white_node(t_shell_info *shell, t_tree *tree)
+{
+	int		i;
+	t_token	*token;
+
+	i = 0;
+	token = tokenize(shell->str);
+	while (tree->exp && tree->exp[i])
+	{
+		if (tree->exp[i][0] == 0 && is_only_dollar_sign(token[i].str) == CODE_SUCCESS)
+			rearrange_exp(tree, i);
+		else
+			i++;
+	}
+	free_tokens(token);
+}
 
 int	null_amb(char *str)
 {
