@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:15:16 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/01 22:39:01 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/06 20:46:40 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int	ft_env(t_shell_info *shell)
 {
 	t_env_node	*list;
 	t_env_node	*path;
+
 	update_env_list(&(shell->env_list), "_", "/usr/bin/env");
 	path = is_include_env(&(shell->env_list), "PATH");
 	if (path == NULL)

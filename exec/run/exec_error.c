@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 21:43:27 by parksewon         #+#    #+#             */
-/*   Updated: 2024/05/06 20:42:28 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/06 21:58:45 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	rearrange_exp(t_tree *tree, int i)
 {
-	while(tree->exp[i + 1])
+	while (tree->exp[i + 1])
 	{
 		free(tree->exp[i]);
 		tree->exp[i] = ft_strdup(tree->exp[i + 1]);
@@ -24,12 +24,12 @@ void	rearrange_exp(t_tree *tree, int i)
 	tree->exp[i] = NULL;
 }
 
-int	is_only_dollar_sign(char *str)
+int	is_only_dollar(char *str)
 {
 	int	i;
 	int	flag;
 
-	i  = 0;
+	i = 0;
 	flag = CODE_SUCCESS;
 	while (str && str[i])
 	{
@@ -52,7 +52,7 @@ void	ignore_white_node(t_shell_info *shell, t_tree *tree)
 	token = tokenize(shell->str);
 	while (tree->exp && tree->exp[i])
 	{
-		if (tree->exp[i][0] == 0 && is_only_dollar_sign(token[i].str) == CODE_SUCCESS)
+		if (tree->exp[i][0] == 0 && is_only_dollar(token[i].str) == 0)
 			rearrange_exp(tree, i);
 		else
 			i++;
@@ -90,6 +90,8 @@ t_exit_code	putstr_error(char *str, t_exit_code code, t_error_type type)
 			ft_putstr_fd(": Permission denied\n", 2);
 		else if (type == ERR_AMBIGUOUS)
 			ft_putstr_fd(": ambiguous redirect\n", 2);
+		else if (type == ERR_ISDIR)
+			ft_putstr_fd(": is a directory\n", 2);
 	}
 	return (code);
 }

@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:12:05 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/06 19:26:38 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/06 20:52:22 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	main(int argc, char **argv, char **envp)
 	char			*str;
 	t_shell_info	shell;
 
-	atexit(leaks);
+	// atexit(leaks);
 	set_minishell(argc, argv, envp, &shell);
 	while (1)
 	{

@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/06 20:44:41 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/06 21:58:06 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <errno.h>
 # include <signal.h>
 # include <termios.h>
+# include <sys/stat.h>
 
 # define FALSE		0
 # define TRUE		1
@@ -43,6 +44,8 @@
 # define ENV_PATH	"/usr/local/bin:/usr/bin:/bin:\
 /usr/sbin:/sbin:/usr/local/munki:/Library/Apple/usr/bin:/Library/Frameworks/\
 Mono.framework/Versions/Current/Commands"
+
+# define LM 922337203685477580
 
 extern int	g_exit_code;
 
@@ -90,6 +93,7 @@ typedef enum e_error_type
 	ERR_NO_SUCH_FILE,
 	ERR_PER_DENIED,
 	ERR_AMBIGUOUS,
+	ERR_ISDIR,
 	ERR_PERROR
 }	t_error_type;
 
