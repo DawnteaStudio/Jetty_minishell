@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_node.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:32:53 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/06 19:08:37 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/06 20:14:41 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	ft_exec_child(t_shell_info *shell, t_tree *tree)
 
 	path = ft_get_all_path(shell);
 	i = 0;
+	ignore_white_node(shell, tree);
 	while (tree->cmd[i])
 	{
 		if (tree->cmd[i] == '/')
