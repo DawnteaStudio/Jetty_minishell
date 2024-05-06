@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:05:09 by erho              #+#    #+#             */
-/*   Updated: 2024/05/06 23:15:53 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/07 00:29:49 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	pipe_node(t_tree **tree, t_token *tokens, t_env_node **env_list, int idx)
 	if (start == idx)
 	{
 		ft_putstr_fd("jetty: syntax error near unexpected token '|'\n", 2);
-		g_exit_code = 1;
+		g_exit_code = 258;
 		return (CODE_ERROR);
 	}
 	(*tree)->left = create_node(TREE_TYPE_PHRASE);
