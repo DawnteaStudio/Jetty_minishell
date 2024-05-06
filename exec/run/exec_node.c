@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:32:53 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/06 21:59:26 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/06 22:57:19 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ void	include_slash_case(t_shell_info *shell, t_tree *tree)
 	struct stat	statbuf;
 
 	if (stat(tree->cmd, &statbuf) == 0)
-		exit(putstr_error(tree->cmd, CODE_NOT_EXEC, ERR_ISDIR));
+	{
+		if (S_ISDIR(statbuf.st_mode))
+			exit(putstr_error(tree->cmd, CODE_NOT_EXEC, ERR_ISDIR));
+	}
 	make_new_envp(shell);
 	if (access(tree->cmd, F_OK) == 0)
 	{

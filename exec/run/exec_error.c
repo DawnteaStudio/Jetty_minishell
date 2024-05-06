@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 21:43:27 by parksewon         #+#    #+#             */
-/*   Updated: 2024/05/06 21:58:45 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/06 22:53:03 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,15 @@ void	rearrange_exp(t_tree *tree, int i)
 int	is_only_dollar(char *str)
 {
 	int	i;
-	int	flag;
 
 	i = 0;
-	flag = CODE_SUCCESS;
 	while (str && str[i])
 	{
 		if (str[i] == '\'' || str[i] == '"')
-		{
-			flag = CODE_ERROR;
-			return (CODE_ERROR);
-		}
+			return (FALSE);
 		i++;
 	}
-	return (CODE_SUCCESS);
+	return (TRUE);
 }
 
 void	ignore_white_node(t_shell_info *shell, t_tree *tree)
@@ -52,7 +47,7 @@ void	ignore_white_node(t_shell_info *shell, t_tree *tree)
 	token = tokenize(shell->str);
 	while (tree->exp && tree->exp[i])
 	{
-		if (tree->exp[i][0] == 0 && is_only_dollar(token[i].str) == 0)
+		if (tree->exp[i][0] == 0 && is_only_dollar(token[i].str) == TRUE)
 			rearrange_exp(tree, i);
 		else
 			i++;

@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/06 22:09:07 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/06 22:50:17 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,6 +245,7 @@ int			ft_env(t_shell_info *shell);
 int			ft_unset(t_shell_info *shell, t_tree *tree);
 int			ft_export(t_shell_info *shell, t_tree *tree);
 int			ft_cd(t_shell_info *shell, t_tree *tree);
+int			ft_null(t_shell_info *shell, t_tree *tree);
 
 //env
 t_env_node	*is_include_env(t_env_node	**env_list, char *key);
@@ -277,6 +278,7 @@ void		free_split_arr(char **ptr);
 //exec
 int			ft_exec(t_shell_info *shell, t_tree *tree);
 void		ft_exec_preprocess(t_shell_info *shell, t_tree *tree);
+int			ft_exec_cmd(t_shell_info *shell, t_tree *tree, t_tree *redirs);
 
 //exec_node
 int			ft_exec_node(t_shell_info *shell, t_tree *tree);
@@ -305,5 +307,7 @@ t_exit_code	is_write(char *file);
 t_exit_code	putstr_error(char *str, t_exit_code code, t_error_type type);
 int			null_amb(char *str);
 void		ignore_white_node(t_shell_info *shell, t_tree *tree);
+int			is_only_dollar(char *str);
+void		rearrange_exp(t_tree *tree, int i);
 
 #endif

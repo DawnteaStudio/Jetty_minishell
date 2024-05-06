@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:02:59 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/24 18:50:09 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/06 22:43:29 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ int	ft_exec_builtin(t_shell_info *shell, t_tree *tree, int builtin)
 	else if (builtin == BLT_CD)
 		return (ft_cd(shell, tree));
 	else if (builtin == BLT_NULL)
-		return (putstr_error("", CODE_NOT_FOUND, ERR_CMD_NOT_FND));
+		return (ft_null(shell, tree));
 	return (ft_exit(shell, tree));
 }

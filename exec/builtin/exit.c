@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 06:49:29 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/06 21:47:17 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/06 22:20:39 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	is_num(char	*str)
 	i = 0;
 	meet_blank = 0;
 	while (str[i] == ' ' || str[i] == '\t')
+		i++;
+	if (str[i] == '+' || str[i] == '-')
 		i++;
 	if (str[i] == 0)
 		return (FALSE);
