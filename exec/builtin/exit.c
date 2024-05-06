@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 06:49:29 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/06 22:20:39 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/07 00:24:21 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,7 @@ int	ft_exit(t_shell_info *shell, t_tree *tree)
 {
 	if (tree->exp[1])
 	{
-		if (tree->exp[2])
-		{
-			ft_putstr_fd("exit\njetty_shell: exit: too many arguments\n", 2);
-			return (CODE_ERROR);
-		}
-		else if (is_num(tree->exp[1]) == FALSE || \
+		if (is_num(tree->exp[1]) == FALSE || \
 		is_wide_num(tree->exp[1]) == FALSE)
 		{
 			ft_putstr_fd("exit\njetty_shell: exit: ", 2);
@@ -100,6 +95,11 @@ int	ft_exit(t_shell_info *shell, t_tree *tree)
 			ft_putstr_fd(": numeric argument required\n", 2);
 			clean_all(shell);
 			exit(CODE_255);
+		}
+		else if (tree->exp[2])
+		{
+			ft_putstr_fd("exit\njetty_shell: exit: too many arguments\n", 2);
+			return (CODE_ERROR);
 		}
 		else
 			g_exit_code = (ft_atoi(tree->exp[1]) % 256);

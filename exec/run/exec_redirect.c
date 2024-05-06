@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redirect.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 21:02:28 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/06 19:08:26 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/07 01:47:46 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,19 @@ int	ft_in(t_tree *tree)
 
 int	ft_out(t_tree *tree)
 {
-	int	fd;
-	int	status;
+	int			fd;
+	int			status;
+	struct stat	statbuf;
 
 	if (tree->redir_info[1] != NULL)
 		return (putstr_error(tree->origin_token, CODE_ERROR, ERR_AMBIGUOUS));
 	if (tree->redir_info[0][0] == 0 && null_amb(tree->origin_token))
 		return (putstr_error(tree->origin_token, CODE_ERROR, ERR_AMBIGUOUS));
+	if (stat(tree->redir_info[0], &statbuf) == 0)
+	{
+		if (S_ISDIR(statbuf.st_mode))
+			return (putstr_error(tree->redir_info[0], CODE_ERROR, ERR_ISDIR));
+	}
 	fd = open(tree->redir_info[0], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
 	{
@@ -54,13 +60,19 @@ int	ft_out(t_tree *tree)
 
 int	ft_append(t_tree *tree)
 {
-	int	fd;
-	int	status;
+	int			fd;
+	int			status;
+	struct stat	statbuf;
 
 	if (tree->redir_info[1] != NULL)
 		return (putstr_error(tree->origin_token, CODE_ERROR, ERR_AMBIGUOUS));
 	if (tree->redir_info[0][0] == 0 && null_amb(tree->origin_token))
 		return (putstr_error(tree->origin_token, CODE_ERROR, ERR_AMBIGUOUS));
+	if (stat(tree->redir_info[0], &statbuf) == 0)
+	{
+		if (S_ISDIR(statbuf.st_mode))
+			return (putstr_error(tree->redir_info[0], CODE_ERROR, ERR_ISDIR));
+	}
 	fd = open(tree->redir_info[0], O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd == -1)
 	{
