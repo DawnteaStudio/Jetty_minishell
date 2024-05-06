@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 02:21:04 by erho              #+#    #+#             */
-/*   Updated: 2024/05/06 23:15:16 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/07 00:54:58 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	find_key_idx(char *str, t_syntax *st)
 		return (FALSE);
 	if (st->width == st->word && ft_isdigit(str[st->width]))
 		return (FALSE);
-	if (str[st->width] == '$')
+	if (str[st->width] == '$' || str[st->width] == '/')
 		return (FALSE);
 	return (TRUE);
 }
