@@ -6,11 +6,20 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 02:21:04 by erho              #+#    #+#             */
-/*   Updated: 2024/05/06 17:32:46 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/06 20:26:40 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	set_quote(char *str, t_syntax *st)
+{
+	if (str[st->width] != '\0' && str[st->width] == st->quotes)
+	{
+		st->width++;
+		st->quotes = '\0';
+	}
+}
 
 void	set_height(char **res, char *value, t_syntax *st)
 {
@@ -61,31 +70,12 @@ char	*check_key(t_env_node **env_list, char *str, t_syntax *st)
 	return (ft_strdup(tmp->value));
 }
 
-char	**make_exp(t_token *new_token)
-{
-	int		cnt;
-	char	**res;
-	int		i;
-
-	cnt = cnt_token(new_token);
-	res = set_exp(cnt);
-	i = 0;
-	while (new_token[i].str)
-	{
-		res[i] = ft_strdup(new_token[i].str);
-		i++;
-	}
-	free_tokens(new_token);
-	return (res);
-}
-
 char	**get_env_value(t_env_node **env_list, char *str, char **res,
 		t_syntax *st)
 {
 	char	*value;
 	t_token	*new_token;
 	char	**exp;
-	int		flag;
 
 	value = check_key(env_list, str, st);
 	if (st->quotes != '\0' || ft_strcmp(st->sample, "export") == 0)
@@ -93,18 +83,19 @@ char	**get_env_value(t_env_node **env_list, char *str, char **res,
 	else
 	{
 		new_token = tokenize(value);
-		flag = is_white_space(value[0]);
-		if (flag == TRUE && res[st->height][0] != '\0')
+		if (new_token[0].str == NULL)
+		{
+			free_tokens(new_token);
+			free(value);
+			return (res);
+		}
+		if (is_white_space(value[0]) == TRUE && res[st->height][0] != '\0')
 			st->height++;
 		exp = make_exp(new_token);
 		res = join_exp(res, exp, st->height);
 		set_height(res, value, st);
 	}
-	if (str[st->width] != '\0' && str[st->width] == st->quotes)
-	{
-		st->width++;
-		st->quotes = '\0';
-	}
+	set_quote(str, st);
 	free(value);
 	return (res);
 }

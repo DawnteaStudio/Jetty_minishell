@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:24:34 by erho              #+#    #+#             */
-/*   Updated: 2024/05/06 18:33:25 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/06 20:23:25 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,23 @@ char	**set_exp(int size)
 	if (res == NULL)
 		ft_error(MEMORY);
 	res[size] = NULL;
+	return (res);
+}
+
+char	**make_exp(t_token *new_token)
+{
+	int		cnt;
+	char	**res;
+	int		i;
+
+	cnt = cnt_token(new_token);
+	res = set_exp(cnt);
+	i = 0;
+	while (new_token[i].str)
+	{
+		res[i] = ft_strdup(new_token[i].str);
+		i++;
+	}
+	free_tokens(new_token);
 	return (res);
 }

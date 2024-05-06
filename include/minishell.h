@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/06 19:08:12 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/06 20:23:24 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,7 @@ t_tree		*parse(char *str, t_env_node **env_list);
 void		tree_find_idx(char *str, t_syntax *st);
 void		tree_make_word(char *s1, char *s2, t_syntax st);
 char		**set_exp(int size);
+char		**make_exp(t_token *new_token);
 
 // set_tree
 t_tree		*create_node(int type);
