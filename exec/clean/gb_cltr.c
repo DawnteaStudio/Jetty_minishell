@@ -6,16 +6,31 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:38:49 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/06 18:15:57 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/06 19:09:15 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	del(char *ptr)
+void	free_split_arr(char **ptr)
 {
+	int	i;
+
+	i = 0;
+	if (ptr == NULL)
+		return ;
+	while (ptr[i])
+	{
+		free(ptr[i]);
+		i++;
+	}
 	free(ptr);
-	ptr = NULL;
+}
+
+void	del(char **ptr)
+{
+	free(*ptr);
+	*ptr = NULL;
 }
 
 char	*heap_handler(char *ptr)
@@ -43,7 +58,7 @@ void	free_env_list(t_shell_info *shell)
 	}
 	shell->env_list = NULL;
 	if (shell->backup_pwd)
-		free(shell->backup_pwd);
+		del(&shell->backup_pwd);
 }
 
 void	clean_all(t_shell_info *shell)

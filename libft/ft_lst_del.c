@@ -6,21 +6,21 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:58:48 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/05 16:35:04 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/01 21:17:38 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/libft.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(char *))
+void	ft_lstdelone(t_list *lst, void (*del)(char **))
 {
 	if (!lst)
 		return ;
-	(*del)(lst->content);
+	(*del)(&lst->content);
 	free(lst);
 }
 
-void	ft_lstclear(t_list **lst, void (*del)(char *))
+void	ft_lstclear(t_list **lst, void (*del)(char **))
 {
 	t_list	*node;
 

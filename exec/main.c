@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:12:05 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/06 18:16:48 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/06 19:09:07 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,12 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (str[0] == 0)
 		{
-			del(str);
+			del(&str);
 			continue ;
 		}
 		add_history(str);
 		start_parse(&shell, str);
-		free(str);
+		del(&str);
 	}
 	clean_all(&shell);
 	return (CODE_SUCCESS);

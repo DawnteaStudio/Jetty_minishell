@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:32:53 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/06 18:15:10 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/06 19:08:37 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	no_include_slash_case(t_shell_info *shell, t_tree *tree, char **path)
 	{
 		tmp2 = ft_strjoin(path[i], "/");
 		tmp = ft_strjoin(tmp2, tree->cmd);
-		del(tmp2);
+		del(&tmp2);
 		if (access(tmp, F_OK) == 0)
 		{
 			if (access(tmp, X_OK) == 0)
@@ -66,7 +66,7 @@ void	no_include_slash_case(t_shell_info *shell, t_tree *tree, char **path)
 			}
 			exit(putstr_error(tree->cmd, CODE_NOT_EXEC, ERR_PER_DENIED));
 		}
-		del(tmp);
+		del(&tmp);
 		i++;
 	}
 	exit(putstr_error(tree->cmd, CODE_NOT_FOUND, ERR_CMD_NOT_FND));
