@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/05 14:46:38 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/06 18:36:24 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,11 +186,9 @@ int			cnt_token(t_token *tokens);
 t_tree		*parse(char *str, t_env_node **env_list);
 
 // set_tree_utils
-char		*res_join(char *str, char *temp);
 void		tree_find_idx(char *str, t_syntax *st);
 void		tree_make_word(char *s1, char *s2, t_syntax st);
-char		**set_exp();
-char		**join_exp_n_str(char **exp, char **str);
+char		**set_exp(int size);
 
 // set_tree
 t_tree		*create_node(int type);
@@ -205,10 +203,14 @@ int			pipe_node(t_tree **tree, t_token *tokens, t_env_node **env_list,
 				int idx);
 
 // insert_tree_util
-char		**join_exp(char **tree_exp, char **tmp);
 t_tree		*find_last_right(t_tree *tree);
-void		cpy_new_exp(char **new_exp, char **exp, char **tmp);
+void		cpy_new_exp(char **new_exp, char **exp, char **tmp, int exp_len);
 int			cnt_exp(char **exp);
+
+// join
+char		**join_exp_n_str(char **exp, char *str, t_syntax *st);
+char		**join_exp(char **tree_exp, char **tmp, int exp_len);
+char		*str_join(char *str, char *temp);
 
 // bool_check
 int			is_quote(char c);

@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 20:50:58 by erho              #+#    #+#             */
-/*   Updated: 2024/05/05 14:36:25 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/05 20:54:42 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,13 @@ void	print_tree_type(t_tree *tree)
 	{
 		printf("%s\n", tree->cmd);
 		int i=0;
+		printf("------------------------\n");
 		while (tree->exp && tree->exp[i])
 		{
-			printf("%s ___", tree->exp[i]);
+			printf("%sk\n", tree->exp[i]);
 			i++;
 		}
-		printf("\n");
+		printf("------------------------\n");
 	}
 	if (tree->left != NULL)
 		print_tree_type(tree->left);
@@ -54,8 +55,9 @@ int	main(int argc, char **argv, char **envp)
 	t_tree			*tree;
 	char			*str;
 	t_env_node *env_list = create_list("a", " a b");
+	env_list->next = create_list("c", "cc");
 
-	//atexit(leaks);
+	atexit(leaks);
 	(void)argc;
 	(void)argv;
 	(void)envp;

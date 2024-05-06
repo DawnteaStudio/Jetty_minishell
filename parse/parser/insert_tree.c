@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:05:09 by erho              #+#    #+#             */
-/*   Updated: 2024/05/05 14:35:54 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/06 17:03:34 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	command_node(t_tree **tree, t_token *tokens, t_env_node **env_list,
 	while (tokens[*idx].type == TOKEN_TYPE_WORD)
 	{
 		tmp = extract_data(tokens[*idx].str, new_node->cmd, env_list);
-		new_node->exp = join_exp(new_node->exp, tmp);
+		new_node->exp = join_exp(new_node->exp, tmp, cnt_exp(new_node->exp));
 		(*idx)++;
 	}
 }

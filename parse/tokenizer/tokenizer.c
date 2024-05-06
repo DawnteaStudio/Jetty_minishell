@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:06:56 by erho              #+#    #+#             */
-/*   Updated: 2024/05/05 14:36:16 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/06 18:34:18 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_insert(char *s, t_token *res, t_syntax st)
 		{
 			res[st.height].str = (char *)malloc(sizeof(char) * (st.len + 1));
 			if (res[st.height].str == NULL)
-				exit(1);
+				ft_error(MEMORY);
 			make_word(res[st.height].str, &s[st.word], &st);
 			(res[st.height].str)[st.len] = '\0';
 			st.height++;
@@ -95,7 +95,7 @@ t_token	*tokenize(char *s)
 	cnt = count_word(s, cmd);
 	res = (t_token *)malloc(sizeof(t_token) * (cnt + 1));
 	if (res == NULL)
-		exit(1);
+		ft_error(MEMORY);
 	ft_insert(s, res, cmd);
 	res[cnt].str = NULL;
 	return (res);

@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 20:48:27 by erho              #+#    #+#             */
-/*   Updated: 2024/05/05 14:36:05 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/06 18:33:45 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,23 @@ char	**extract_data(char *str, char *cmd, t_env_node **env_list)
 	char		*temp;
 	char		**res;
 
-	res = set_exp();
 	ft_memset(&st, 0, sizeof(t_syntax));
+	res = set_exp(1);
+	res[0] = ft_strdup("");
 	st.sample = cmd;
 	while (str[st.width])
 	{
 		st.len = 0;
 		st.q_back_up = st.quotes;
 		tree_find_idx(str, &st);
-		temp = (char *)malloc(sizeof(char) * (st.len + 1));
-		if (temp == NULL)
-			exit(1);
-		tree_make_word(temp, &str[st.word], st);
-		res = join_exp_n_str(res, &temp);
-		st.height++;
+		if (!(st.len == 0 && st.height != 0))
+		{
+			temp = (char *)malloc(sizeof(char) * (st.len + 1));
+			if (temp == NULL)
+				ft_error(MEMORY);
+			tree_make_word(temp, &str[st.word], st);
+			res = join_exp_n_str(res, temp, &st);
+		}
 		if (str[st.width])
 			res = get_env_value(env_list, str, res, &st);
 	}
@@ -44,7 +47,7 @@ t_tree	*create_node(int type)
 
 	new_node = (t_tree *)malloc(sizeof(t_tree));
 	if (new_node == NULL)
-		exit(1);
+		ft_error(MEMORY);
 	new_node->type = type;
 	new_node->cmd = NULL;
 	new_node->redir = NULL;

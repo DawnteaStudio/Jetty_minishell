@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:24:34 by erho              #+#    #+#             */
-/*   Updated: 2024/05/05 14:36:01 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/06 18:33:25 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,46 +67,13 @@ void	tree_find_idx(char *str, t_syntax *st)
 	}
 }
 
-char	*res_join(char *str, char *temp)
-{
-	char	*res;
-
-	res = ft_strjoin(str, temp);
-	free(str);
-	return (res);
-}
-
-char	**set_exp()
+char	**set_exp(int size)
 {
 	char	**res;
 
-	res = (char **)malloc(sizeof(char *));
+	res = (char **)malloc(sizeof(char *) * (size + 1));
 	if (res == NULL)
-		exit(1);
-	res[0] = NULL;
+		ft_error(MEMORY);
+	res[size] = NULL;
 	return (res);
-}
-
-char	**join_exp_n_str(char **exp, char **str)
-{
-	int		cnt;
-	char	**new_exp;
-	int		i;
-
-	cnt = cnt_exp(exp) + 1;
-	new_exp = (char **)malloc(sizeof(char *) * (cnt + 1));
-	if (new_exp == NULL)
-		exit(1);
-	new_exp[cnt] = NULL;
-	i = 0;
-	while (exp[i])
-	{
-		new_exp[i] = exp[i];
-		i++;
-	}
-	new_exp[i] = ft_strdup(*str);
-	free(exp[cnt - 1]);
-	free(exp);
-	free(*str);
-	return (new_exp);
 }

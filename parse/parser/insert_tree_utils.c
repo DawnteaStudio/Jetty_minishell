@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:39:02 by erho              #+#    #+#             */
-/*   Updated: 2024/05/05 14:35:46 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/06 17:28:06 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,6 @@ int	cnt_exp(char **exp)
 	return (i);
 }
 
-char	**join_exp(char **tree_exp, char **tmp)
-{
-	int		cnt;
-	char	**new_exp;
-
-	cnt = cnt_exp(tree_exp) + cnt_exp(tmp);
-	new_exp = (char **)malloc(sizeof(char *) * (cnt + 1));
-	if (new_exp == NULL)
-		exit(1);
-	new_exp[cnt] = NULL;
-	cpy_new_exp(new_exp, tree_exp, tmp);
-	free(tree_exp);
-	free(tmp);
-	return (new_exp);
-}
-
 t_tree	*find_last_right(t_tree *tree)
 {
 	while (tree->right != NULL)
@@ -45,18 +29,22 @@ t_tree	*find_last_right(t_tree *tree)
 	return (tree);
 }
 
-void	cpy_new_exp(char **new_exp, char **exp, char **tmp)
+void	cpy_new_exp(char **new_exp, char **exp, char **tmp, int exp_len)
 {
 	int	new_idx;
-	int	idx;
+	int	exp_idx;
+	int	tmp_idx;
 
 	new_idx = 0;
-	idx = 0;
-	while (exp[idx])
-		new_exp[new_idx++] = exp[idx++];
-	free(exp[idx]);
-	idx = 0;
-	while (tmp[idx])
-		new_exp[new_idx++] = tmp[idx++];
-	free(tmp[idx]);
+	exp_idx = 0;
+	tmp_idx = 0;
+	while (exp_idx < exp_len)
+		new_exp[new_idx++] = exp[exp_idx++];
+	if (exp[exp_idx])
+	{
+		new_exp[new_idx++] = str_join(exp[exp_idx], tmp[tmp_idx]);
+		free(tmp[tmp_idx++]);
+	}
+	while (tmp[tmp_idx])
+		new_exp[new_idx++] = tmp[tmp_idx++];
 }
