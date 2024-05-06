@@ -6,7 +6,7 @@
 #    By: erho <erho@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 14:06:13 by sewopark          #+#    #+#              #
-#    Updated: 2024/05/05 20:10:02 by erho             ###   ########.fr        #
+#    Updated: 2024/05/06 21:28:29 by erho             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,7 @@ PARSER	= parser/handling_dollar.c parser/parser.c parser/set_tree_utils.c \
 			parser/set_tree.c parser/insert_tree.c parser/insert_tree_utils.c \
 			parser/join.c
 TOKEN	= tokenizer/tokenizer.c tokenizer/tokenizer_utils.c
-TEST	= test/_test_env_lst.c test/_test_main.c
-PARSE	= bool_check.c free.c $(LEXER) $(PARSER) $(TOKEN) $(TEST)
+PARSE	= bool_check.c free.c $(LEXER) $(PARSER) $(TOKEN)
 			
 SRCS	= $(PARSE)
 OBJS	= $(SRCS:%.c=%.o)

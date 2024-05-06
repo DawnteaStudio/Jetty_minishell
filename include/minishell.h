@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/06 20:23:24 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/06 21:30:16 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,10 +223,6 @@ int			is_white_space(char c);
 // free
 void		free_tokens(t_token *tokens);
 void		free_tree(t_tree **tree);
-
-// test
-t_env_node	*create_list(char *key, char *value);
-t_env_node	*is_include_env(t_env_node **env_list, char *key);
 
 /* ************************************************************************** */
 /*************************************EXEC*************************************/
