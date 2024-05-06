@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/06 21:30:16 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/06 21:59:06 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ typedef struct s_shell_info
 	char			*backup_oldpwd;
 	char			**envp;
 	char			**env;
+	char			*str;
 	t_tree			*tree;
 	int				backup_stdin;
 	int				backup_stdout;
@@ -299,5 +300,6 @@ t_exit_code	is_write(char *file);
 //exec_error
 t_exit_code	putstr_error(char *str, t_exit_code code, t_error_type type);
 int			null_amb(char *str);
+void		ignore_white_node(t_shell_info *shell, t_tree *tree);
 
 #endif
