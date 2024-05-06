@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 20:48:27 by erho              #+#    #+#             */
-/*   Updated: 2024/05/06 18:33:45 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/06 21:49:36 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**extract_data(char *str, char *cmd, t_env_node **env_list)
 	res = set_exp(1);
 	res[0] = ft_strdup("");
 	st.sample = cmd;
-	while (str[st.width])
+	while (str[st.width] != '\0')
 	{
 		st.len = 0;
 		st.q_back_up = st.quotes;
@@ -35,7 +35,7 @@ char	**extract_data(char *str, char *cmd, t_env_node **env_list)
 			tree_make_word(temp, &str[st.word], st);
 			res = join_exp_n_str(res, temp, &st);
 		}
-		if (str[st.width])
+		if (str[st.width] != '\0')
 			res = get_env_value(env_list, str, res, &st);
 	}
 	return (res);

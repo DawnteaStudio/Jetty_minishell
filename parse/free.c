@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:17:11 by erho              #+#    #+#             */
-/*   Updated: 2024/05/06 17:54:06 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/06 21:48:53 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_tokens(t_token *tokens)
 	int	i;
 
 	i = 0;
-	while (tokens[i].str)
+	while (tokens[i].str != NULL)
 	{
 		free(tokens[i].str);
 		i++;

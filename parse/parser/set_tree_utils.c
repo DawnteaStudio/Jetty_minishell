@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:24:34 by erho              #+#    #+#             */
-/*   Updated: 2024/05/06 20:23:25 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/06 21:49:22 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ void	tree_make_word(char *s1, char *s2, t_syntax st)
 void	tree_find_idx(char *str, t_syntax *st)
 {
 	st->word = st->width;
-	while (str[st->width])
+	while (str[st->width] != '\0')
 	{
 		if (is_quote(st->quotes) || is_quote(str[st->width]))
 		{
 			if (st->quotes == '\0')
 				st->quotes = str[st->width++];
-			while (str[st->width] && (!is_quote(str[st->width])
+			while (str[st->width] != '\0' && (!is_quote(str[st->width])
 					|| str[st->width] != st->quotes))
 			{
 				if (st->quotes == '"' && str[st->width] == '$')
@@ -87,7 +87,7 @@ char	**make_exp(t_token *new_token)
 	cnt = cnt_token(new_token);
 	res = set_exp(cnt);
 	i = 0;
-	while (new_token[i].str)
+	while (new_token[i].str != NULL)
 	{
 		res[i] = ft_strdup(new_token[i].str);
 		i++;
