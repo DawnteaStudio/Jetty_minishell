@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 02:21:04 by erho              #+#    #+#             */
-/*   Updated: 2024/05/06 20:26:40 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/06 21:43:29 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*check_key(t_env_node **env_list, char *str, t_syntax *st)
 	key = ft_substr(str, st->word, st->width - st->word);
 	tmp = is_include_env(env_list, key);
 	free(key);
-	if (tmp == NULL)
+	if (tmp == NULL || tmp->value == NULL)
 		return (ft_strdup(""));
 	return (ft_strdup(tmp->value));
 }

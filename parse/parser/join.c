@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 19:59:42 by erho              #+#    #+#             */
-/*   Updated: 2024/05/06 18:29:54 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/06 21:46:45 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	**join_exp_n_str(char **exp, char *str, t_syntax *st)
 	char	**new_exp;
 	int		i;
 
-	if (exp[st->height] || str[0] == '\0')
+	if (exp[st->height] != NULL || str[0] == '\0')
 	{
 		if (str[0] != '\0')
 			exp[st->height] = str_join(exp[st->height], str);
@@ -54,7 +54,7 @@ char	**join_exp_n_str(char **exp, char *str, t_syntax *st)
 		i++;
 	}
 	st->height = i;
-	if (exp[i])
+	if (exp[i] != NULL)
 		new_exp[i] = str_join(exp[i], str);
 	else
 		new_exp[i] = ft_strdup(str);

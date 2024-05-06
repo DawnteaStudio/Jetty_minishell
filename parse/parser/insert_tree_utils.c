@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:39:02 by erho              #+#    #+#             */
-/*   Updated: 2024/05/06 17:28:06 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/06 21:49:48 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	cnt_exp(char **exp)
 	int	i;
 
 	i = 0;
-	while (exp[i])
+	while (exp[i] != NULL)
 		i++;
 	return (i);
 }
@@ -40,11 +40,11 @@ void	cpy_new_exp(char **new_exp, char **exp, char **tmp, int exp_len)
 	tmp_idx = 0;
 	while (exp_idx < exp_len)
 		new_exp[new_idx++] = exp[exp_idx++];
-	if (exp[exp_idx])
+	if (exp[exp_idx] != NULL)
 	{
 		new_exp[new_idx++] = str_join(exp[exp_idx], tmp[tmp_idx]);
 		free(tmp[tmp_idx++]);
 	}
-	while (tmp[tmp_idx])
+	while (tmp[tmp_idx] != NULL)
 		new_exp[new_idx++] = tmp[tmp_idx++];
 }
