@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 02:21:04 by erho              #+#    #+#             */
-/*   Updated: 2024/05/07 02:27:25 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/07 12:03:24 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ int	find_key_idx(char *str, t_syntax *st)
 		return (FALSE);
 	if (is_white_space(str[st->width]) || is_quote(str[st->width]))
 		return (FALSE);
-	if (st->width == st->word && ft_isdigit(str[st->width]))
-		return (FALSE);
 	if (str[st->width] == '$' || str[st->width] == '/')
 		return (FALSE);
 	return (TRUE);
@@ -57,8 +55,8 @@ char	*check_key(t_env_node **env_list, char *str, t_syntax *st)
 	}
 	if (st->quotes == '\0' && is_quote(str[st->width]))
 		return (ft_strdup(""));
-	if (!(ft_isalpha(str[st->width]) || ft_isdigit(str[st->width])
-			|| str[st->width] == '_') || ft_strcmp(st->sample, "<<") == 0)
+	if (!(ft_isalpha(str[st->width]) || str[st->width] == '_')
+			|| ft_strcmp(st->sample, "<<") == 0)
 		return (ft_strdup("$"));
 	while (find_key_idx(str, st))
 		st->width++;
