@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 00:26:48 by parksewon         #+#    #+#             */
-/*   Updated: 2024/05/07 11:53:18 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/08 00:29:44 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,34 @@ char	*make_tmp_file_name(void)
 	return (str);
 }
 
+void	write_here_doc(t_shell_info *shell, t_tree *tree, int fd, char **line)
+{
+	t_env_node	*tmp;
+	char		*env;
+
+	while (1)
+	{
+		*line = readline("> ");
+		if (!(*line) || ft_strcmp(tree->redir_info[0], *line) == CODE_SUCCESS)
+			break ;
+		if (is_no_quotes(tree->origin_token) == TRUE)
+		{
+			if (*line[0] == '$')
+			{
+				env = ft_substr(*line, 1, ft_strlen(*line));
+				tmp = is_include_env(&shell->env_list, env);
+				if (tmp && tmp->value)
+					ft_putstr_fd(tmp->value, fd);
+				del(&env);
+			}
+		}
+		else
+			ft_putstr_fd(*line, fd);
+		ft_putstr_fd("\n", fd);
+		del(&(*line));
+	}
+}
+
 void	input_here_doc(t_shell_info *shell, t_tree *tree)
 {
 	char	*line;
@@ -38,17 +66,7 @@ void	input_here_doc(t_shell_info *shell, t_tree *tree)
 
 	set_signal(HDSIGINT, IGNORE);
 	fd = open(tree->tmp_file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	while (1)
-	{
-		line = readline("> ");
-		if (!line)
-			break ;
-		if (ft_strcmp(tree->redir_info[0], line) == CODE_SUCCESS)
-			break ;
-		ft_putstr_fd(line, fd);
-		ft_putstr_fd("\n", fd);
-		del(&line);
-	}
+	write_here_doc(shell, tree, fd, &line);
 	if (line)
 		del(&line);
 	close(fd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/07 11:29:18 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/08 00:14:55 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,7 +308,7 @@ t_exit_code	is_write(char *file);
 t_exit_code	putstr_error(char *str, t_exit_code code, t_error_type type);
 int			null_amb(char *str);
 void		ignore_white_node(t_shell_info *shell, t_tree *tree);
-int			is_only_dollar(char *str);
+int			is_no_quotes(char *str);
 void		rearrange_exp(t_tree *tree, int i);
 
 #endif

@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   null.c                                             :+:      :+:    :+:   */
+/*   exec_heredoc_util.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/06 22:41:52 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/08 00:15:43 by parksewon        ###   ########.fr       */
+/*   Created: 2024/05/08 03:15:19 by parksewon         #+#    #+#             */
+/*   Updated: 2024/05/08 03:25:09 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_null(t_shell_info *shell, t_tree *tree)
+int	find_dollar_index(char *line, int i)
 {
-	if (is_no_quotes(shell->str) == FALSE)
-		return (putstr_error("", CODE_NOT_FOUND, ERR_CMD_NOT_FND));
-	else if (tree->exp[1] == NULL)
-		return (CODE_SUCCESS);
-	rearrange_exp(tree, 0);
-	free(tree->cmd);
-	tree->cmd = ft_strdup(tree->exp[0]);
-	return (ft_exec_cmd(shell, tree, NULL));
+	while (line[i])
+	{
+		if (line[i] == '$')
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+void	expand_line()
+{
+	int		i;
+	char	*input_line;
+
+	i = 0;
 }

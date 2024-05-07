@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: erho <erho@student.42.fr>                  +#+  +:+       +#+         #
+#    By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 14:06:13 by sewopark          #+#    #+#              #
-#    Updated: 2024/05/07 02:33:02 by erho             ###   ########.fr        #
+#    Updated: 2024/05/08 03:16:10 by parksewon        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,12 @@ NAME	= minishell
 INCLUDE	= include/
 CC		= cc
 RM		= rm -f
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror  -I/usr/local/opt/readline/include
+LDFLAGS	= -L/usr/local/opt/readline/lib
 LDLIBS	= -lreadline
 BUILTIN	= echo.c env_node.c env.c exit.c pwd.c unset.c export.c cd.c null.c
 RUN		= exec_builtin.c exec_node.c exec_redirect.c exec_util.c exec.c exec_access.c\
-exec_error.c exec_heredoc.c
+exec_error.c exec_heredoc.c exec_heredoc_util.c
 EXEC	= main.c signal/signal.c $(addprefix builtin/, $(BUILTIN)) $(addprefix run/, $(RUN)) clean/gb_cltr.c
 LEXER	= lexer/lexer.c
 PARSER	= parser/handling_dollar.c parser/parser.c parser/set_tree_utils.c \
@@ -34,7 +35,7 @@ LIBFT	= ./libft/libft.a
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) $(LDLIBS) $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) $(LDLIBS) $(LIBFT) -o $(NAME)
 
 %.o : %.c
 	$(CC) $(CFLAGS) -I $(INCLUDE) -c $< -o $@
