@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 00:26:48 by parksewon         #+#    #+#             */
-/*   Updated: 2024/05/01 21:21:57 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/07 11:53:18 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,35 @@ void	input_here_doc(t_shell_info *shell, t_tree *tree)
 	if (line)
 		del(&line);
 	close(fd);
+	fd = open(tree->tmp_file, O_RDONLY, 0644);
 	clean_all(shell);
+	if (fd == -1)
+		exit(ERR_NOFILE);
+	close(fd);
 	exit(CODE_SUCCESS);
+}
+
+void	ft_parent_here_doc(t_shell_info *shell, t_tree *tree, int *status)
+{
+	int	return_status;
+
+	return_status = WEXITSTATUS(*status);
+	if (return_status == SIGINT || return_status == ERR_NOFILE)
+	{
+		shell->heredoc_quit = TRUE;
+		g_exit_code = CODE_ERROR;
+		if (return_status == ERR_NOFILE)
+		{
+			ft_putstr_fd("jetty: ", 2);
+			ft_putstr_fd(tree->tmp_file, 2);
+			ft_putstr_fd(": is not exist\n", 2);
+		}
+	}
+	else
+	{
+		g_exit_code = return_status;
+		tree->here_doc = open(tree->tmp_file, O_RDONLY);
+	}
 }
 
 void	ft_here_doc(t_shell_info *shell, t_tree *tree)
@@ -65,6 +92,7 @@ void	ft_here_doc(t_shell_info *shell, t_tree *tree)
 		return ;
 	signal(SIGQUIT, SIG_IGN);
 	tree->tmp_file = heap_handler(make_tmp_file_name());
+	printf("tmp is : %s\n", tree->tmp_file);
 	pid = fork();
 	if (!pid)
 		input_here_doc(shell, tree);
@@ -72,13 +100,6 @@ void	ft_here_doc(t_shell_info *shell, t_tree *tree)
 	{
 		waitpid(pid, &status, 0);
 		set_signal(CHSIGINT, CUSTOM);
-		if (WEXITSTATUS(status) == SIGINT)
-		{
-			shell->heredoc_quit = TRUE;
-			g_exit_code = CODE_ERROR;
-		}
-		else
-			g_exit_code = WEXITSTATUS(status);
+		ft_parent_here_doc(shell, tree, &status);
 	}
-	tree->here_doc = open(tree->tmp_file, O_RDONLY);
 }

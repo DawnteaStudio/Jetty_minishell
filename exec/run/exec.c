@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:40:49 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/06 20:55:31 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/07 11:57:29 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,18 +98,20 @@ void	ft_exec_preprocess(t_shell_info *shell, t_tree *tree)
 		if (tmp->exp[1] == NULL)
 			ft_check_backup_pwd(shell);
 	}
-	else if (tree->type == TREE_TYPE_REDIRECTIONS)
+	else if (tmp->type == TREE_TYPE_REDIRECTIONS)
 	{
-		while (tree)
+		while (tmp)
 		{
-			if (ft_strcmp(tree->left->redir, "<<") == CODE_SUCCESS)
-				ft_here_doc(shell, tree->left);
-			tree = tree->right;
+			if (ft_strcmp(tmp->left->redir, "<<") == CODE_SUCCESS)
+				ft_here_doc(shell, tmp->left);
+			else
+				break ;
+			tmp = tmp->right;
 		}
 	}
-	if (tmp->left)
+	if (tmp && tmp->left)
 		ft_exec_preprocess(shell, tmp->left);
-	if (tmp->right)
+	if (tmp && tmp->right)
 		ft_exec_preprocess(shell, tmp->right);
 }
 

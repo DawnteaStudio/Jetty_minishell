@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/06 22:50:17 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/07 11:29:18 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef enum e_error_type
 	ERR_PER_DENIED,
 	ERR_AMBIGUOUS,
 	ERR_ISDIR,
+	ERR_NOFILE,
 	ERR_PERROR
 }	t_error_type;
 
