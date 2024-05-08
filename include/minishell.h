@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/08 00:14:55 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/05/08 20:36:08 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ typedef struct s_shell_info
 	char			**envp;
 	char			**env;
 	char			*str;
+	char			*here_doc;
 	t_tree			*tree;
 	int				backup_stdin;
 	int				backup_stdout;
@@ -310,5 +311,10 @@ int			null_amb(char *str);
 void		ignore_white_node(t_shell_info *shell, t_tree *tree);
 int			is_no_quotes(char *str);
 void		rearrange_exp(t_tree *tree, int i);
+
+//exec_heredoc_util
+size_t		find_end_index(char *line, size_t i);
+size_t		find_here_doc_key(char *line, size_t i, size_t *start);
+void		write_loop(t_shell_info *shell, int fd, size_t *start, size_t *end);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 18:37:23 by erho              #+#    #+#             */
-/*   Updated: 2024/05/01 21:15:26 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/08 17:32:42 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_atoi(const char *str);
 int		ft_isdigit(int c);
 char	*ft_itoa(int n);
-int		ft_isdigit(int c);
 int		ft_isalpha(int c);
 
 #endif
