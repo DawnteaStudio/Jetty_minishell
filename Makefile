@@ -6,7 +6,7 @@
 #    By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 14:06:13 by sewopark          #+#    #+#              #
-#    Updated: 2024/05/08 22:22:30 by sewopark         ###   ########.fr        #
+#    Updated: 2024/05/08 22:38:50 by sewopark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,7 @@ NAME	= minishell
 INCLUDE	= include/
 CC		= cc
 RM		= rm -f
-CFLAGS	= -Wall -Wextra -Werror  -I/usr/local/opt/readline/include
-LDFLAGS	= -L/usr/local/opt/readline/lib
+CFLAGS	= -Wall -Wextra -Werror
 LDLIBS	= -lreadline
 BUILTIN	= echo.c env_node.c env.c exit.c pwd.c unset.c export.c cd.c null.c
 RUN		= exec_builtin.c exec_node.c exec_redirect.c exec_util.c exec.c exec_access.c\
@@ -35,7 +34,7 @@ LIBFT	= ./libft/libft.a
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) $(LDLIBS) $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LDLIBS) $(LIBFT) -o $(NAME)
 
 %.o : %.c
 	$(CC) $(CFLAGS) -I $(INCLUDE) -c $< -o $@
