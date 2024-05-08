@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 02:21:04 by erho              #+#    #+#             */
-/*   Updated: 2024/05/08 17:28:08 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/08 18:52:20 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*check_key(t_env_node **env_list, char *str, t_syntax *st)
 	if (st->quotes == '\0' && is_quote(str[st->width]))
 		return (ft_strdup(""));
 	if (!(ft_isalpha(str[st->width]) || str[st->width] == '_')
-			|| ft_strcmp(st->sample, "<<") == 0)
+		|| ft_strcmp(st->sample, "<<") == 0)
 		return (ft_strdup("$"));
 	while (find_key_idx(str, st))
 		st->width++;
