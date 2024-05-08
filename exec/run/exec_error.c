@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 21:43:27 by parksewon         #+#    #+#             */
-/*   Updated: 2024/05/06 22:53:03 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/08 00:15:50 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	rearrange_exp(t_tree *tree, int i)
 	tree->exp[i] = NULL;
 }
 
-int	is_only_dollar(char *str)
+int	is_no_quotes(char *str)
 {
 	int	i;
 
@@ -47,7 +47,7 @@ void	ignore_white_node(t_shell_info *shell, t_tree *tree)
 	token = tokenize(shell->str);
 	while (tree->exp && tree->exp[i])
 	{
-		if (tree->exp[i][0] == 0 && is_only_dollar(token[i].str) == TRUE)
+		if (tree->exp[i][0] == 0 && is_no_quotes(token[i].str) == TRUE)
 			rearrange_exp(tree, i);
 		else
 			i++;

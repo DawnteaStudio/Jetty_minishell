@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 20:11:28 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/01 21:22:44 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/07 21:45:50 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	signal_handler(int num)
 {
 	if (num == SIGINT)
 	{
+		g_exit_code = CODE_ERROR;
 		ft_putstr_fd("\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();

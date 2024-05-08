@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   null.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 22:41:52 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/06 22:53:19 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/08 00:15:43 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_null(t_shell_info *shell, t_tree *tree)
 {
-	if (is_only_dollar(shell->str) == FALSE)
+	if (is_no_quotes(shell->str) == FALSE)
 		return (putstr_error("", CODE_NOT_FOUND, ERR_CMD_NOT_FND));
 	else if (tree->exp[1] == NULL)
 		return (CODE_SUCCESS);

@@ -6,11 +6,33 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:02:59 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/06 22:43:29 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/08 22:20:44 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	cd_nofile(t_shell_info *shell)
+{
+	t_env_node	*check_pwd;
+	t_env_node	*check_oldpwd;
+
+	if (shell->pure_oldpwd == TRUE)
+		shell->pure_oldpwd = FALSE;
+	check_pwd = is_include_env(&(shell->env_list), "PWD");
+	check_oldpwd = is_include_env(&(shell->env_list), "OLDPWD");
+	if (check_oldpwd)
+	{
+		if (check_pwd)
+			update_env_list(&(shell->env_list), "OLDPWD", check_pwd->value);
+		else
+			update_env_list(&(shell->env_list), "OLDPWD", shell->backup_pwd);
+	}
+	if (check_pwd)
+		update_env_list(&(shell->env_list), "PWD", "/Users");
+	else
+		shell->backup_pwd = heap_handler(ft_strdup("/Users"));
+}
 
 int	is_builtin(char *cmd)
 {
@@ -39,7 +61,7 @@ int	is_builtin(char *cmd)
 int	ft_exec_builtin(t_shell_info *shell, t_tree *tree, int builtin)
 {
 	if (builtin == BLT_PWD)
-		return (ft_pwd());
+		return (ft_pwd(shell));
 	else if (builtin == BLT_ENV)
 		return (ft_env(shell));
 	else if (builtin == BLT_ECHO)
@@ -49,7 +71,15 @@ int	ft_exec_builtin(t_shell_info *shell, t_tree *tree, int builtin)
 	else if (builtin == BLT_EXPORT)
 		return (ft_export(shell, tree));
 	else if (builtin == BLT_CD)
-		return (ft_cd(shell, tree));
+	{
+		if (ft_cd(shell, tree) == ERR_NOFILE)
+		{
+			cd_nofile(shell);
+			return (CODE_ERROR);
+		}
+		else
+			return (CODE_SUCCESS);
+	}
 	else if (builtin == BLT_NULL)
 		return (ft_null(shell, tree));
 	return (ft_exit(shell, tree));

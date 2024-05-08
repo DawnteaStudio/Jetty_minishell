@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/06 22:50:17 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/08 22:36:28 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef enum e_error_type
 	ERR_PER_DENIED,
 	ERR_AMBIGUOUS,
 	ERR_ISDIR,
+	ERR_NOFILE,
 	ERR_PERROR
 }	t_error_type;
 
@@ -131,6 +132,7 @@ typedef struct s_shell_info
 	char			**envp;
 	char			**env;
 	char			*str;
+	char			*here_doc;
 	t_tree			*tree;
 	int				backup_stdin;
 	int				backup_stdout;
@@ -238,7 +240,7 @@ void		signal_handler(int num);
 void		set_signal(int sig_int, int sig_quit);
 
 //builtins
-int			ft_pwd(void);
+int			ft_pwd(t_shell_info *shell);
 int			ft_echo(t_tree *tree);
 int			ft_exit(t_shell_info *shell, t_tree *tree);
 int			ft_env(t_shell_info *shell);
@@ -307,7 +309,12 @@ t_exit_code	is_write(char *file);
 t_exit_code	putstr_error(char *str, t_exit_code code, t_error_type type);
 int			null_amb(char *str);
 void		ignore_white_node(t_shell_info *shell, t_tree *tree);
-int			is_only_dollar(char *str);
+int			is_no_quotes(char *str);
 void		rearrange_exp(t_tree *tree, int i);
+
+//exec_heredoc_util
+size_t		find_end_index(char *line, size_t i);
+size_t		find_here_doc_key(char *line, size_t i, size_t *start);
+void		write_loop(t_shell_info *shell, int fd, size_t *start, size_t *end);
 
 #endif

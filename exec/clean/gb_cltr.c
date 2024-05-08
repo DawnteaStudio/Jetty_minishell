@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gb_cltr.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 10:38:49 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/06 19:09:15 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/08 22:33:28 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ void	free_env_list(t_shell_info *shell)
 		free(free_node);
 	}
 	shell->env_list = NULL;
-	if (shell->backup_pwd)
-		del(&shell->backup_pwd);
 }
 
 void	clean_all(t_shell_info *shell)
@@ -68,6 +66,7 @@ void	clean_all(t_shell_info *shell)
 	if (shell->tree)
 		free_tree(&(shell->tree));
 	free(shell->backup_pocket);
+	free(shell->home);
 	heap_handler(NULL);
 	free_env_list(shell);
 	rl_clear_history();
