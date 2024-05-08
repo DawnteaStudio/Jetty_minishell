@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 02:21:04 by erho              #+#    #+#             */
-/*   Updated: 2024/05/07 12:03:24 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/08 17:28:08 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	**get_env_value(t_env_node **env_list, char *str, char **res,
 			free(value);
 			return (res);
 		}
-		if (is_white_space(value[0]) == TRUE && res[st->height][0] != '\0')
+		if (is_white_space(value[0]) && (res[st->height] && res[st->height][0]))
 			st->height++;
 		exp = make_exp(new_token);
 		res = join_exp(res, exp, st->height);
