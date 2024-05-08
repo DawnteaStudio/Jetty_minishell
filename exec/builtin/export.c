@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 08:21:18 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/25 02:47:23 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/08 21:46:23 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_check_backup_pwd(t_shell_info *shell)
 	if (check_oldpwd)
 	{
 		if (shell->backup_pwd == NULL)
-			shell->backup_pwd = ft_strdup("");
+			shell->backup_pwd = heap_handler(ft_strdup(""));
 	}
 }
 

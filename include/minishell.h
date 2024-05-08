@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/08 20:36:08 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/08 22:36:28 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,7 +240,7 @@ void		signal_handler(int num);
 void		set_signal(int sig_int, int sig_quit);
 
 //builtins
-int			ft_pwd(void);
+int			ft_pwd(t_shell_info *shell);
 int			ft_echo(t_tree *tree);
 int			ft_exit(t_shell_info *shell, t_tree *tree);
 int			ft_env(t_shell_info *shell);

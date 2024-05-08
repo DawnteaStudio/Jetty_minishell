@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_node.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:32:53 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/07 02:13:54 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/08 22:31:31 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	make_new_envp(t_shell_info *shell)
 	t_env_node	*list;
 
 	i = 0;
+	update_env_list(&(shell->env_list), "PWD", shell->backup_pocket->pwd);
+	update_env_list(&(shell->env_list), "SHLVL", shell->backup_pocket->shlvl);
 	list = shell->env_list;
 	shell->env = (char **)malloc(sizeof(char *) * \
 	(ft_get_len(shell->env_list) + 1));
 	if (shell->env == NULL)
 		ft_error(MEMORY);
-	update_env_list(&(shell->env_list), "PWD", shell->backup_pocket->pwd);
-	update_env_list(&(shell->env_list), "SHLVL", shell->backup_pocket->shlvl);
 	make_new_envp_helper(shell, list, &i);
 	shell->env[i] = NULL;
 }
