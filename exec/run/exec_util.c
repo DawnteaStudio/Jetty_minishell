@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:56:21 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/25 04:49:34 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/09 00:28:49 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,16 @@ int	ft_close_and_wait(int *status, int fd[2], pid_t	pid_right)
 	return (last_status);
 }
 
-int	ft_exit_status(int status)
+int	ft_exit_status(int status, int piped)
 {
 	if (WIFSIGNALED(status))
+	{
+		if (128 + WTERMSIG(status) == 130 && piped == FALSE)
+			ft_putstr_fd("\n", 1);
+		else if (128 + WTERMSIG(status) == 131 && piped == FALSE)
+			ft_putstr_fd("Quit: 3\n", 1);
 		return (128 + WTERMSIG(status));
+	}
 	return (WEXITSTATUS(status));
 }
 

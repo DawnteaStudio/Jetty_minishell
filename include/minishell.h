@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/08 22:36:28 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/09 00:44:29 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,12 +278,13 @@ void		del(char **ptr);
 void		free_split_arr(char **ptr);
 
 //exec
-int			ft_exec(t_shell_info *shell, t_tree *tree);
+int			ft_exec(t_shell_info *shell, t_tree *tree, int piped);
 void		ft_exec_preprocess(t_shell_info *shell, t_tree *tree);
-int			ft_exec_cmd(t_shell_info *shell, t_tree *tree, t_tree *redirs);
+int			ft_exec_cmd(t_shell_info *shell, t_tree *tree, \
+t_tree *redirs, int piped);
 
 //exec_node
-int			ft_exec_node(t_shell_info *shell, t_tree *tree);
+int			ft_exec_node(t_shell_info *shell, t_tree *tree, int piped);
 
 //exec_builitin
 int			is_builtin(char *cmd);
@@ -297,7 +298,7 @@ int			ft_add_redirection(t_tree *redirs);
 //exec_util
 char		**ft_get_all_path(t_shell_info *shell);
 int			ft_close_and_wait(int *status, int fd[2], pid_t pid_right);
-int			ft_exit_status(int status);
+int			ft_exit_status(int status, int piped);
 int			ft_restore_fd(t_shell_info *shell, int status);
 int			ft_get_len(t_env_node *list);
 

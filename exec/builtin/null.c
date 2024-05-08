@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   null.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 22:41:52 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/08 00:15:43 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/05/09 00:33:29 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ int	ft_null(t_shell_info *shell, t_tree *tree)
 	rearrange_exp(tree, 0);
 	free(tree->cmd);
 	tree->cmd = ft_strdup(tree->exp[0]);
-	return (ft_exec_cmd(shell, tree, NULL));
+	return (ft_exec_cmd(shell, tree, NULL, FALSE));
 }

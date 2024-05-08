@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:12:05 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/08 22:38:26 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/09 00:44:33 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	start_exec(t_shell_info *shell)
 	tcgetattr(STDIN_FILENO, &term);
 	term.c_lflag |= ECHOCTL;
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
-	return (ft_exec(shell, shell->tree));
+	return (ft_exec(shell, shell->tree, FALSE));
 }
 
 void	set_minishell(int argc, char **argv, char **envp, t_shell_info *shell)

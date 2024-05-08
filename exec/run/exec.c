@@ -6,13 +6,13 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:40:49 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/07 11:57:29 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/09 00:44:58 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	ft_exec_cmd(t_shell_info *shell, t_tree *tree, t_tree *redirs)
+int	ft_exec_cmd(t_shell_info *shell, t_tree *tree, t_tree *redirs, int piped)
 {
 	int	builtin;
 	int	status;
@@ -31,7 +31,7 @@ int	ft_exec_cmd(t_shell_info *shell, t_tree *tree, t_tree *redirs)
 		status = ft_add_redirection(redirs);
 		if (status == CODE_ERROR)
 			return (ft_restore_fd(shell, status));
-		return (ft_exec_node(shell, tree));
+		return (ft_exec_node(shell, tree, piped));
 	}
 	else
 		status = ft_add_redirection(redirs);
@@ -55,12 +55,12 @@ void	ft_exec_pipe_node(t_shell_info *s, t_tree *tree, int fd[2], int dir)
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[0]);
 	}
-	status = ft_exec(s, tree);
+	status = ft_exec(s, tree, TRUE);
 	clean_all(s);
 	exit(status);
 }
 
-int	ft_exec_pipe(t_shell_info *shell, t_tree *tree)
+int	ft_exec_pipe(t_shell_info *shell, t_tree *tree, int piped)
 {
 	pid_t	pid_left;
 	pid_t	pid_right;
@@ -82,7 +82,7 @@ int	ft_exec_pipe(t_shell_info *shell, t_tree *tree)
 			if (shell->origin == TRUE)
 				set_signal(CHSIGINT, CUSTOM);
 			status = ft_close_and_wait(&status, fd, pid_right);
-			return (ft_exit_status(status));
+			return (ft_exit_status(status, piped));
 		}
 	}
 	return (CODE_ERROR);
@@ -115,11 +115,11 @@ void	ft_exec_preprocess(t_shell_info *shell, t_tree *tree)
 		ft_exec_preprocess(shell, tmp->right);
 }
 
-int	ft_exec(t_shell_info *shell, t_tree *tree)
+int	ft_exec(t_shell_info *shell, t_tree *tree, int piped)
 {
 	if (tree->type == TREE_TYPE_PIPE && tree->right)
-		return (ft_exec_pipe(shell, tree));
+		return (ft_exec_pipe(shell, tree, TRUE));
 	else if (tree->type == TREE_TYPE_PHRASE)
-		return (ft_exec_cmd(shell, tree->right, tree->left));
-	return (ft_exec(shell, tree->left));
+		return (ft_exec_cmd(shell, tree->right, tree->left, piped));
+	return (ft_exec(shell, tree->left, piped));
 }
