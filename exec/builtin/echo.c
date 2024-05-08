@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 06:08:50 by sewopark          #+#    #+#             */
-/*   Updated: 2024/04/14 23:26:35 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/05/08 23:06:53 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	ft_option(char *s)
 			return (FALSE);
 		i++;
 	}
+	if (i == 1)
+		return (FALSE);
 	return (TRUE);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 21:32:53 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/08 22:31:31 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/08 23:04:30 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	ft_exec_child(t_shell_info *shell, t_tree *tree)
 	path = ft_get_all_path(shell);
 	i = 0;
 	ignore_white_node(shell, tree);
+	set_signal(CHSIGINT, CUSTOM);
 	while (tree->cmd[i])
 	{
 		if (tree->cmd[i] == '/')
@@ -105,6 +106,7 @@ int	ft_exec_node(t_shell_info *shell, t_tree *tree)
 	int		fd[2];
 	int		status;
 
+	set_signal(IGNORE, IGNORE);
 	if (pipe(fd) == -1)
 		exit(1);
 	pid = fork();
