@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/09 00:44:29 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/10 14:49:52 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,7 +251,7 @@ int			ft_null(t_shell_info *shell, t_tree *tree);
 
 //env
 t_env_node	*is_include_env(t_env_node	**env_list, char *key);
-t_backup	*make_backup_env(void);
+t_backup	*make_backup_env(t_shell_info *shell);
 void		make_new_envp_helper(t_shell_info *shell, t_env_node *list, int *i);
 
 //export

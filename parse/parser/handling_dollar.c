@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handling_dollar.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 02:21:04 by erho              #+#    #+#             */
-/*   Updated: 2024/05/08 18:52:20 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/10 15:03:01 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	set_height(char **res, char *value, t_syntax *st)
 
 	st->height = cnt_exp(res) - 1;
 	last = (int)ft_strlen(value) - 1;
-	if (is_white_space(value[last]) == TRUE)
+	if (value[0] && is_white_space(value[last]) == TRUE)
 		st->height++;
 }
 
