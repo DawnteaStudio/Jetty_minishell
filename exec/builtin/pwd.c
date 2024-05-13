@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 21:58:07 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/08 22:36:58 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/13 13:43:04 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,8 @@ int	ft_pwd(t_shell_info *shell)
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 	{
-		printf("?\n");
-		if (shell->backup_pwd)
-			ft_putstr_fd(shell->backup_pwd, 1);
-		ft_putstr_fd("\n", 1);
+		ft_putstr_fd("jetty: The current path has been deleted\n", 2);
+		return (CODE_ERROR);
 	}
 	else
 	{
