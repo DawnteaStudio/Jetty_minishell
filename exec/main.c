@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:12:05 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/09 00:44:33 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/10 14:49:02 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	set_minishell(int argc, char **argv, char **envp, t_shell_info *shell)
 	shell->str = NULL;
 	shell->here_doc = NULL;
 	make_env_list(shell);
-	shell->backup_pocket = make_backup_env();
+	shell->backup_pocket = make_backup_env(shell);
 }
 
 void	start_parse(t_shell_info *shell, char *str)

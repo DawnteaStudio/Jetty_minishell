@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 21:58:07 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/08 22:36:58 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/14 14:04:58 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,17 +75,15 @@ int	ft_change_pwd(t_shell_info *shell)
 	return (CODE_SUCCESS);
 }
 
-int	ft_pwd(t_shell_info *shell)
+int	ft_pwd(void)
 {
-	char		*pwd;
+	char	*pwd;
 
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 	{
-		printf("?\n");
-		if (shell->backup_pwd)
-			ft_putstr_fd(shell->backup_pwd, 1);
-		ft_putstr_fd("\n", 1);
+		ft_putstr_fd("jetty: The current path has been deleted\n", 2);
+		return (CODE_ERROR);
 	}
 	else
 	{

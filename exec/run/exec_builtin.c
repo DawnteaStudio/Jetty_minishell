@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:02:59 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/08 22:20:44 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/14 14:05:36 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	is_builtin(char *cmd)
 int	ft_exec_builtin(t_shell_info *shell, t_tree *tree, int builtin)
 {
 	if (builtin == BLT_PWD)
-		return (ft_pwd(shell));
+		return (ft_pwd());
 	else if (builtin == BLT_ENV)
 		return (ft_env(shell));
 	else if (builtin == BLT_ECHO)

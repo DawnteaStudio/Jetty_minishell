@@ -6,23 +6,38 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 07:20:24 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/01 21:19:09 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:13:32 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_backup	*make_backup_env(void)
+t_backup	*make_backup_env(t_shell_info *shell)
 {
 	t_backup	*backup;
-	int			tmp;
+	t_env_node	*pwd;
+	t_env_node	*shlvl;
 
+	pwd = is_include_env(&(shell->env_list), "PWD");
+	shlvl = is_include_env(&(shell->env_list), "SHLVL");
 	backup = (t_backup *)malloc(sizeof(t_backup));
 	if (backup == NULL)
 		ft_error(MEMORY);
-	backup->pwd = getenv("PWD");
-	tmp = ft_atoi(getenv("SHLVL")) + 1;
-	backup->shlvl = heap_handler(ft_itoa(tmp));
+	if (!pwd)
+	{
+		update_env_list(&(shell->env_list), "PWD", \
+		heap_handler(getcwd(NULL, 0)));
+		backup->pwd = heap_handler(getcwd(NULL, 0));
+	}
+	else
+		backup->pwd = getenv("PWD");
+	if (shlvl)
+		backup->shlvl = heap_handler(ft_itoa(ft_atoi(getenv("SHLVL")) + 1));
+	else
+	{
+		update_env_list(&(shell->env_list), "SHLVL", "1");
+		backup->shlvl = "1";
+	}
 	return (backup);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/09 00:44:29 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/05/14 14:05:26 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,7 +240,7 @@ void		signal_handler(int num);
 void		set_signal(int sig_int, int sig_quit);
 
 //builtins
-int			ft_pwd(t_shell_info *shell);
+int			ft_pwd(void);
 int			ft_echo(t_tree *tree);
 int			ft_exit(t_shell_info *shell, t_tree *tree);
 int			ft_env(t_shell_info *shell);
@@ -251,7 +251,7 @@ int			ft_null(t_shell_info *shell, t_tree *tree);
 
 //env
 t_env_node	*is_include_env(t_env_node	**env_list, char *key);
-t_backup	*make_backup_env(void);
+t_backup	*make_backup_env(t_shell_info *shell);
 void		make_new_envp_helper(t_shell_info *shell, t_env_node *list, int *i);
 
 //export
